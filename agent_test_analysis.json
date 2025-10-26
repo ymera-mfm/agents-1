@@ -1,0 +1,339 @@
+{
+  "working_agents": [
+    "./test_agents_for_benchmark.py"
+  ],
+  "broken_agents": [
+    {
+      "file": "./prod_agent_manager.py",
+      "error": "No module named 'structlog'"
+    },
+    {
+      "file": "./ai_agents_production.py",
+      "reason": "Initialization failed"
+    },
+    {
+      "file": "./editing_agent_v2 (1).py",
+      "error": "No module named 'nats'"
+    },
+    {
+      "file": "./prod_monitoring_agent.py",
+      "error": "No module named 'psutil'"
+    },
+    {
+      "file": "./llm_agent.py",
+      "error": "No module named 'tiktoken'"
+    },
+    {
+      "file": "./examination_agent.py",
+      "error": "No module named 'numpy'"
+    },
+    {
+      "file": "./learning-agent-security.py",
+      "error": "No module named 'hvac'"
+    },
+    {
+      "file": "./learning_agent_helpers.py",
+      "error": "No module named 'structlog'"
+    },
+    {
+      "file": "./production_base_agent.py",
+      "error": "No module named 'nats'"
+    },
+    {
+      "file": "./learning_agent.py",
+      "error": "No module named 'structlog'"
+    },
+    {
+      "file": "./learning_agent_database.py",
+      "error": "No module named 'sqlalchemy'"
+    },
+    {
+      "file": "./base_agent 2.py",
+      "reason": "Initialization failed"
+    },
+    {
+      "file": "./security_agent.py",
+      "error": "No module named 'aioredis'"
+    },
+    {
+      "file": "./enhanced_base_agent.py",
+      "reason": "Initialization failed"
+    },
+    {
+      "file": "./production_monitoring_agent.py",
+      "error": "No module named 'psutil'"
+    },
+    {
+      "file": "./example_agent.py",
+      "error": "No module named 'psutil'"
+    },
+    {
+      "file": "./agent_lifecycle_manager.py",
+      "error": "No module named 'pydantic'"
+    },
+    {
+      "file": "./test_project_agent.py",
+      "error": "No module named 'pytest'"
+    },
+    {
+      "file": "./agent_discovery.py",
+      "error": "No module named 'structlog'"
+    },
+    {
+      "file": "./performance_engine_agent.py",
+      "error": "No module named 'psutil'"
+    },
+    {
+      "file": "./enhanced_agent_lifecycle.py",
+      "error": "No module named 'pydantic'"
+    },
+    {
+      "file": "./coding_agent.py",
+      "reason": "Initialization failed"
+    },
+    {
+      "file": "./agent_lifecycle_mgr.py",
+      "error": "No module named 'pydantic'"
+    },
+    {
+      "file": "./agent_surveillance.py",
+      "error": "No module named 'sqlalchemy'"
+    },
+    {
+      "file": "./learning_agent_models.py",
+      "error": "No module named 'sqlalchemy'"
+    },
+    {
+      "file": "./orchestrator_agent.py",
+      "error": "No module named 'nats'"
+    },
+    {
+      "file": "./test_learning_agent.py",
+      "error": "No module named 'pytest'"
+    },
+    {
+      "file": "./project_agent_main.py",
+      "error": "No module named 'fastapi'"
+    },
+    {
+      "file": "./agent_communicator.py",
+      "error": "No module named 'structlog'"
+    },
+    {
+      "file": "./app_agent_mgmt_endpoints.py",
+      "error": "name 'app' is not defined"
+    },
+    {
+      "file": "./learning_agent_main.py",
+      "error": "No module named 'structlog'"
+    },
+    {
+      "file": "./agent_manager_integration.py",
+      "error": "No module named 'pydantic'"
+    },
+    {
+      "file": "./communication_agent.py",
+      "error": "No module named 'nats'"
+    },
+    {
+      "file": "./validation_agent_complete.py",
+      "error": "No module named 'nats'"
+    },
+    {
+      "file": "./base_agent.py",
+      "error": "No module named 'nats'"
+    },
+    {
+      "file": "./validation_agent.py",
+      "error": "No module named 'pydantic'"
+    },
+    {
+      "file": "./prod_communication_agent.py",
+      "error": "No module named 'nats'"
+    },
+    {
+      "file": "./metrics_agent_production.py",
+      "error": "No module named 'nats'"
+    },
+    {
+      "file": "./main_project_agent_reference.py",
+      "error": "No module named 'fastapi'"
+    },
+    {
+      "file": "./static_analysis_agent.py",
+      "error": "No module named 'nats'"
+    },
+    {
+      "file": "./real_time_monitoring_agent.py",
+      "error": "No module named 'psutil'"
+    },
+    {
+      "file": "./agent_management_api.py",
+      "error": "No module named 'fastapi'"
+    },
+    {
+      "file": "./learning_agent_core.py",
+      "error": "No module named 'structlog'"
+    },
+    {
+      "file": "./agent.py",
+      "error": "attempted relative import with no known parent package"
+    },
+    {
+      "file": "./learning-agent-production.py",
+      "error": "No module named 'pydantic'"
+    },
+    {
+      "file": "./agent_manager_enhancements.py",
+      "reason": "No agent classes found"
+    },
+    {
+      "file": "./agent_system.py",
+      "error": "No module named 'fastapi'"
+    },
+    {
+      "file": "./agent_coordinator.py",
+      "error": "No module named 'structlog'"
+    },
+    {
+      "file": "./editing_agent_testing (1).py",
+      "error": "No module named 'pytest'"
+    },
+    {
+      "file": "./metrics_agent.py",
+      "error": "No module named 'nats'"
+    },
+    {
+      "file": "./enhanced_agent_surveillance.py",
+      "error": "No module named 'numpy'"
+    },
+    {
+      "file": "./enhancement_agent.py",
+      "error": "No module named 'numpy'"
+    },
+    {
+      "file": "./learning_agent_api_integration.py",
+      "error": "No module named 'fastapi'"
+    },
+    {
+      "file": "./drafting_agent.py",
+      "error": "No module named 'nltk'"
+    },
+    {
+      "file": "./editing_agent.py",
+      "error": "No module named 'spacy'"
+    },
+    {
+      "file": "./enhancement_agent_v3.py",
+      "reason": "Initialization failed"
+    },
+    {
+      "file": "./agent_routes.py",
+      "error": "No module named 'fastapi'"
+    },
+    {
+      "file": "./enhanced_base_agent (1).py",
+      "reason": "Initialization failed"
+    },
+    {
+      "file": "./enhanced_llm_agent.py",
+      "reason": "Initialization failed"
+    },
+    {
+      "file": "./learning_agent_api.py",
+      "error": "No module named 'fastapi'"
+    },
+    {
+      "file": "./enhanced_learning_agent.py",
+      "error": "No module named 'structlog'"
+    },
+    {
+      "file": "./enhanced_agent_orchestrator.py",
+      "error": "No module named 'numpy'"
+    },
+    {
+      "file": "./agent_registry.py",
+      "error": "No module named 'structlog'"
+    },
+    {
+      "file": "./agent_client.py",
+      "error": "No module named 'psutil'"
+    },
+    {
+      "file": "./agent_orchestrator.py",
+      "error": "No module named 'httpx'"
+    }
+  ],
+  "partially_working": [],
+  "by_failure_type": {
+    "initialization_failed": [],
+    "missing_dependencies": [],
+    "method_failures": [],
+    "import_errors": [
+      "./prod_agent_manager.py",
+      "./editing_agent_v2 (1).py",
+      "./prod_monitoring_agent.py",
+      "./llm_agent.py",
+      "./examination_agent.py",
+      "./learning-agent-security.py",
+      "./learning_agent_helpers.py",
+      "./production_base_agent.py",
+      "./learning_agent.py",
+      "./learning_agent_database.py",
+      "./security_agent.py",
+      "./production_monitoring_agent.py",
+      "./example_agent.py",
+      "./agent_lifecycle_manager.py",
+      "./test_project_agent.py",
+      "./agent_discovery.py",
+      "./performance_engine_agent.py",
+      "./enhanced_agent_lifecycle.py",
+      "./agent_lifecycle_mgr.py",
+      "./agent_surveillance.py",
+      "./learning_agent_models.py",
+      "./orchestrator_agent.py",
+      "./test_learning_agent.py",
+      "./project_agent_main.py",
+      "./agent_communicator.py",
+      "./learning_agent_main.py",
+      "./agent_manager_integration.py",
+      "./communication_agent.py",
+      "./validation_agent_complete.py",
+      "./base_agent.py",
+      "./validation_agent.py",
+      "./prod_communication_agent.py",
+      "./metrics_agent_production.py",
+      "./main_project_agent_reference.py",
+      "./static_analysis_agent.py",
+      "./real_time_monitoring_agent.py",
+      "./agent_management_api.py",
+      "./learning_agent_core.py",
+      "./agent.py",
+      "./learning-agent-production.py",
+      "./agent_system.py",
+      "./agent_coordinator.py",
+      "./editing_agent_testing (1).py",
+      "./metrics_agent.py",
+      "./enhanced_agent_surveillance.py",
+      "./enhancement_agent.py",
+      "./learning_agent_api_integration.py",
+      "./drafting_agent.py",
+      "./editing_agent.py",
+      "./agent_routes.py",
+      "./learning_agent_api.py",
+      "./enhanced_learning_agent.py",
+      "./enhanced_agent_orchestrator.py",
+      "./agent_registry.py",
+      "./agent_client.py",
+      "./agent_orchestrator.py"
+    ]
+  },
+  "statistics": {
+    "total_tested": 65,
+    "fully_working": 0,
+    "partially_working": 0,
+    "broken": 65,
+    "working_percentage": "0.0%",
+    "broken_percentage": "100.0%"
+  }
+}

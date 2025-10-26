@@ -1,0 +1,178 @@
+{
+  "execution_timestamp": "2025-10-19T22:56:46.734763",
+  "summary": {
+    "total_tests": 6,
+    "passed": 0,
+    "failed": 0,
+    "skipped": 0,
+    "errors": 6,
+    "pass_rate": 0.0,
+    "total_duration": 23.51,
+    "overall_coverage": 1.0,
+    "exit_code": 2
+  },
+  "failures": [],
+  "coverage_gaps": [
+    {
+      "file": "001_initial_schema.py",
+      "coverage": 0.0,
+      "missing_lines": [
+        "6-431"
+      ],
+      "recommendation": "CRITICAL: Add comprehensive unit tests for 001_initial_schema.py"
+    },
+    {
+      "file": "BaseEvent.py",
+      "coverage": 0.0,
+      "missing_lines": [
+        "2-360"
+      ],
+      "recommendation": "CRITICAL: Add comprehensive unit tests for BaseEvent.py"
+    },
+    {
+      "file": "HSMCrypto.py",
+      "coverage": 0.0,
+      "missing_lines": [
+        "2-203"
+      ],
+      "recommendation": "CRITICAL: Add comprehensive unit tests for HSMCrypto.py"
+    },
+    {
+      "file": "MultiLevelCache.py",
+      "coverage": 0.0,
+      "missing_lines": [
+        "2-382"
+      ],
+      "recommendation": "CRITICAL: Add comprehensive unit tests for MultiLevelCache.py"
+    },
+    {
+      "file": "PerformanceMonitor.py",
+      "coverage": 0.0,
+      "missing_lines": [
+        "2-118"
+      ],
+      "recommendation": "CRITICAL: Add comprehensive unit tests for PerformanceMonitor.py"
+    },
+    {
+      "file": "ProductionConfig.py",
+      "coverage": 0.0,
+      "missing_lines": [
+        "2-117"
+      ],
+      "recommendation": "CRITICAL: Add comprehensive unit tests for ProductionConfig.py"
+    },
+    {
+      "file": "SIEMIntegration.py",
+      "coverage": 0.0,
+      "missing_lines": [
+        "2-235"
+      ],
+      "recommendation": "CRITICAL: Add comprehensive unit tests for SIEMIntegration.py"
+    },
+    {
+      "file": "ServiceRegistry.py",
+      "coverage": 0.0,
+      "missing_lines": [
+        "2-479"
+      ],
+      "recommendation": "CRITICAL: Add comprehensive unit tests for ServiceRegistry.py"
+    },
+    {
+      "file": "ZeroTrustConfig.py",
+      "coverage": 0.0,
+      "missing_lines": [
+        "2-290"
+      ],
+      "recommendation": "CRITICAL: Add comprehensive unit tests for ZeroTrustConfig.py"
+    },
+    {
+      "file": "access_control.py",
+      "coverage": 0.0,
+      "missing_lines": [
+        "6-194"
+      ],
+      "recommendation": "CRITICAL: Add comprehensive unit tests for access_control.py"
+    },
+    {
+      "file": "admin_routes.py",
+      "coverage": 0.0,
+      "missing_lines": [
+        "6-144"
+      ],
+      "recommendation": "CRITICAL: Add comprehensive unit tests for admin_routes.py"
+    },
+    {
+      "file": "advanced_features.py",
+      "coverage": 0.0,
+      "missing_lines": [
+        "7-456"
+      ],
+      "recommendation": "CRITICAL: Add comprehensive unit tests for advanced_features.py"
+    },
+    {
+      "file": "agent_client.py",
+      "coverage": 0.0,
+      "missing_lines": [
+        "3-426"
+      ],
+      "recommendation": "CRITICAL: Add comprehensive unit tests for agent_client.py"
+    },
+    {
+      "file": "agent_communicator.py",
+      "coverage": 0.0,
+      "missing_lines": [
+        "5-73"
+      ],
+      "recommendation": "CRITICAL: Add comprehensive unit tests for agent_communicator.py"
+    },
+    {
+      "file": "agent_coordinator.py",
+      "coverage": 0.0,
+      "missing_lines": [
+        "7-914"
+      ],
+      "recommendation": "CRITICAL: Add comprehensive unit tests for agent_coordinator.py"
+    },
+    {
+      "file": "agent_discovery.py",
+      "coverage": 0.0,
+      "missing_lines": [
+        "6-282"
+      ],
+      "recommendation": "CRITICAL: Add comprehensive unit tests for agent_discovery.py"
+    },
+    {
+      "file": "agent_lifecycle_manager.py",
+      "coverage": 0.0,
+      "missing_lines": [
+        "7-298"
+      ],
+      "recommendation": "CRITICAL: Add comprehensive unit tests for agent_lifecycle_manager.py"
+    },
+    {
+      "file": "agent_lifecycle_mgr.py",
+      "coverage": 0.0,
+      "missing_lines": [
+        "1-498"
+      ],
+      "recommendation": "CRITICAL: Add comprehensive unit tests for agent_lifecycle_mgr.py"
+    },
+    {
+      "file": "agent_management_api.py",
+      "coverage": 0.0,
+      "missing_lines": [
+        "6-611"
+      ],
+      "recommendation": "CRITICAL: Add comprehensive unit tests for agent_management_api.py"
+    },
+    {
+      "file": "agent_manager_enhancements.py",
+      "coverage": 0.0,
+      "missing_lines": [
+        "6-1013"
+      ],
+      "recommendation": "CRITICAL: Add comprehensive unit tests for agent_manager_enhancements.py"
+    }
+  ],
+  "raw_exit_code": 2
+}

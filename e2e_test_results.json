@@ -1,0 +1,92 @@
+{
+  "total": 12,
+  "passed": 0,
+  "failed": 12,
+  "skipped": 0,
+  "tests": [
+    {
+      "name": "Base Agent Initialization",
+      "status": "failed",
+      "duration": 0.12669086456298828,
+      "details": "No module named 'structlog'",
+      "timestamp": "2025-10-17T02:02:28.381017"
+    },
+    {
+      "name": "Unified System Initialization",
+      "status": "failed",
+      "duration": 0.04780459403991699,
+      "details": "No module named 'structlog'",
+      "timestamp": "2025-10-17T02:02:28.430273"
+    },
+    {
+      "name": "Task Request Creation",
+      "status": "failed",
+      "duration": 0.00719904899597168,
+      "details": "No module named 'structlog'",
+      "timestamp": "2025-10-17T02:02:28.461000"
+    },
+    {
+      "name": "Agent State Transitions",
+      "status": "failed",
+      "duration": 0.01045989990234375,
+      "details": "No module named 'structlog'",
+      "timestamp": "2025-10-17T02:02:28.490427"
+    },
+    {
+      "name": "Health Status Reporting",
+      "status": "failed",
+      "duration": 0.00774073600769043,
+      "details": "No module named 'structlog'",
+      "timestamp": "2025-10-17T02:02:28.522768"
+    },
+    {
+      "name": "Circuit Breaker",
+      "status": "failed",
+      "duration": 0.007336616516113281,
+      "details": "No module named 'structlog'",
+      "timestamp": "2025-10-17T02:02:28.535903"
+    },
+    {
+      "name": "Rate Limiter",
+      "status": "failed",
+      "duration": 0.005609750747680664,
+      "details": "No module named 'structlog'",
+      "timestamp": "2025-10-17T02:02:28.549173"
+    },
+    {
+      "name": "Priority Queue",
+      "status": "failed",
+      "duration": 0.010670661926269531,
+      "details": "No module named 'structlog'",
+      "timestamp": "2025-10-17T02:02:28.573540"
+    },
+    {
+      "name": "Document Generation Engine",
+      "status": "failed",
+      "duration": 0.1782236099243164,
+      "details": "No module named 'structlog'",
+      "timestamp": "2025-10-17T02:02:28.769842"
+    },
+    {
+      "name": "All Document Formats",
+      "status": "failed",
+      "duration": 0.005829334259033203,
+      "details": "No module named 'structlog'",
+      "timestamp": "2025-10-17T02:02:28.782173"
+    },
+    {
+      "name": "Integration Workflow Simulation",
+      "status": "failed",
+      "duration": 0.006615638732910156,
+      "details": "No module named 'structlog'",
+      "timestamp": "2025-10-17T02:02:28.789329"
+    },
+    {
+      "name": "Performance Benchmark",
+      "status": "failed",
+      "duration": 0.006381034851074219,
+      "details": "No module named 'structlog'",
+      "timestamp": "2025-10-17T02:02:28.796330"
+    }
+  ]
+}

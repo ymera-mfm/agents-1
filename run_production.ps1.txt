@@ -1,0 +1,42 @@
+<#
+.SYNOPSIS
+  Agents‑00 – Production one‑click launcher (PowerShell)
+#>
+
+# 1️⃣  Move to script directory
+Set-Location $PSScriptRoot
+
+# 2️⃣  Load .env (if present)
+$envFile = Join-Path $PSScriptRoot ".env"
+if (Test-Path $envFile) {
+    Get-Content $envFile | Where-Object { $_ -notmatch '^#' } |
+        ForEach-Object {
+            $pair = $_ -split '=',2
+            [System.Environment]::SetEnvironmentVariable($pair[0], $pair[1])
+        }
+} else {
+    Write-Warning ".env not found – using defaults"
+}
+
+# 3️⃣  Build / pull latest images
+docker compose build --pull
+
+# 4️⃣  Run DB migrations (uncomment the one you need)
+# docker compose run --rm backend alembic upgrade head
+# docker compose run --rm backend npx prisma migrate deploy
+
+# 5️⃣  Start everything in detached mode
+docker compose up -d
+
+# 6️⃣  Wait for health endpoint
+Write-Host "⏳ Waiting for services to become healthy..."
+do {
+    Start-Sleep -Seconds 2
+    $status = Invoke-RestMethod -Uri http://localhost:8000/health -ErrorAction SilentlyContinue
+} while ($null -eq $status -or $status -notmatch "OK")
+Write-Host "✅ All services healthy!"
+
+# 7️⃣  Open UI in default browser
+Start-Process "http://localhost:3000"
+
+Write-Host "🚀 Production stack is up and running."

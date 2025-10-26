@@ -1,0 +1,176 @@
+# Editing Agent v2.0 - Production Requirements
+# Python 3.11+
+
+# ============================================
+# Core Dependencies (from BaseAgent)
+# ============================================
+
+# Messaging
+nats-py>=2.6.0,<3.0.0
+
+# Database
+asyncpg>=0.29.0,<1.0.0
+psycopg2-binary>=2.9.0,<3.0.0
+
+# Cache
+redis>=5.0.0,<6.0.0
+aioredis>=2.0.1,<3.0.0
+
+# Data validation
+pydantic>=2.0.0,<3.0.0
+
+# Async utilities
+aiohttp>=3.9.0,<4.0.0
+asyncio>=3.4.3
+
+# ============================================
+# Language Processing (Editing Specific)
+# ============================================
+
+# NLP and linguistics
+spacy>=3.5.0,<4.0.0
+# Download model after install: python -m spacy download en_core_web_sm
+
+# Sentiment analysis
+nltk>=3.8.0,<4.0.0
+# Required downloads: vader_lexicon, punkt
+
+# Readability metrics
+textstat>=0.7.3,<1.0.0
+
+# Grammar checking
+language-tool-python>=2.7.1,<3.0.0
+
+# ============================================
+# Observability (Optional but Recommended)
+# ============================================
+
+# OpenTelemetry
+opentelemetry-api>=1.20.0,<2.0.0
+opentelemetry-sdk>=1.20.0,<2.0.0
+opentelemetry-instrumentation-asyncpg>=0.41b0
+opentelemetry-instrumentation-redis>=0.41b0
+
+# Prometheus
+prometheus-client>=0.19.0,<1.0.0
+
+# Structured logging
+python-json-logger>=2.0.7,<3.0.0
+structlog>=23.2.0,<24.0.0
+
+# ============================================
+# Development & Testing
+# ============================================
+
+# Testing framework
+pytest>=7.4.0,<8.0.0
+pytest-asyncio>=0.21.0,<1.0.0
+pytest-cov>=4.1.0,<5.0.0
+pytest-mock>=3.12.0,<4.0.0
+pytest-timeout>=2.2.0,<3.0.0
+
+# Code quality
+black>=23.12.0,<24.0.0
+flake8>=7.0.0,<8.0.0
+mypy>=1.8.0,<2.0.0
+isort>=5.13.0,<6.0.0
+pylint>=3.0.0,<4.0.0
+
+# Type hints
+types-redis>=4.6.0
+types-requests>=2.31.0
+
+# ============================================
+# Utilities
+# ============================================
+
+# Environment management
+python-dotenv>=1.0.0,<2.0.0
+
+# Date/time handling
+python-dateutil>=2.8.2,<3.0.0
+
+# UUID generation
+uuid>=1.30
+
+# JSON handling
+orjson>=3.9.0,<4.0.0
+
+# Configuration
+pyyaml>=6.0.1,<7.0.0
+
+# HTTP client
+httpx>=0.26.0,<1.0.0
+
+# ============================================
+# Security
+# ============================================
+
+# Cryptography
+cryptography>=41.0.0,<42.0.0
+
+# Password hashing
+bcrypt>=4.1.0,<5.0.0
+
+# JWT handling
+pyjwt>=2.8.0,<3.0.0
+
+# ============================================
+# Production Deployment
+# ============================================
+
+# WSGI/ASGI server
+uvicorn[standard]>=0.25.0,<1.0.0
+gunicorn>=21.2.0,<22.0.0
+
+# Process management
+supervisor>=4.2.5,<5.0.0
+
+# ============================================
+# Optional Extensions
+# ============================================
+
+# Advanced NLP (uncomment if needed)
+# transformers>=4.36.0,<5.0.0
+# torch>=2.1.0,<3.0.0
+
+# PDF processing (uncomment if needed)
+# pypdf2>=3.0.0,<4.0.0
+# pdfplumber>=0.10.0,<1.0.0
+
+# Document parsing (uncomment if needed)
+# python-docx>=1.1.0,<2.0.0
+# python-pptx>=0.6.23,<1.0.0
+
+# ============================================
+# Version Constraints Summary
+# ============================================
+
+# Critical: Keep these versions aligned
+# - Python 3.11+
+# - PostgreSQL 15+
+# - NATS Server 2.10+
+# - Redis 7+
+
+# Installation order for optimal setup:
+# 1. pip install --upgrade pip setuptools wheel
+# 2. pip install -r requirements_editing.txt
+# 3. python -m spacy download en_core_web_sm
+# 4. python -c "import nltk; nltk.download('vader_lexicon'); nltk.download('punkt')"
+
+# ============================================
+# Platform-specific Notes
+# ============================================
+
+# Linux/Mac:
+# - All packages should install without issues
+# - May need system libraries: libpq-dev, python3-dev
+
+# Windows:
+# - Install Visual C++ Build Tools for some packages
+# - Use WSL2 for best compatibility
+
+# Docker:
+# - Use python:3.11-slim as base image
+# - Install system dependencies in Dockerfile
+# - Pre-download NLP models in build stage

@@ -1,0 +1,93 @@
+{
+  "test_execution": {
+    "unit_tests": {
+      "passed": 3,
+      "failed": 0,
+      "total": 3
+    }
+  },
+  "issues_found": [
+    {
+      "file": "config.py",
+      "type": "import_error",
+      "error": "Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  File \"/home/runner/work/agents_live/agents_live/config.py\", line 2, in <module>\n    from pydantic_settings import BaseSettings, SettingsConfigDict\nModuleNotFoundError: No module named 'pydantic_settings'\n",
+      "description": "Config"
+    },
+    {
+      "file": "database.py",
+      "type": "import_error",
+      "error": "Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  File \"/home/runner/work/agents_live/agents_live/database.py\", line 4, in <module>\n    import asyncpg\nModuleNotFoundError: No module named 'asyncpg'\n",
+      "description": "Database operations"
+    },
+    {
+      "file": "test_api.py",
+      "type": "heavy_dependency",
+      "issue": "Depends on main app - requires full setup"
+    },
+    {
+      "file": "test_database.py",
+      "type": "missing_async_marker",
+      "issue": "Async test without @pytest.mark.asyncio"
+    },
+    {
+      "file": "test_e2e_comprehensive.py",
+      "type": "missing_async_marker",
+      "issue": "Async test without @pytest.mark.asyncio"
+    },
+    {
+      "file": "base_agent.py",
+      "line": 739,
+      "type": "todo_comment",
+      "content": "\"health_score\": 1.0, # TODO: Implement actual health score calculation"
+    }
+  ],
+  "fixes_applied": [],
+  "summary": {
+    "execution_time": 0.6133930683135986,
+    "total_issues": 6,
+    "fixes_applied": 0,
+    "timestamp": "2025-10-26 03:50:41"
+  },
+  "fix_plan": {
+    "critical": [
+      {
+        "file": "config.py",
+        "type": "import_error",
+        "error": "Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  File \"/home/runner/work/agents_live/agents_live/config.py\", line 2, in <module>\n    from pydantic_settings import BaseSettings, SettingsConfigDict\nModuleNotFoundError: No module named 'pydantic_settings'\n",
+        "description": "Config"
+      },
+      {
+        "file": "database.py",
+        "type": "import_error",
+        "error": "Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  File \"/home/runner/work/agents_live/agents_live/database.py\", line 4, in <module>\n    import asyncpg\nModuleNotFoundError: No module named 'asyncpg'\n",
+        "description": "Database operations"
+      }
+    ],
+    "high": [
+      {
+        "file": "test_api.py",
+        "type": "heavy_dependency",
+        "issue": "Depends on main app - requires full setup"
+      },
+      {
+        "file": "test_database.py",
+        "type": "missing_async_marker",
+        "issue": "Async test without @pytest.mark.asyncio"
+      },
+      {
+        "file": "test_e2e_comprehensive.py",
+        "type": "missing_async_marker",
+        "issue": "Async test without @pytest.mark.asyncio"
+      }
+    ],
+    "medium": [],
+    "low": [
+      {
+        "file": "base_agent.py",
+        "line": 739,
+        "type": "todo_comment",
+        "content": "\"health_score\": 1.0, # TODO: Implement actual health score calculation"
+      }
+    ]
+  }
+}

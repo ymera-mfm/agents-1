@@ -1,0 +1,47 @@
+{
+  "execution_time": 2.2917957305908203,
+  "test_summary": {
+    "syntax_validation": {
+      "files_checked": 200,
+      "errors": 0,
+      "status": "PASS"
+    },
+    "import_validation": {
+      "files_checked": 50,
+      "errors": 0,
+      "status": "PASS"
+    },
+    "test_discovery": {
+      "test_files": 41,
+      "test_functions": 297,
+      "by_category": {
+        "unit": 245,
+        "integration": 49,
+        "e2e": 0,
+        "security": 3,
+        "performance": 0
+      },
+      "status": "PASS"
+    },
+    "code_quality": {
+      "total_lines": 61730,
+      "code_lines": 47662,
+      "comment_lines": 3865,
+      "comment_ratio": 8.11,
+      "large_files": 43,
+      "status": "PASS"
+    }
+  },
+  "unit_tests": {},
+  "integration_tests": {},
+  "security_tests": {
+    "files_scanned": 100,
+    "total_issues": 0,
+    "critical_issues": 0,
+    "status": "PASS"
+  },
+  "performance_tests": {},
+  "coverage": {},
+  "failures": [],
+  "warnings": []
+}

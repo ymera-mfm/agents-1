@@ -1,0 +1,558 @@
+# ============================================================================
+# GitHub Actions CI/CD Pipeline
+# ============================================================================
+# .github/workflows/ci-cd.yml
+
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  release:
+    types: [ published ]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME_BASE: ${{ github.repository }}
+
+jobs:
+  # ============================================================================
+  # Code Quality and Security Checks
+  # ============================================================================
+  lint-and-security:
+    name: Lint and Security Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt -r requirements-dev.txt
+    
+    - name: Run Black
+      run: black --check .
+    
+    - name: Run isort
+      run: isort --check-only .
+    
+    - name: Run Flake8
+      run: flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+    
+    - name: Run Pylint
+      run: pylint **/*.py --exit-zero
+    
+    - name: Run MyPy
+      run: mypy . --ignore-missing-imports
+    
+    - name: Security scan with Bandit
+      run: bandit -r . -f json -o bandit-report.json
+    
+    - name: Dependency check with Safety
+      run: safety check --json
+      continue-on-error: true
+    
+    - name: Upload security reports
+      uses: actions/upload-artifact@v3
+      with:
+        name: security-reports
+        path: |
+          bandit-report.json
+
+  # ============================================================================
+  # Unit Tests
+  # ============================================================================
+  test:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.10', '3.11', '3.12']
+    
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_PASSWORD: testpass
+          POSTGRES_DB: testdb
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+      
+      redis:
+        image: redis:7-alpine
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
+      
+      nats:
+        image: nats:2.10-alpine
+        ports:
+          - 4222:4222
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+        cache: 'pip'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt -r requirements-dev.txt
+    
+    - name: Run tests with coverage
+      env:
+        POSTGRES_URL: postgresql://postgres:testpass@localhost:5432/testdb
+        REDIS_URL: redis://localhost:6379
+        NATS_URL: nats://localhost:4222
+      run: |
+        pytest tests/ \
+          --cov=. \
+          --cov-report=xml \
+          --cov-report=html \
+          --cov-report=term-missing \
+          --junitxml=junit.xml \
+          -v
+    
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        files: ./coverage.xml
+        flags: unittests
+        name: codecov-umbrella
+    
+    - name: Upload test results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: test-results-${{ matrix.python-version }}
+        path: |
+          junit.xml
+          htmlcov/
+
+  # ============================================================================
+  # Integration Tests
+  # ============================================================================
+  integration-test:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    needs: [test]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    
+    - name: Start services with Docker Compose
+      run: |
+        docker-compose -f docker-compose.test.yml up -d
+        sleep 30  # Wait for services to be ready
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt -r requirements-dev.txt
+    
+    - name: Run integration tests
+      run: |
+        pytest tests/integration/ -v --tb=short
+    
+    - name: Collect logs
+      if: failure()
+      run: |
+        docker-compose -f docker-compose.test.yml logs > integration-logs.txt
+    
+    - name: Upload logs
+      if: failure()
+      uses: actions/upload-artifact@v3
+      with:
+        name: integration-logs
+        path: integration-logs.txt
+    
+    - name: Cleanup
+      if: always()
+      run: |
+        docker-compose -f docker-compose.test.yml down -v
+
+  # ============================================================================
+  # Performance Tests
+  # ============================================================================
+  performance-test:
+    name: Performance Tests
+    runs-on: ubuntu-latest
+    needs: [integration-test]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt locust
+    
+    - name: Start services
+      run: |
+        docker-compose up -d
+        sleep 30
+    
+    - name: Run Locust tests
+      run: |
+        locust -f tests/performance/locustfile.py \
+          --headless \
+          --users 100 \
+          --spawn-rate 10 \
+          --run-time 5m \
+          --html performance-report.html
+    
+    - name: Upload performance report
+      uses: actions/upload-artifact@v3
+      with:
+        name: performance-report
+        path: performance-report.html
+    
+    - name: Cleanup
+      if: always()
+      run: docker-compose down -v
+
+  # ============================================================================
+  # Build and Push Docker Images
+  # ============================================================================
+  build-and-push:
+    name: Build and Push Images
+    runs-on: ubuntu-latest
+    needs: [lint-and-security, integration-test]
+    if: github.event_name == 'push' || github.event_name == 'release'
+    
+    strategy:
+      matrix:
+        engine: [optimizing, performance, analyzer]
+    
+    permissions:
+      contents: read
+      packages: write
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+    
+    - name: Log in to Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Extract metadata
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_BASE }}-${{ matrix.engine }}
+        tags: |
+          type=ref,event=branch
+          type=ref,event=pr
+          type=semver,pattern={{version}}
+          type=semver,pattern={{major}}.{{minor}}
+          type=sha,prefix={{branch}}-
+          type=raw,value=latest,enable={{is_default_branch}}
+    
+    - name: Build and push
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        file: ./Dockerfile.${{ matrix.engine }}
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME_BASE }}-${{ matrix.engine }}:buildcache
+        cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME_BASE }}-${{ matrix.engine }}:buildcache,mode=max
+        build-args: |
+          BUILD_DATE=${{ github.event.head_commit.timestamp }}
+          VCS_REF=${{ github.sha }}
+          VERSION=${{ steps.meta.outputs.version }}
+
+  # ============================================================================
+  # Deploy to Staging
+  # ============================================================================
+  deploy-staging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    needs: [build-and-push]
+    if: github.ref == 'refs/heads/develop'
+    environment:
+      name: staging
+      url: https://staging.agent-platform.example.com
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup kubectl
+      uses: azure/setup-kubectl@v3
+    
+    - name: Configure kubectl
+      run: |
+        echo "${{ secrets.KUBECONFIG_STAGING }}" | base64 -d > kubeconfig
+        export KUBECONFIG=./kubeconfig
+    
+    - name: Deploy to Kubernetes
+      run: |
+        kubectl set image deployment/optimizing-engine \
+          optimizing-engine=${{ env.REGISTRY }}/${{ env.IMAGE_NAME_BASE }}-optimizing:${{ github.sha }} \
+          -n agent-platform-staging
+        
+        kubectl set image deployment/performance-engine \
+          performance-engine=${{ env.REGISTRY }}/${{ env.IMAGE_NAME_BASE }}-performance:${{ github.sha }} \
+          -n agent-platform-staging
+        
+        kubectl set image deployment/analyzer-engine \
+          analyzer-engine=${{ env.REGISTRY }}/${{ env.IMAGE_NAME_BASE }}-analyzer:${{ github.sha }} \
+          -n agent-platform-staging
+    
+    - name: Wait for rollout
+      run: |
+        kubectl rollout status deployment/optimizing-engine -n agent-platform-staging --timeout=5m
+        kubectl rollout status deployment/performance-engine -n agent-platform-staging --timeout=5m
+        kubectl rollout status deployment/analyzer-engine -n agent-platform-staging --timeout=5m
+    
+    - name: Run smoke tests
+      run: |
+        python tests/smoke/test_staging.py
+
+  # ============================================================================
+  # Deploy to Production
+  # ============================================================================
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: [build-and-push]
+    if: github.event_name == 'release'
+    environment:
+      name: production
+      url: https://agent-platform.example.com
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup kubectl
+      uses: azure/setup-kubectl@v3
+    
+    - name: Configure kubectl
+      run: |
+        echo "${{ secrets.KUBECONFIG_PRODUCTION }}" | base64 -d > kubeconfig
+        export KUBECONFIG=./kubeconfig
+    
+    - name: Deploy with Blue-Green strategy
+      run: |
+        # Deploy to green environment
+        kubectl apply -f k8s/production/green/ -n agent-platform-prod
+        
+        # Wait for green to be ready
+        kubectl wait --for=condition=available --timeout=600s \
+          deployment/optimizing-engine-green -n agent-platform-prod
+        
+        # Run health checks on green
+        python tests/health_check.py --environment green
+        
+        # Switch traffic to green
+        kubectl patch service optimizing-engine-service \
+          -p '{"spec":{"selector":{"version":"green"}}}' \
+          -n agent-platform-prod
+        
+        # Monitor for 5 minutes
+        sleep 300
+        
+        # If successful, remove blue
+        kubectl delete -f k8s/production/blue/ -n agent-platform-prod
+    
+    - name: Notify deployment
+      if: always()
+      uses: 8398a7/action-slack@v3
+      with:
+        status: ${{ job.status }}
+        text: 'Production deployment ${{ job.status }}'
+        webhook_url: ${{ secrets.SLACK_WEBHOOK }}
+
+---
+# ============================================================================
+# pytest Configuration
+# ============================================================================
+# pytest.ini
+
+[pytest]
+minversion = 7.0
+testpaths = tests
+python_files = test_*.py
+python_classes = Test*
+python_functions = test_*
+addopts = 
+    -ra
+    --strict-markers
+    --strict-config
+    --showlocals
+    --tb=short
+    --cov-report=term-missing:skip-covered
+    --cov-report=html
+    --cov-report=xml
+asyncio_mode = auto
+markers =
+    slow: marks tests as slow (deselect with '-m "not slow"')
+    integration: marks tests as integration tests
+    unit: marks tests as unit tests
+    performance: marks tests as performance tests
+    security: marks tests as security tests
+
+---
+# ============================================================================
+# Pre-commit Configuration
+# ============================================================================
+# .pre-commit-config.yaml
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+        args: ['--maxkb=1000']
+      - id: check-json
+      - id: check-merge-conflict
+      - id: detect-private-key
+  
+  - repo: https://github.com/psf/black
+    rev: 23.12.0
+    hooks:
+      - id: black
+        language_version: python3.11
+  
+  - repo: https://github.com/pycqa/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        args: ["--profile", "black"]
+  
+  - repo: https://github.com/pycqa/flake8
+    rev: 6.1.0
+    hooks:
+      - id: flake8
+        args: ['--max-line-length=100', '--extend-ignore=E203,W503']
+  
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.7.1
+    hooks:
+      - id: mypy
+        additional_dependencies: [types-all]
+  
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.5
+    hooks:
+      - id: bandit
+        args: ['-c', 'pyproject.toml']
+
+---
+# ============================================================================
+# Makefile for Common Tasks
+# ============================================================================
+# Makefile
+
+.PHONY: help install test lint format clean docker-build docker-up docker-down deploy-staging deploy-prod
+
+help:
+	@echo "Available commands:"
+	@echo "  make install         - Install dependencies"
+	@echo "  make test           - Run all tests"
+	@echo "  make lint           - Run linting"
+	@echo "  make format         - Format code"
+	@echo "  make clean          - Clean build artifacts"
+	@echo "  make docker-build   - Build Docker images"
+	@echo "  make docker-up      - Start services"
+	@echo "  make docker-down    - Stop services"
+
+install:
+	pip install -r requirements.txt -r requirements-dev.txt
+	pre-commit install
+
+test:
+	pytest tests/ -v --cov
+
+test-unit:
+	pytest tests/unit/ -v --cov
+
+test-integration:
+	pytest tests/integration/ -v
+
+test-performance:
+	locust -f tests/performance/locustfile.py --headless
+
+lint:
+	black --check .
+	isort --check-only .
+	flake8 .
+	mypy .
+	bandit -r .
+
+format:
+	black .
+	isort .
+
+clean:
+	find . -type d -name "__pycache__" -exec rm -rf {} +
+	find . -type f -name "*.pyc" -delete
+	find . -type d -name "*.egg-info" -exec rm -rf {} +
+	rm -rf .pytest_cache .mypy_cache .coverage htmlcov
+
+docker-build:
+	docker-compose build
+
+docker-up:
+	docker-compose up -d
+
+docker-down:
+	docker-compose down -v
+
+docker-logs:
+	docker-compose logs -f
+
+deploy-staging:
+	./scripts/deploy-staging.sh
+
+deploy-prod:
+	./scripts/deploy-production.sh

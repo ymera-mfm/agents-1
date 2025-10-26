@@ -1,0 +1,404 @@
+# config/agent_management.yaml
+# Configuration for enhanced agent management system
+
+agent_lifecycle:
+  # Registration and provisioning
+  registration:
+    max_agents_per_tenant: 1000
+    require_verification: true
+    auto_provision: true
+    provisioning_timeout_seconds: 300
+  
+  # Health monitoring
+  health_monitoring:
+    heartbeat_timeout_seconds: 300
+    check_interval_seconds: 60
+    stale_agent_timeout_minutes: 10
+    auto_remediation_enabled: true
+  
+  # Performance thresholds
+  thresholds:
+    cpu_critical: 95.0
+    cpu_warning: 85.0
+    memory_critical: 95.0
+    memory_warning: 85.0
+    disk_critical: 90.0
+    disk_warning: 80.0
+    error_rate_critical: 0.15
+    error_rate_warning: 0.05
+    response_time_critical: 5000  # milliseconds
+    response_time_warning: 2000
+  
+  # Automated remediation
+  auto_remediation:
+    enabled: true
+    max_attempts: 3
+    strategies:
+      - restart
+      - clear_cache
+      - reduce_load
+      - scale_resources
+  
+  # Security scoring
+  security:
+    initial_score: 100
+    degradation_critical: 30
+    degradation_warning: 15
+    quarantine_threshold: 20
+    auto_quarantine_enabled: true
+  
+  # Metrics retention
+  metrics:
+    buffer_size_per_agent: 1000
+    retention_hours: 24
+    aggregation_interval_seconds: 60
+
+agent_surveillance:
+  # Monitoring configuration
+  monitoring:
+    interval_seconds: 30
+    pattern_window_size: 100
+    baseline_learning_period_hours: 24
+    min_patterns_for_baseline: 10
+  
+  # Anomaly detection
+  anomaly_detection:
+    enabled: true
+    threshold: 0.7
+    use_ai_detection: true
+    statistical_methods:
+      - zscore
+      - isolation_forest
+      - moving_average
+    confidence_threshold: 0.8
+  
+  # Threat detection
+  threat_detection:
+    enabled: true
+    real_time: true
+    rules:
+      excessive_errors:
+        threshold: 0.20
+        window_seconds: 300
+        severity: high
+        action: quarantine
+      
+      unusual_resource_consumption:
+        cpu_spike: 95.0
+        memory_spike: 95.0
+        duration_seconds: 600
+        severity: medium
+        action: alert
+      
+      abnormal_task_pattern:
+        deviation_threshold: 3.0
+        min_samples: 50
+        severity: medium
+        action: investigate
+      
+      rapid_status_changes:
+        max_changes: 10
+        window_seconds: 300
+        severity: high
+        action: alert
+      
+      data_exfiltration:
+        network_threshold_bytes: 1000000000  # 1GB
+        time_window_seconds: 3600
+        severity: critical
+        action: quarantine
+  
+  # Performance thresholds
+  performance_thresholds:
+    cpu_usage: 85.0
+    memory_usage: 85.0
+    response_time: 2000  # milliseconds
+    error_rate: 0.05
+    disk_usage: 80.0
+  
+  # Security monitoring
+  security_monitoring:
+    enabled: true
+    correlation_analysis: true
+    threat_intelligence: true
+    behavioral_analysis: true
+  
+  # Conversation monitoring
+  conversation_monitoring:
+    enabled: true
+    sentiment_analysis: true
+    escalation_detection: true
+    quality_scoring: true
+    retention_hours: 24
+
+agent_orchestration:
+  # Task allocation
+  task_allocation:
+    strategy: ml_optimized  # Options: round_robin, load_based, ml_optimized, cost_optimized
+    optimization_weights:
+      performance: 0.4
+      cost: 0.3
+      availability: 0.2
+      sla_compliance: 0.1
+  
+  # Machine learning
+  ml_models:
+    enabled: true
+    model_directory: ./ml_models/orchestration
+    min_training_samples: 1000
+    retrain_interval_seconds: 86400  # 24 hours
+    auto_retrain: true
+    feature_engineering:
+      - agent_capabilities
+      - performance_history
+      - load_metrics
+      - task_complexity
+  
+  # Performance monitoring
+  performance_monitoring:
+    enabled: true
+    interval_seconds: 300
+    metrics_retention_days: 30
+    baseline_period_days: 7
+    maintenance_threshold: 0.7
+  
+  # Load distribution
+  load_distribution:
+    enabled: true
+    rebalance_interval_seconds: 900
+    max_imbalance: 0.3
+    min_transfer_threshold: 0.05
+    prefer_same_cluster: true
+  
+  # Capacity planning
+  capacity_planning:
+    enabled: true
+    forecast_horizon_days: 30
+    confidence_threshold: 0.8
+    min_capacity_buffer: 0.2
+    auto_scaling_enabled: false  # Requires cloud integration
+  
+  # Agent clustering
+  clustering:
+    enabled: true
+    min_agents: 3
+    max_clusters: 5
+    update_interval_seconds: 3600
+    features:
+      - capabilities
+      - performance
+      - specialization
+  
+  # Predictive maintenance
+  predictive_maintenance:
+    enabled: true
+    check_interval_hours: 24
+    factors:
+      - error_rate
+      - uptime
+      - performance_degradation
+      - resource_usage
+    schedule_buffer_days: 7
+
+# Agent communication
+agent_communication:
+  websocket:
+    enabled: true
+    heartbeat_interval_seconds: 30
+    timeout_seconds: 300
+    max_connections_per_agent: 1
+    rate_limit_messages_per_minute: 60
+  
+  protocols:
+    - websocket
+    - grpc
+    - http
+  
+  message_queue:
+    enabled: true
+    priority_levels: 5
+    max_queue_size: 10000
+    dead_letter_enabled: true
+
+# Agent lifecycle states
+agent_states:
+  registered:
+    description: "Initial registration completed"
+    allowed_transitions:
+      - provisioning
+      - offline
+  
+  provisioning:
+    description: "Resources being allocated"
+    allowed_transitions:
+      - active
+      - offline
+    timeout_seconds: 300
+  
+  active:
+    description: "Ready to accept tasks"
+    allowed_transitions:
+      - idle
+      - busy
+      - degraded
+      - maintenance
+      - offline
+  
+  idle:
+    description: "No active tasks"
+    allowed_transitions:
+      - busy
+      - active
+      - offline
+  
+  busy:
+    description: "Processing tasks"
+    allowed_transitions:
+      - idle
+      - active
+      - degraded
+      - offline
+  
+  degraded:
+    description: "Performance issues detected"
+    allowed_transitions:
+      - active
+      - maintenance
+      - quarantined
+      - offline
+  
+  maintenance:
+    description: "Undergoing maintenance"
+    allowed_transitions:
+      - active
+      - offline
+    auto_recovery: true
+  
+  quarantined:
+    description: "Security concerns detected"
+    allowed_transitions:
+      - maintenance
+      - decommissioning
+    require_manual_approval: true
+  
+  offline:
+    description: "Not responding"
+    allowed_transitions:
+      - active
+      - decommissioning
+    grace_period_seconds: 600
+  
+  decommissioning:
+    description: "Being removed from service"
+    allowed_transitions:
+      - decommissioned
+    cleanup_tasks: true
+  
+  decommissioned:
+    description: "Removed from service"
+    allowed_transitions: []
+    archive_data: true
+
+# Audit and compliance
+agent_audit:
+  enabled: true
+  log_all_state_changes: true
+  log_all_assignments: true
+  log_security_events: true
+  retention_days: 365
+  
+  required_fields:
+    - timestamp
+    - agent_id
+    - action
+    - initiator
+    - details
+  
+  security_levels:
+    - info
+    - low
+    - medium
+    - high
+    - critical
+
+# Reporting and analytics
+agent_analytics:
+  enabled: true
+  
+  reports:
+    agent_performance:
+      frequency: daily
+      include:
+        - success_rate
+        - avg_response_time
+        - error_rate
+        - utilization
+        - cost_efficiency
+    
+    capacity_utilization:
+      frequency: hourly
+      include:
+        - total_capacity
+        - used_capacity
+        - available_capacity
+        - peak_usage
+    
+    security_posture:
+      frequency: daily
+      include:
+        - security_scores
+        - threats_detected
+        - quarantined_agents
+        - anomalies
+  
+  dashboards:
+    real_time:
+      enabled: true
+      refresh_seconds: 30
+    
+    executive:
+      enabled: true
+      refresh_seconds: 300
+    
+    operations:
+      enabled: true
+      refresh_seconds: 60
+
+# Integration settings
+integrations:
+  # Cloud providers
+  cloud_providers:
+    aws:
+      enabled: false
+      auto_scaling: false
+    
+    gcp:
+      enabled: false
+      auto_scaling: false
+    
+    azure:
+      enabled: false
+      auto_scaling: false
+  
+  # Monitoring tools
+  monitoring_tools:
+    prometheus:
+      enabled: true
+      scrape_interval: 15
+    
+    grafana:
+      enabled: true
+      dashboard_auto_import: true
+    
+    datadog:
+      enabled: false
+  
+  # Incident management
+  incident_management:
+    pagerduty:
+      enabled: false
+      auto_create_incidents: true
+    
+    servicenow:
+      enabled: false
+      auto_create_tickets: true

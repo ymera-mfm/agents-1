@@ -1,0 +1,152 @@
+{
+  "timestamp": "2025-10-19T23:11:43.623580",
+  "style_issues": {
+    "total": 30607,
+    "by_severity": {
+      "error": 9331,
+      "warning": 2310,
+      "info": 18966
+    },
+    "top_violations": [
+      {
+        "code": "W293",
+        "description": "style violation",
+        "count": 18230
+      },
+      {
+        "code": "E501",
+        "description": "line too long",
+        "count": 7045
+      },
+      {
+        "code": "E302",
+        "description": "expected 2 blank lines",
+        "count": 1039
+      },
+      {
+        "code": "F401",
+        "description": "imported but unused",
+        "count": 1011
+      },
+      {
+        "code": "F821",
+        "description": "style violation",
+        "count": 989
+      },
+      {
+        "code": "W291",
+        "description": "style violation",
+        "count": 603
+      },
+      {
+        "code": "E128",
+        "description": "style violation",
+        "count": 462
+      },
+      {
+        "code": "E261",
+        "description": "style violation",
+        "count": 247
+      },
+      {
+        "code": "F541",
+        "description": "style violation",
+        "count": 145
+      },
+      {
+        "code": "F841",
+        "description": "local variable assigned but never used",
+        "count": 115
+      }
+    ]
+  },
+  "type_coverage": {
+    "total_functions": 0,
+    "typed_functions": 0,
+    "type_coverage_percent": 0.0,
+    "error_count": 1,
+    "files_without_types": []
+  },
+  "security_issues": {
+    "high": 10,
+    "medium": 52,
+    "low": 0,
+    "issues": [
+      {
+        "severity": "MEDIUM",
+        "file": "./001_initial_schema.py",
+        "line": 416,
+        "issue": "Possible SQL injection vector through string-based query construction.",
+        "recommendation": "Possible SQL injection vector through string-based query construction."
+      },
+      {
+        "severity": "MEDIUM",
+        "file": "./001_initial_schema.py",
+        "line": 425,
+        "issue": "Possible SQL injection vector through string-based query construction.",
+        "recommendation": "Possible SQL injection vector through string-based query construction."
+      },
+      {
+        "severity": "MEDIUM",
+        "file": "./MultiLevelCache.py",
+        "line": 97,
+        "issue": "Possible SQL injection vector through string-based query construction.",
+        "recommendation": "Possible SQL injection vector through string-based query construction."
+      },
+      {
+        "severity": "MEDIUM",
+        "file": "./MultiLevelCache.py",
+        "line": 278,
+        "issue": "Possible SQL injection vector through string-based query construction.",
+        "recommendation": "Possible SQL injection vector through string-based query construction."
+      },
+      {
+        "severity": "MEDIUM",
+        "file": "./SIEMIntegration.py",
+        "line": 195,
+        "issue": "Possible binding to all interfaces.",
+        "recommendation": "Possible binding to all interfaces."
+      },
+      {
+        "severity": "MEDIUM",
+        "file": "./agent_system.py",
+        "line": 649,
+        "issue": "Possible binding to all interfaces.",
+        "recommendation": "Possible binding to all interfaces."
+      },
+      {
+        "severity": "HIGH",
+        "file": "./ai_agents_production.py",
+        "line": 185,
+        "issue": "Use of weak MD5 hash for security. Consider usedforsecurity=False",
+        "recommendation": "Use of weak MD5 hash for security. Consider usedforsecurity=False"
+      },
+      {
+        "severity": "MEDIUM",
+        "file": "./cache_manager.py",
+        "line": 245,
+        "issue": "Pickle and modules that wrap it can be unsafe when used to deserialize untrusted data, possible security issue.",
+        "recommendation": "Pickle and modules that wrap it can be unsafe when used to deserialize untrusted data, possible security issue."
+      },
+      {
+        "severity": "MEDIUM",
+        "file": "./coding_agent.py",
+        "line": 851,
+        "issue": "Possible SQL injection vector through string-based query construction.",
+        "recommendation": "Possible SQL injection vector through string-based query construction."
+      },
+      {
+        "severity": "MEDIUM",
+        "file": "./communication_agent.py",
+        "line": 492,
+        "issue": "Use of possibly insecure function - consider using safer ast.literal_eval.",
+        "recommendation": "Use of possibly insecure function - consider using safer ast.literal_eval."
+      }
+    ]
+  },
+  "formatting_issues": {
+    "files_needing_format": 93,
+    "total_lines_to_change": 0,
+    "all_formatted": false
+  }
+}

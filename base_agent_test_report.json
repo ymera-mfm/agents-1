@@ -1,0 +1,31 @@
+{
+  "test_timestamp": "2025-10-20T22:48:45.225820",
+  "agents_tested": 1,
+  "agents_passed": 0,
+  "agents_failed": 0,
+  "agents_skipped": 1,
+  "test_details": [
+    {
+      "file": "base_agent.py",
+      "name": "base_agent",
+      "import_status": {
+        "status": "PASS",
+        "message": "Module imported successfully"
+      },
+      "initialization": {
+        "status": "SKIP",
+        "message": "No agent classes found in module"
+      },
+      "methods": [],
+      "attributes": {},
+      "overall_status": "SKIP"
+    }
+  ],
+  "summary": {
+    "total_agents": 1,
+    "passed": 0,
+    "failed": 0,
+    "skipped": 1,
+    "pass_rate": "0.0%"
+  }
+}

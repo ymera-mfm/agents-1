@@ -1,0 +1,55 @@
+# istio/virtual-service.yaml
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: ymera-virtual-service
+spec:
+  hosts:
+  - "api.ymera.example.com"
+  gateways:
+  - ymera-gateway
+  http:
+  - name: "api-routes"
+    match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: ymera-api
+        port:
+          number: 8080
+    retries:
+      attempts: 3
+      retryOn: "5xx,gateway-error,connect-failure,refused-stream"
+      perTryTimeout: 2s
+    timeout: 30s
+    corsPolicy:
+      allowOrigins:
+      - exact: "https://app.ymera.example.com"
+      - exact: "https://admin.ymera.example.com"
+      allowMethods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+      - OPTIONS
+      allowHeaders:
+      - content-type
+      - authorization
+      - x-request-id
+      - x-trace-id
+      maxAge: 24h
+  - name: "health-checks"
+    match:
+    - uri:
+        prefix: /health
+    route:
+    - destination:
+        host: ymera-api
+        port:
+          number: 8080
+    fault:
+      abort:
+        percentage:
+          value: 0
+        httpStatus: 500

@@ -1,0 +1,11 @@
+# istio/peer-authentication.yaml
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: ymera-peer-auth
+spec:
+  selector:
+    matchLabels:
+      app: ymera-enterprise
+  mtls:
+    mode: STRICT

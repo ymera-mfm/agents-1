@@ -1,0 +1,148 @@
+# config/agent_management.yaml
+# Configuration for Agent Management and Surveillance
+
+agent_lifecycle:
+  max_agents_per_tenant: 100
+  agent_heartbeat_timeout_seconds: 300  # 5 minutes
+  agent_health_check_interval_seconds: 60  # 1 minute
+  
+  # Authority and enforcement
+  auto_suspend_on_security_violation: true
+  require_admin_approval_for_delete: true
+  require_admin_approval_for_freeze: false  # Can freeze immediately
+  
+  # Agent status transitions
+  allowed_transitions:
+    registered: ["active", "inactive"]
+    active: ["inactive", "maintenance", "suspended", "frozen", "offline"]
+    inactive: ["active", "decommissioned"]
+    offline: ["active", "decommissioned"]
+    maintenance: ["active", "inactive"]
+    suspended: ["active", "frozen", "decommissioned"]
+    frozen: ["suspended", "decommissioned"]
+    compromised: ["frozen", "decommissioned"]
+
+agent_surveillance:
+  enabled: true
+  monitoring_interval_seconds: 60
+  stale_agent_timeout_minutes: 10
+  
+  # AI-powered behavior analysis
+  enable_ai_behavior_analysis: true
+  max_concurrent_analyses: 10
+  anomaly_threshold: 0.7  # 0-1, higher = more sensitive
+  
+  # Security scoring
+  security_score_reduction_critical: 30
+  security_score_reduction_warning: 15
+  security_score_recovery_rate: 5  # points per day of good behavior
+  min_security_score_for_operation: 50
+  
+  # Performance thresholds
+  performance_thresholds:
+    cpu_usage: 85.0  # percent
+    memory_usage: 85.0  # percent
+    response_time: 1000  # milliseconds
+    error_rate: 0.05  # 5%
+    api_calls_per_minute_max: 1000
+    failed_auth_attempts_max: 5
+  
+  # Reporting
+  daily_surveillance_report: true
+  report_schedule: "0 9 * * *"  # Daily at 9 AM
+  report_recipients:
+    - "admin@example.com"
+    - "security@example.com"
+
+agent_communication:
+  # WebSocket settings for agent connections
+  websocket_timeout_seconds: 300
+  max_message_size_bytes: 1048576  # 1MB
+  heartbeat_interval_seconds: 30
+  reconnect_attempts: 3
+  reconnect_delay_seconds: 5
+  
+  # Rate limiting per agent
+  rate_limit_messages_per_minute: 100
+  rate_limit_burst: 20
+
+information_flow_control:
+  # Data access policies
+  enforce_data_sovereignty: true
+  encrypt_data_in_transit: true
+  encrypt_data_at_rest: true
+  
+  # API access control
+  require_api_key_rotation: true
+  api_key_rotation_days: 90
+  max_api_calls_per_agent_per_day: 100000
+  
+  # Audit all information flow
+  audit_all_agent_communications: true
+  audit_retention_days: 365
+  
+  # Sensitive data handling
+  pii_detection_enabled: true
+  pii_redaction_enabled: true
+  data_exfiltration_detection: true
+
+agent_permissions:
+  # Default permissions for new agents
+  default_permissions:
+    - "execute_tasks"
+    - "report_metrics"
+    - "send_heartbeat"
+  
+  # Elevated permissions require approval
+  elevated_permissions:
+    - "access_database"
+    - "call_external_apis"
+    - "access_tenant_data"
+  
+  # Permission escalation workflow
+  require_admin_approval_for_elevation: true
+  permission_review_interval_days: 30
+
+emergency_protocols:
+  # Actions available in emergencies
+  enable_emergency_shutdown: true
+  emergency_shutdown_keyword: "EMERGENCY_HALT"
+  
+  # Automatic responses to critical events
+  auto_freeze_on_compromise: true
+  auto_isolate_on_data_breach: true
+  auto_notify_admin_on_critical: true
+  
+  # Recovery procedures
+  require_manual_recovery_from_freeze: true
+  max_frozen_duration_hours: 24  # Auto-decommission after
+
+compliance_enforcement:
+  # Ensure agents comply with policies
+  periodic_compliance_check_hours: 24
+  auto_suspend_non_compliant: true
+  compliance_grace_period_hours: 4
+  
+  # Required compliance standards for agents
+  required_standards:
+    - "data_encryption"
+    - "access_logging"
+    - "rate_limiting"
+    - "authentication"
+
+metrics_collection:
+  # Metrics to collect from agents
+  collect_performance_metrics: true
+  collect_security_metrics: true
+  collect_business_metrics: true
+  
+  metrics_retention_days: 90
+  metrics_aggregation_interval_seconds: 300  # 5 minutes
+  
+  # Critical metrics that trigger alerts
+  critical_metrics:
+    - "cpu_usage"
+    - "memory_usage"
+    - "error_rate"
+    - "failed_auth_attempts"
+    - "security_score"

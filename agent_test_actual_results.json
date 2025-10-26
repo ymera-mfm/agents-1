@@ -1,0 +1,180 @@
+{
+  "test_timestamp": "2025-10-20T22:26:30.941831",
+  "total_agents": 26,
+  "passed": 19,
+  "failed": 7,
+  "agents": [
+    {
+      "file": "base_agent.py",
+      "success": true,
+      "error_type": null,
+      "error_message": null
+    },
+    {
+      "file": "coding_agent.py",
+      "success": true,
+      "error_type": null,
+      "error_message": null
+    },
+    {
+      "file": "communication_agent.py",
+      "success": true,
+      "error_type": null,
+      "error_message": null
+    },
+    {
+      "file": "drafting_agent.py",
+      "success": true,
+      "error_type": null,
+      "error_message": null
+    },
+    {
+      "file": "editing_agent.py",
+      "success": true,
+      "error_type": null,
+      "error_message": null
+    },
+    {
+      "file": "enhanced_base_agent.py",
+      "success": true,
+      "error_type": null,
+      "error_message": null
+    },
+    {
+      "file": "enhanced_learning_agent.py",
+      "success": true,
+      "error_type": null,
+      "error_message": null
+    },
+    {
+      "file": "enhanced_llm_agent.py",
+      "success": true,
+      "error_type": null,
+      "error_message": null
+    },
+    {
+      "file": "enhancement_agent.py",
+      "success": true,
+      "error_type": null,
+      "error_message": null
+    },
+    {
+      "file": "examination_agent.py",
+      "success": true,
+      "error_type": null,
+      "error_message": null
+    },
+    {
+      "file": "example_agent.py",
+      "success": true,
+      "error_type": null,
+      "error_message": null
+    },
+    {
+      "file": "learning_agent.py",
+      "success": false,
+      "error_type": "ValidationError",
+      "error_message": "2 validation errors for ProjectAgentSettings\ndatabase_url\n  Field required [type=missing, input_value={}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/missing\njwt_secret_key\n  Field required [type=missing, input_value={}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/missing"
+    },
+    {
+      "file": "llm_agent.py",
+      "success": false,
+      "error_type": "ModuleNotFoundError",
+      "error_message": "No module named 'qdrant_client'"
+    },
+    {
+      "file": "metrics_agent.py",
+      "success": true,
+      "error_type": null,
+      "error_message": null
+    },
+    {
+      "file": "orchestrator_agent.py",
+      "success": true,
+      "error_type": null,
+      "error_message": null
+    },
+    {
+      "file": "performance_engine_agent.py",
+      "success": false,
+      "error_type": "ImportError",
+      "error_message": "cannot import name 'Status' from 'opentelemetry.trace' (/home/runner/work/ymera_y/ymera_y/opentelemetry/trace.py)"
+    },
+    {
+      "file": "prod_communication_agent.py",
+      "success": true,
+      "error_type": null,
+      "error_message": null
+    },
+    {
+      "file": "prod_monitoring_agent.py",
+      "success": false,
+      "error_type": "ImportError",
+      "error_message": "cannot import name 'AgentState' from 'base_agent' (/home/runner/work/ymera_y/ymera_y/base_agent.py)"
+    },
+    {
+      "file": "production_base_agent.py",
+      "success": false,
+      "error_type": "ModuleNotFoundError",
+      "error_message": "No module named 'opentelemetry.sdk.metrics'"
+    },
+    {
+      "file": "production_monitoring_agent.py",
+      "success": true,
+      "error_type": null,
+      "error_message": null
+    },
+    {
+      "file": "real_time_monitoring_agent.py",
+      "success": true,
+      "error_type": null,
+      "error_message": null
+    },
+    {
+      "file": "security_agent.py",
+      "success": true,
+      "error_type": null,
+      "error_message": null
+    },
+    {
+      "file": "static_analysis_agent.py",
+      "success": true,
+      "error_type": null,
+      "error_message": null
+    },
+    {
+      "file": "test_learning_agent.py",
+      "success": false,
+      "error_type": "ModuleNotFoundError",
+      "error_message": "No module named 'agents.learning_agent'"
+    },
+    {
+      "file": "test_project_agent.py",
+      "success": false,
+      "error_type": "ModuleNotFoundError",
+      "error_message": "No module named 'agents.project_agent'"
+    },
+    {
+      "file": "validation_agent.py",
+      "success": true,
+      "error_type": null,
+      "error_message": null
+    }
+  ],
+  "error_types": {
+    "ValidationError": [
+      "learning_agent.py"
+    ],
+    "ModuleNotFoundError": [
+      "llm_agent.py",
+      "production_base_agent.py",
+      "test_learning_agent.py",
+      "test_project_agent.py"
+    ],
+    "ImportError": [
+      "performance_engine_agent.py",
+      "prod_monitoring_agent.py"
+    ]
+  },
+  "pass_rate": 73.07692307692307
+}

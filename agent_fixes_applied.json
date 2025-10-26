@@ -1,0 +1,27 @@
+{
+  "fixes_timestamp": "2025-10-20T12:36:34.996337",
+  "fixes_applied": [],
+  "fixes_pending": [
+    {
+      "issue": "Missing Dependencies",
+      "affected_agents": 131,
+      "fix_required": "Install missing Python packages",
+      "priority": "high"
+    },
+    {
+      "issue": "Import Errors",
+      "affected_agents": 10,
+      "fix_required": "Fix import statements",
+      "priority": "medium"
+    },
+    {
+      "issue": "Syntax Errors",
+      "affected_agents": 2,
+      "fix_required": "Fix Python syntax",
+      "priority": "high"
+    }
+  ],
+  "total_fixes_applied": 0,
+  "total_fixes_pending": 3,
+  "measurement_note": "Counts based on actual test failures"
+}
