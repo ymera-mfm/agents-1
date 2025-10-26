@@ -21,7 +21,7 @@ All requested components have been successfully implemented and validated.
   - Sustained load: 1800s (1000 users/sec)
   - Peak load: 300s (1000→2000 users/sec)
   - Ramp-down: 180s (2000→100 users/sec)
-- Total test duration: ~42 minutes (full staging test)
+- Total test duration: ~44 minutes (full staging test)
 - Quick test mode: 10 seconds (for local development)
 
 ### 2. Artillery Processor Functions ✅
@@ -277,11 +277,11 @@ Errors encountered:
 
 ## Known Limitations
 
-1. **Artillery Installation:** Artillery requires Playwright which may have installation issues in some CI environments. The standalone stress test (`websocket_stress_test.js`) is recommended for CI/CD.
+1. **Network Dependencies:** All tests require network access to the target server and a running YMERA server instance. Tests cannot start the server automatically.
 
-2. **Server Dependency:** All tests require a running YMERA server instance. Tests cannot start the server automatically.
+2. **Large Load Tests:** Very high connection counts (>5000) may require system tuning (ulimit, file descriptors).
 
-3. **Network Dependencies:** Tests require network access to the target server.
+3. **Artillery Installation:** In some restricted CI environments, Artillery installation may require additional configuration. The standalone stress test (`websocket_stress_test.js`) is recommended for CI/CD as it only requires the `ws` package.
 
 ## Future Enhancements (Not in Scope)
 

@@ -6,7 +6,7 @@ This directory contains WebSocket load testing infrastructure for YMERA.
 
 ### Prerequisites
 ```bash
-npm install  # Install ws package
+npm install  # Install Node.js dependencies (ws package)
 ```
 
 ### Run Tests
