@@ -95,7 +95,17 @@ class MonitoringAgent(BaseAgent):
     
     async def get_current_metrics(self) -> Dict[str, Any]:
         """Get current metrics"""
-        return self.metrics.get("latest", {})
+        cpu_percent = psutil.cpu_percent(interval=0.1)
+        memory = psutil.virtual_memory()
+        disk = psutil.disk_usage('/')
+        
+        return {
+            "cpu_percent": cpu_percent,
+            "memory_percent": memory.percent,
+            "memory_available_mb": memory.available / (1024 * 1024),
+            "disk_usage": disk.percent,
+            "disk_free_gb": disk.free / (1024 * 1024 * 1024)
+        }
     
     async def check_system_health(self) -> Dict[str, Any]:
         """Check overall system health"""
