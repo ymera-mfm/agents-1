@@ -13,7 +13,6 @@ import urllib.error
 
 # Configuration
 TEST_API_HOST = "http://localhost:8000"
-TEST_API_PORT = 8000
 
 def start_api_server():
     """Start the API server in background"""
@@ -34,7 +33,7 @@ def start_api_server():
                 if response.status == 200:
                     print("✓ API server started successfully")
                     return proc
-            except (ConnectionError, urllib.error.URLError, OSError):
+            except (urllib.error.URLError, OSError):
                 time.sleep(1)
         
         print("✗ API server failed to start")
