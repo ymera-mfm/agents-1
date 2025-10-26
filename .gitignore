@@ -48,6 +48,14 @@ backend_coverage_report/
 test-results/
 playwright-report/
 
+# Load Testing
+load_test_*.html
+load_test_*.csv
+load_test_*_stats.csv
+load_test_*_stats_history.csv
+load_test_*_failures.csv
+load_test_*_exceptions.csv
+
 # IDEs
 .vscode/
 .idea/

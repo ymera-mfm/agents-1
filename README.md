@@ -184,6 +184,30 @@ pytest tests/test_base_agent.py
 pytest tests/test_integration.py
 ```
 
+### Load Testing
+
+The system includes comprehensive load testing using Locust:
+
+```bash
+# Quick endpoint validation
+python test_api_simple.py
+
+# Interactive load test menu (Linux/Mac)
+./run_load_test.sh
+
+# Interactive load test menu (Windows)
+run_load_test.bat
+
+# Manual locust tests
+locust -f locust_api_load_test.py --host=http://localhost:8000 --users=100 --spawn-rate=10 --run-time=1m --headless
+
+# Web UI mode
+locust -f locust_api_load_test.py --host=http://localhost:8000
+# Then open http://localhost:8089
+```
+
+See [LOAD_TESTING_GUIDE.md](LOAD_TESTING_GUIDE.md) for detailed documentation.
+
 ### Frontend Tests
 
 Run the frontend test suite:
