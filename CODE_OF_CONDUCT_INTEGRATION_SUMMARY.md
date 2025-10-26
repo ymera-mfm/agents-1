@@ -297,7 +297,7 @@ a48ee5e - Add comprehensive comparison document for Agents-2 vs main branch
 ## Success Metrics
 
 ### Quantitative
-- ✅ Code of Conduct: 364 new lines added
+- ✅ Code of Conduct: 340 new lines added
 - ✅ File growth: 106.6% (319 → 659 lines)
 - ✅ Comparison doc: 335 lines created
 - ✅ Sections restructured: 6 major sections
