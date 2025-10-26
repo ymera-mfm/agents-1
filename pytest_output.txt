@@ -1,0 +1,561 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.3, pluggy-1.6.0 -- /home/runner/work/ymera_y/ymera_y/venv/bin/python
+cachedir: .pytest_cache
+metadata: {'Python': '3.12.3', 'Platform': 'Linux-6.14.0-1012-azure-x86_64-with-glibc2.39', 'Packages': {'pytest': '7.4.3', 'pluggy': '1.6.0'}, 'Plugins': {'metadata': '3.1.1', 'mock': '3.12.0', 'asyncio': '0.21.1', 'anyio': '3.7.1', 'Faker': '21.0.0', 'json-report': '1.5.0', 'cov': '4.1.0'}, 'CI': 'true', 'JAVA_HOME': '/usr/lib/jvm/temurin-17-jdk-amd64'}
+rootdir: /home/runner/work/ymera_y/ymera_y
+configfile: pytest.ini
+plugins: metadata-3.1.1, mock-3.12.0, asyncio-0.21.1, anyio-3.7.1, Faker-21.0.0, json-report-1.5.0, cov-4.1.0
+asyncio: mode=Mode.AUTO
+collecting ... collected 104 items / 6 errors
+
+==================================== ERRORS ====================================
+_______________________ ERROR collecting test_client.py ________________________
+ImportError while importing test module '/home/runner/work/ymera_y/ymera_y/test_client.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+venv/lib/python3.12/site-packages/_pytest/python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+venv/lib/python3.12/site-packages/_pytest/pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+venv/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:186: in exec_module
+    exec(co, module.__dict__)
+test_client.py:12: in <module>
+    import nats
+E   ModuleNotFoundError: No module named 'nats'
+___________ ERROR collecting test_component_enhancement_workflow.py ____________
+venv/lib/python3.12/site-packages/_pytest/python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+venv/lib/python3.12/site-packages/_pytest/pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+venv/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+venv/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+/usr/lib/python3.12/ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "/home/runner/work/ymera_y/ymera_y/test_component_enhancement_workflow.py", line 543
+E       """Test complete enhancement workflow"""
+E                                            ^
+E   SyntaxError: unterminated triple-quoted string literal (detected at line 561)
+____________________ ERROR collecting test_comprehensive.py ____________________
+ImportError while importing test module '/home/runner/work/ymera_y/ymera_y/test_comprehensive.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+venv/lib/python3.12/site-packages/_pytest/python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+venv/lib/python3.12/site-packages/_pytest/pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+venv/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:186: in exec_module
+    exec(co, module.__dict__)
+test_comprehensive.py:13: in <module>
+    from core.system import YMERASystem, get_system
+E   ModuleNotFoundError: No module named 'core.system'
+___________________ ERROR collecting test_learning_agent.py ____________________
+ImportError while importing test module '/home/runner/work/ymera_y/ymera_y/test_learning_agent.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+venv/lib/python3.12/site-packages/_pytest/python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+venv/lib/python3.12/site-packages/_pytest/pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+venv/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:186: in exec_module
+    exec(co, module.__dict__)
+test_learning_agent.py:4: in <module>
+    from agents.learning_agent.agent import LearningAgent, KnowledgeExtractor
+E   ModuleNotFoundError: No module named 'agents'
+____________________ ERROR collecting test_project_agent.py ____________________
+ImportError while importing test module '/home/runner/work/ymera_y/ymera_y/test_project_agent.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+venv/lib/python3.12/site-packages/_pytest/python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+venv/lib/python3.12/site-packages/_pytest/pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+venv/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:186: in exec_module
+    exec(co, module.__dict__)
+test_project_agent.py:4: in <module>
+    from agents.project_agent.agent import ProjectAgent, QualityAnalyzer
+E   ModuleNotFoundError: No module named 'agents'
+______________________ ERROR collecting test_suite (1).py ______________________
+ImportError while importing test module '/home/runner/work/ymera_y/ymera_y/test_suite (1).py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+venv/lib/python3.12/site-packages/_pytest/python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+venv/lib/python3.12/site-packages/_pytest/pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+venv/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:186: in exec_module
+    exec(co, module.__dict__)
+test_suite (1).py:12: in <module>
+    from app.database import DatabaseManager, DatabaseConfig
+E   ModuleNotFoundError: No module named 'app'
+=============================== warnings summary ===============================
+models.py:20
+  /home/runner/work/ymera_y/ymera_y/models.py:20: PydanticDeprecatedSince20: Pydantic V1 style `@validator` validators are deprecated. You should migrate to Pydantic V2 style `@field_validator` validators, see the migration guide for more details. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.5/migration/
+    @validator("email")
+
+venv/lib/python3.12/site-packages/pydantic/_internal/_config.py:268
+venv/lib/python3.12/site-packages/pydantic/_internal/_config.py:268
+venv/lib/python3.12/site-packages/pydantic/_internal/_config.py:268
+  /home/runner/work/ymera_y/ymera_y/venv/lib/python3.12/site-packages/pydantic/_internal/_config.py:268: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.5/migration/
+    warnings.warn(DEPRECATION_MESSAGE, DeprecationWarning)
+
+venv/lib/python3.12/site-packages/pydantic/_internal/_config.py:318
+  /home/runner/work/ymera_y/ymera_y/venv/lib/python3.12/site-packages/pydantic/_internal/_config.py:318: UserWarning: Valid config keys have changed in V2:
+  * 'orm_mode' has been renamed to 'from_attributes'
+    warnings.warn(message, UserWarning)
+
+models.py:38
+  /home/runner/work/ymera_y/ymera_y/models.py:38: PydanticDeprecatedSince20: Pydantic V1 style `@validator` validators are deprecated. You should migrate to Pydantic V2 style `@field_validator` validators, see the migration guide for more details. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.5/migration/
+    @validator("feedback_score")
+
+venv/lib/python3.12/site-packages/pydantic/fields.py:799: 57 warnings
+  /home/runner/work/ymera_y/ymera_y/venv/lib/python3.12/site-packages/pydantic/fields.py:799: PydanticDeprecatedSince20: Using extra keyword arguments on `Field` is deprecated and will be removed. Use `json_schema_extra` instead. (Extra keys: 'env'). Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.5/migration/
+    warn(
+
+core/config.py:158
+  /home/runner/work/ymera_y/ymera_y/core/config.py:158: PydanticDeprecatedSince20: Pydantic V1 style `@validator` validators are deprecated. You should migrate to Pydantic V2 style `@field_validator` validators, see the migration guide for more details. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.5/migration/
+    @validator('jwt_secret_key')
+
+core/config.py:167
+  /home/runner/work/ymera_y/ymera_y/core/config.py:167: PydanticDeprecatedSince20: Pydantic V1 style `@validator` validators are deprecated. You should migrate to Pydantic V2 style `@field_validator` validators, see the migration guide for more details. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.5/migration/
+    @validator('quality_threshold')
+
+core/config.py:174
+  /home/runner/work/ymera_y/ymera_y/core/config.py:174: PydanticDeprecatedSince20: Pydantic V1 style `@validator` validators are deprecated. You should migrate to Pydantic V2 style `@field_validator` validators, see the migration guide for more details. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.5/migration/
+    @validator('quality_code_weight', 'quality_security_weight',
+
+core/config.py:182
+  /home/runner/work/ymera_y/ymera_y/core/config.py:182: PydanticDeprecatedSince20: Pydantic V1 style `@validator` validators are deprecated. You should migrate to Pydantic V2 style `@field_validator` validators, see the migration guide for more details. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.5/migration/
+    @validator('cors_origins', pre=True, always=True)
+
+core/config.py:194
+  /home/runner/work/ymera_y/ymera_y/core/config.py:194: PydanticDeprecatedSince20: Pydantic V1 style `@validator` validators are deprecated. You should migrate to Pydantic V2 style `@field_validator` validators, see the migration guide for more details. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.5/migration/
+    @validator('kafka_bootstrap_servers', pre=True, always=True)
+
+core/config.py:205
+  /home/runner/work/ymera_y/ymera_y/core/config.py:205: PydanticDeprecatedSince20: Pydantic V1 style `@validator` validators are deprecated. You should migrate to Pydantic V2 style `@field_validator` validators, see the migration guide for more details. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.5/migration/
+    @validator('trusted_hosts', pre=True, always=True)
+
+core/config.py:216
+  /home/runner/work/ymera_y/ymera_y/core/config.py:216: PydanticDeprecatedSince20: Pydantic V1 style `@validator` validators are deprecated. You should migrate to Pydantic V2 style `@field_validator` validators, see the migration guide for more details. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.5/migration/
+    @validator('storage_path')
+
+core/config.py:223
+  /home/runner/work/ymera_y/ymera_y/core/config.py:223: PydanticDeprecatedSince20: Pydantic V1 style `@validator` validators are deprecated. You should migrate to Pydantic V2 style `@field_validator` validators, see the migration guide for more details. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.5/migration/
+    @validator('log_file')
+
+venv/lib/python3.12/site-packages/passlib/utils/__init__.py:854
+  /home/runner/work/ymera_y/ymera_y/venv/lib/python3.12/site-packages/passlib/utils/__init__.py:854: DeprecationWarning: 'crypt' is deprecated and slated for removal in Python 3.13
+    from crypt import crypt as _crypt
+
+venv/lib/python3.12/site-packages/_pytest/config/__init__.py:1433
+  /home/runner/work/ymera_y/ymera_y/venv/lib/python3.12/site-packages/_pytest/config/__init__.py:1433: PytestConfigWarning: No files were found in testpaths; consider removing or adjusting your testpaths configuration. Searching recursively from the current directory instead.
+    self.args, self.args_source = self._decide_args(
+
+test_fixtures.py:19
+  /home/runner/work/ymera_y/ymera_y/test_fixtures.py:19: PytestCollectionWarning: cannot collect test class 'TestDataGenerator' because it has a __init__ constructor (from: test_fixtures.py)
+    class TestDataGenerator:
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: /home/runner/work/ymera_y/ymera_y/audit_reports/testing/junit.xml -
+--------------------------------- JSON report ----------------------------------
+report saved to: /home/runner/work/ymera_y/ymera_y/audit_reports/testing/pytest_report.json
+
+---------- coverage: platform linux, python 3.12.3-final-0 -----------
+Name                                   Stmts   Miss  Cover
+----------------------------------------------------------
+001_initial_schema.py                     91     91     0%
+BaseEvent.py                             163    163     0%
+HSMCrypto.py                             111    111     0%
+MultiLevelCache.py                       199    199     0%
+PerformanceMonitor.py                     36     36     0%
+ProductionConfig.py                       56     56     0%
+SIEMIntegration.py                        81     81     0%
+ServiceRegistry.py                       243    243     0%
+ZeroTrustConfig.py                       114    114     0%
+__init__.py                                7      1    86%
+access_control.py                         78     78     0%
+admin_routes.py                           36     36     0%
+advanced_features.py                     240    240     0%
+agent.py                                 126    117     7%
+agent_client.py                          225    225     0%
+agent_communicator.py                     41     41     0%
+agent_coordinator.py                     279    279     0%
+agent_discovery.py                       119    119     0%
+agent_lifecycle_manager.py               115    115     0%
+agent_lifecycle_mgr.py                   186    186     0%
+agent_management_api.py                  273    273     0%
+agent_manager_enhancements.py            350    350     0%
+agent_manager_integration.py             298    298     0%
+agent_orchestrator.py                    128    128     0%
+agent_registry.py                        230    230     0%
+agent_routes.py                           73     73     0%
+agent_surveillance.py                    185    185     0%
+agent_system.py                          357    357     0%
+ai_agents_production.py                  345    345     0%
+alembic_setup.py                          34     34     0%
+analytics.py                              24     24     0%
+api_extensions.py                        229    229     0%
+api_gateway_init.py                       42     42     0%
+app_agent_mgmt_endpoints.py               86     86     0%
+audit_manager.py                         225    225     0%
+audit_scripts/__init__.py                  0      0   100%
+audit_scripts/comprehensive_audit.py     450    450     0%
+audit_system.py                           94     94     0%
+auth.py                                   38     38     0%
+backup_manager.py                        228    228     0%
+backup_recovery.py                       114    114     0%
+base_agent 2.py                           63     63     0%
+base_agent.py                            459    459     0%
+batch_processor.py                        68     68     0%
+behavior_monitor.py                       39     39     0%
+cache_manager.py                         179    179     0%
+chat_handler.py                           32     32     0%
+chat_interface.py                         72     72     0%
+circuit_breaker.py                       150    150     0%
+code_of_conduct_complete.py              526    526     0%
+coding_agent.py                          441    441     0%
+communication_agent.py                   503    503     0%
+complete_deployment_script.py            239    239     0%
+complete_file_routes.py                  366    366     0%
+comprehensive_e2e_test.py                196    196     0%
+config.py                                149    149     0%
+config_compat.py                         141    141     0%
+config_manager.py                         95     95     0%
+configuration_manager.py                 178    178     0%
+conftest.py                               35     16    54%
+connection_manager.py                    150    150     0%
+connection_pool.py                        58     58     0%
+continuous_learning.py                   137    137     0%
+core/__init__.py                           5      0   100%
+core/auth.py                              38     21    45%
+core/config.py                           132     16    88%
+core/database.py                          55     37    33%
+core/manager_client.py                    44     33    25%
+core/sqlalchemy_models.py                 65      0   100%
+core_engine_complete.py                  274    274     0%
+core_engine_init.py                       51     51     0%
+core_engine_utils.py                     171    171     0%
+data_flow_validator.py                   161    161     0%
+database.py                               55     37    33%
+database_core_integrated.py              472    208    56%
+database_monitor.py                      263    263     0%
+database_wrapper.py                      113    113     0%
+db_config.py                              84     84     0%
+demo_expansion_framework.py              100    100     0%
+deployment_script.py                     250    250     0%
+document_generation_engine.py            151    151     0%
+documentation.py                          31     31     0%
+drafting_agent.py                        345    345     0%
+editing_agent.py                         430    430     0%
+encryption.py                             69     69     0%
+engine.py                                198    198     0%
+enhanced_agent_lifecycle.py              308    308     0%
+enhanced_agent_orchestrator.py           525    525     0%
+enhanced_agent_surveillance.py           269    269     0%
+enhanced_ai_routes.py                    274    274     0%
+enhanced_analysis_routes.py              504    504     0%
+enhanced_api_endpoints.py                246    246     0%
+enhanced_base_agent.py                   748    748     0%
+enhanced_chat_routes.py                  431    431     0%
+enhanced_learning_agent.py               560    560     0%
+enhanced_llm_agent.py                    629    629     0%
+enhancement_agent.py                     407    407     0%
+enhancement_agent_v3.py                  801    801     0%
+env.py                                    30     30     0%
+examination_agent.py                     499    499     0%
+example_agent.py                          22     22     0%
+example_api.py                           248    248     0%
+example_component_enhancement.py          32     32     0%
+example_integration_usage.py              37     37     0%
+example_setup.py                          95     95     0%
+expansion_readiness.py                    35     26    26%
+extensions.py                            229    229     0%
+external_integration.py                  114    114     0%
+external_learning.py                     140    140     0%
+fastapi_integration.py                   261    261     0%
+file.py                                   28     28     0%
+file_handler.py                           65     65     0%
+file_manager.py                           67     67     0%
+file_routes_complete.py                  308    308     0%
+file_validator_util.py                    95     95     0%
+final_verification.py                    167    142    15%
+gateway_routing_fixed.py                 375    375     0%
+generate_architecture_docs.py            284    284     0%
+generate_component_inventory.py          276    276     0%
+generator_engine_prod.py                 379    379     0%
+graceful_shutdown.py                      22     22     0%
+health.py                                133    133     0%
+health_check.py                           21     21     0%
+infrastructure__init__.py                  0      0   100%
+input_validation.py                       38     38     0%
+insight_generator.py                     172    172     0%
+integration.py                            41     41     0%
+integration_preparation.py                68     57    16%
+intelligence_engine.py                   537    537     0%
+intelligence_engine_enhanced.py          495    495     0%
+kg_fixed.py                              553    553     0%
+knowledge_base.py                        183    183     0%
+knowledge_flow_manager.py                183    183     0%
+knowledge_graph.py                       247    247     0%
+knowledge_manager.py                      48     48     0%
+knowledge_store.py                       246    246     0%
+learning-agent-production.py             505    505     0%
+learning-agent-security.py               437    437     0%
+learning_agent.py                        238    238     0%
+learning_agent_api.py                    299    299     0%
+learning_agent_api_integration.py        267    267     0%
+learning_agent_core.py                   690    690     0%
+learning_agent_database.py               256    256     0%
+learning_agent_helpers.py                408    408     0%
+learning_agent_main.py                   460    460     0%
+learning_agent_models.py                 281    281     0%
+learning_engine.py                       309    309     0%
+learning_engine_fixed.py                 430    430     0%
+learning_system.py                       166    166     0%
+lifecycle_manager.py                      69     69     0%
+live_chatting_manager.py                 669    669     0%
+llm_agent.py                             398    398     0%
+log_manager.py                           209    209     0%
+logger.py                                 28     28     0%
+main.py                                  255    126    51%
+main_app_production.py                   100    100     0%
+main_project_agent_reference.py          377    377     0%
+manager_client.py                         44     44     0%
+mandatory_reporting.py                   120    120     0%
+message_broker.py                         77     77     0%
+metrics.py                                43     43     0%
+metrics_agent.py                          70     70     0%
+metrics_agent_production.py              302    302     0%
+metrics_collector.py                     133    133     0%
+metrics_collector_fixed.py               408    408     0%
+middleware.py                             39     39     0%
+middleware/__init__.py                     2      0   100%
+middleware/rate_limiter.py                26     16    38%
+migration_manager.py                     193    193     0%
+ml_pipeline.py                           118    112     5%
+models.py                                 46      7    85%
+monitoring.py                             64     64     0%
+monitoring_compatibility.py               61     61     0%
+monitoring_routes.py                      27     27     0%
+notification_manager.py                  142    142     0%
+optimization_engine.py                   889    889     0%
+optimizing_engine.py                     885    885     0%
+orchestrator.py                           47     47     0%
+orchestrator_agent.py                    473    473     0%
+parser_engine_prod.py                    502    502     0%
+pattern_recognition.py                   178    178     0%
+pattern_recognizer.py                    230    230     0%
+performance_engine.py                    429    429     0%
+performance_engine_agent.py              256    256     0%
+performance_monitor.py                    98     98     0%
+prod_agent_manager.py                    572    572     0%
+prod_analyzer_engine.py                  259    259     0%
+prod_communication_agent.py              967    967     0%
+prod_monitoring_agent.py                 366    366     0%
+prod_optimizing_engine.py                418    418     0%
+prod_performance_engine.py               414    414     0%
+production_auth_routes.py                186    186     0%
+production_base_agent.py                 361    361     0%
+production_config.py                     173    173     0%
+production_intelligence_engine.py        312    312     0%
+production_main_app.py                   225    225     0%
+production_monitoring_agent.py           728    728     0%
+production_specialized_engines.py        338    338     0%
+project.py                                29     29     0%
+project_agent_main.py                    391    391     0%
+project_integrator.py                    109    109     0%
+protocol.py                               61     61     0%
+quality_verifier.py                      108    108     0%
+query_optimization.py                    139    139     0%
+quick_start.py                            55     55     0%
+quickstart.py                             77     77     0%
+quickstart_script.py                     259    259     0%
+rate_limiter.py                           31     31     0%
+read_replica_config.py                   147    147     0%
+real_time_monitoring_agent.py            565    565     0%
+recommendation_engine.py                 216    216     0%
+report_enforcer.py                        38     38     0%
+report_generator.py                       51     51     0%
+request_tracking.py                       24     24     0%
+resource_allocator.py                    211    211     0%
+response_aggregator_fixed.py             461    461     0%
+router.py                                113    113     0%
+routes.py                                122    122     0%
+run_comprehensive_e2e_tests.py           317    317     0%
+run_platform_audit.py                     97     97     0%
+security_agent.py                        502    502     0%
+security_monitor.py                      135    135     0%
+security_scanner.py                      145    145     0%
+session_management.py                    153    153     0%
+settings.py                              122    122     0%
+setup.py                                   9      9     0%
+sqlalchemy_models.py                      65     65     0%
+static_analysis_agent.py                 345    345     0%
+static_analysis_examples.py              281    281     0%
+static_analysis_prod.py                  532    532     0%
+submission.py                             41     41     0%
+system.py                                175    175     0%
+task_orchestrator.py                     210    210     0%
+task_queue.py                            137    137     0%
+task_routes.py                            44     44     0%
+task_scheduler.py                         53     53     0%
+task_worker.py                           114    114     0%
+testing_framework.py                     227    200    12%
+unified_system.py                        380    380     0%
+user.py                                   26     26     0%
+validation_agent.py                      211    211     0%
+validation_agent_complete.py             341    341     0%
+verify_deployment.py                      98     98     0%
+websocket_manager.py                     122    122     0%
+workflow_engine.py                       269    269     0%
+workflow_manager.py                      621    621     0%
+ymera__init__.py                         107    107     0%
+ymera_api_system.py                      657    657     0%
+----------------------------------------------------------
+TOTAL                                  54472  53666     1%
+Coverage HTML written to dir /home/runner/work/ymera_y/ymera_y/audit_reports/testing/htmlcov
+Coverage JSON written to file /home/runner/work/ymera_y/ymera_y/audit_reports/testing/coverage.json
+
+=========================== short test summary info ============================
+ERROR test_client.py
+ERROR test_component_enhancement_workflow.py
+ERROR test_comprehensive.py
+ERROR test_learning_agent.py
+ERROR test_project_agent.py
+ERROR test_suite (1).py
+!!!!!!!!!!!!!!!!!!! Interrupted: 6 errors during collection !!!!!!!!!!!!!!!!!!!!
+======================= 74 warnings, 6 errors in 23.51s ========================
+
+
+/home/runner/work/ymera_y/ymera_y/venv/lib/python3.12/site-packages/coverage/report_core.py:107: CoverageWarning: Couldn't parse Python file '/home/runner/work/ymera_y/ymera_y/agent_manager_integrated.py' (couldnt-parse); see https://coverage.readthedocs.io/en/7.11.0/messages.html#warning-couldnt-parse
+  coverage._warn(msg, slug="couldnt-parse")
+/home/runner/work/ymera_y/ymera_y/venv/lib/python3.12/site-packages/coverage/report_core.py:107: CoverageWarning: Couldn't parse Python file '/home/runner/work/ymera_y/ymera_y/agent_manager_production.py' (couldnt-parse); see https://coverage.readthedocs.io/en/7.11.0/messages.html#warning-couldnt-parse
+  coverage._warn(msg, slug="couldnt-parse")
+/home/runner/work/ymera_y/ymera_y/venv/lib/python3.12/site-packages/coverage/report_core.py:107: CoverageWarning: Couldn't parse Python file '/home/runner/work/ymera_y/ymera_y/agents_management_api.py' (couldnt-parse); see https://coverage.readthedocs.io/en/7.11.0/messages.html#warning-couldnt-parse
+  coverage._warn(msg, slug="couldnt-parse")
+/home/runner/work/ymera_y/ymera_y/venv/lib/python3.12/site-packages/coverage/report_core.py:107: CoverageWarning: Couldn't parse Python file '/home/runner/work/ymera_y/ymera_y/analytics__init__.py' (couldnt-parse); see https://coverage.readthedocs.io/en/7.11.0/messages.html#warning-couldnt-parse
+  coverage._warn(msg, slug="couldnt-parse")
+/home/runner/work/ymera_y/ymera_y/venv/lib/python3.12/site-packages/coverage/report_core.py:107: CoverageWarning: Couldn't parse Python file '/home/runner/work/ymera_y/ymera_y/api_gateway.py' (couldnt-parse); see https://coverage.readthedocs.io/en/7.11.0/messages.html#warning-couldnt-parse
+  coverage._warn(msg, slug="couldnt-parse")
+/home/runner/work/ymera_y/ymera_y/venv/lib/python3.12/site-packages/coverage/report_core.py:107: CoverageWarning: Couldn't parse Python file '/home/runner/work/ymera_y/ymera_y/automl__init__.py' (couldnt-parse); see https://coverage.readthedocs.io/en/7.11.0/messages.html#warning-couldnt-parse
+  coverage._warn(msg, slug="couldnt-parse")
+/home/runner/work/ymera_y/ymera_y/venv/lib/python3.12/site-packages/coverage/report_core.py:107: CoverageWarning: Couldn't parse Python file '/home/runner/work/ymera_y/ymera_y/chat_service.py' (couldnt-parse); see https://coverage.readthedocs.io/en/7.11.0/messages.html#warning-couldnt-parse
+  coverage._warn(msg, slug="couldnt-parse")
+/home/runner/work/ymera_y/ymera_y/venv/lib/python3.12/site-packages/coverage/report_core.py:107: CoverageWarning: Couldn't parse Python file '/home/runner/work/ymera_y/ymera_y/chatting_files_agent_api_system.py' (couldnt-parse); see https://coverage.readthedocs.io/en/7.11.0/messages.html#warning-couldnt-parse
+  coverage._warn(msg, slug="couldnt-parse")
+/home/runner/work/ymera_y/ymera_y/venv/lib/python3.12/site-packages/coverage/report_core.py:107: CoverageWarning: Couldn't parse Python file '/home/runner/work/ymera_y/ymera_y/code_editor_agent_api.py' (couldnt-parse); see https://coverage.readthedocs.io/en/7.11.0/messages.html#warning-couldnt-parse
+  coverage._warn(msg, slug="couldnt-parse")
+/home/runner/work/ymera_y/ymera_y/venv/lib/python3.12/site-packages/coverage/report_core.py:107: CoverageWarning: Couldn't parse Python file '/home/runner/work/ymera_y/ymera_y/component_enhancement_workflow.py' (couldnt-parse); see https://coverage.readthedocs.io/en/7.11.0/messages.html#warning-couldnt-parse
+  coverage._warn(msg, slug="couldnt-parse")
+/home/runner/work/ymera_y/ymera_y/venv/lib/python3.12/site-packages/coverage/report_core.py:107: CoverageWarning: Couldn't parse Python file '/home/runner/work/ymera_y/ymera_y/db_monitoring.py' (couldnt-parse); see https://coverage.readthedocs.io/en/7.11.0/messages.html#warning-couldnt-parse
+  coverage._warn(msg, slug="couldnt-parse")
+/home/runner/work/ymera_y/ymera_y/venv/lib/python3.12/site-packages/coverage/report_core.py:107: CoverageWarning: Couldn't parse Python file '/home/runner/work/ymera_y/ymera_y/disaster_recovery__init__.py' (couldnt-parse); see https://coverage.readthedocs.io/en/7.11.0/messages.html#warning-couldnt-parse
+  coverage._warn(msg, slug="couldnt-parse")
+/home/runner/work/ymera_y/ymera_y/venv/lib/python3.12/site-packages/coverage/report_core.py:107: CoverageWarning: Couldn't parse Python file '/home/runner/work/ymera_y/ymera_y/enterprise_agent_manager.py' (couldnt-parse); see https://coverage.readthedocs.io/en/7.11.0/messages.html#warning-couldnt-parse
+  coverage._warn(msg, slug="couldnt-parse")
+/home/runner/work/ymera_y/ymera_y/venv/lib/python3.12/site-packages/coverage/report_core.py:107: CoverageWarning: Couldn't parse Python file '/home/runner/work/ymera_y/ymera_y/explainability__init__.py' (couldnt-parse); see https://coverage.readthedocs.io/en/7.11.0/messages.html#warning-couldnt-parse
+  coverage._warn(msg, slug="couldnt-parse")
+/home/runner/work/ymera_y/ymera_y/venv/lib/python3.12/site-packages/coverage/report_core.py:107: CoverageWarning: Couldn't parse Python file '/home/runner/work/ymera_y/ymera_y/gateway.py' (couldnt-parse); see https://coverage.readthedocs.io/en/7.11.0/messages.html#warning-couldnt-parse
+  coverage._warn(msg, slug="couldnt-parse")
+/home/runner/work/ymera_y/ymera_y/venv/lib/python3.12/site-packages/coverage/report_core.py:107: CoverageWarning: Couldn't parse Python file '/home/runner/work/ymera_y/ymera_y/prod_config_manager.py' (couldnt-parse); see https://coverage.readthedocs.io/en/7.11.0/messages.html#warning-couldnt-parse
+  coverage._warn(msg, slug="couldnt-parse")
+/home/runner/work/ymera_y/ymera_y/venv/lib/python3.12/site-packages/coverage/report_core.py:107: CoverageWarning: Couldn't parse Python file '/home/runner/work/ymera_y/ymera_y/prod_drafting_agent.py' (couldnt-parse); see https://coverage.readthedocs.io/en/7.11.0/messages.html#warning-couldnt-parse
+  coverage._warn(msg, slug="couldnt-parse")
+/home/runner/work/ymera_y/ymera_y/venv/lib/python3.12/site-packages/coverage/report_core.py:107: CoverageWarning: Couldn't parse Python file '/home/runner/work/ymera_y/ymera_y/production_custom_engines_full.py' (couldnt-parse); see https://coverage.readthedocs.io/en/7.11.0/messages.html#warning-couldnt-parse
+  coverage._warn(msg, slug="couldnt-parse")
+/home/runner/work/ymera_y/ymera_y/venv/lib/python3.12/site-packages/coverage/report_core.py:107: CoverageWarning: Couldn't parse Python file '/home/runner/work/ymera_y/ymera_y/requirements_and_env.py' (couldnt-parse); see https://coverage.readthedocs.io/en/7.11.0/messages.html#warning-couldnt-parse
+  coverage._warn(msg, slug="couldnt-parse")
+<unknown>:500: SyntaxWarning: invalid escape sequence '\s'
+<unknown>:500: SyntaxWarning: invalid escape sequence '\('
+/home/runner/work/ymera_y/ymera_y/static_analysis_agent.py:500: SyntaxWarning: invalid escape sequence '\s'
+  class_code_match = re.search(f"class\s+{class_name}\(.*\):\n((?:\s+.*\n)*)", source_code)
+/home/runner/work/ymera_y/ymera_y/static_analysis_agent.py:500: SyntaxWarning: invalid escape sequence '\('
+  class_code_match = re.search(f"class\s+{class_name}\(.*\):\n((?:\s+.*\n)*)", source_code)
+/home/runner/work/ymera_y/ymera_y/venv/lib/python3.12/site-packages/coverage/report_core.py:107: CoverageWarning: Couldn't parse Python file '/home/runner/work/ymera_y/ymera_y/ymera_enhanced_auth.py' (couldnt-parse); see https://coverage.readthedocs.io/en/7.11.0/messages.html#warning-couldnt-parse
+  coverage._warn(msg, slug="couldnt-parse")
+<unknown>:500: SyntaxWarning: invalid escape sequence '\s'
+<unknown>:500: SyntaxWarning: invalid escape sequence '\('
+/home/runner/work/ymera_y/ymera_y/static_analysis_agent.py:500: SyntaxWarning: invalid escape sequence '\s'
+  class_code_match = re.search(f"class\s+{class_name}\(.*\):\n((?:\s+.*\n)*)", source_code)
+/home/runner/work/ymera_y/ymera_y/static_analysis_agent.py:500: SyntaxWarning: invalid escape sequence '\('
+  class_code_match = re.search(f"class\s+{class_name}\(.*\):\n((?:\s+.*\n)*)", source_code)
+<unknown>:500: SyntaxWarning: invalid escape sequence '\s'
+<unknown>:500: SyntaxWarning: invalid escape sequence '\('
+/home/runner/work/ymera_y/ymera_y/static_analysis_agent.py:500: SyntaxWarning: invalid escape sequence '\s'
+  class_code_match = re.search(f"class\s+{class_name}\(.*\):\n((?:\s+.*\n)*)", source_code)
+/home/runner/work/ymera_y/ymera_y/static_analysis_agent.py:500: SyntaxWarning: invalid escape sequence '\('
+  class_code_match = re.search(f"class\s+{class_name}\(.*\):\n((?:\s+.*\n)*)", source_code)
+<unknown>:500: SyntaxWarning: invalid escape sequence '\s'
+<unknown>:500: SyntaxWarning: invalid escape sequence '\('
+<unknown>:500: SyntaxWarning: invalid escape sequence '\s'
+<unknown>:500: SyntaxWarning: invalid escape sequence '\('
+<unknown>:500: SyntaxWarning: invalid escape sequence '\s'
+<unknown>:500: SyntaxWarning: invalid escape sequence '\('
+/home/runner/work/ymera_y/ymera_y/static_analysis_agent.py:500: SyntaxWarning: invalid escape sequence '\s'
+  class_code_match = re.search(f"class\s+{class_name}\(.*\):\n((?:\s+.*\n)*)", source_code)
+/home/runner/work/ymera_y/ymera_y/static_analysis_agent.py:500: SyntaxWarning: invalid escape sequence '\('
+  class_code_match = re.search(f"class\s+{class_name}\(.*\):\n((?:\s+.*\n)*)", source_code)
+<unknown>:500: SyntaxWarning: invalid escape sequence '\s'
+<unknown>:500: SyntaxWarning: invalid escape sequence '\('

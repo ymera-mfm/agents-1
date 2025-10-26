@@ -1,0 +1,149 @@
+{
+  "summary": {
+    "total_py_files": 381,
+    "total_md_files": 212,
+    "test_files": 58,
+    "root_py_files": 381,
+    "total_dependencies": 76,
+    "dependencies_sample": [
+      "fastapi==0.104.1",
+      "uvicorn[standard]==0.24.0",
+      "pydantic==2.5.0",
+      "pydantic-settings==2.1.0",
+      "python-multipart==0.0.6",
+      "asyncpg==0.29.0",
+      "sqlalchemy[asyncio]==2.0.23",
+      "alembic==1.13.0",
+      "psycopg2-binary==2.9.9",
+      "aiosqlite==0.19.0",
+      "redis[hiredis]==5.0.1",
+      "python-jose[cryptography]==3.3.0",
+      "passlib[bcrypt]==1.7.4",
+      "cryptography==41.0.7",
+      "pyjwt==2.8.0",
+      "httpx==0.25.2",
+      "aiohttp==3.9.1",
+      "aiofiles==23.2.1",
+      "prometheus-client==0.19.0",
+      "python-consul==1.1.0"
+    ],
+    "test_files_found": 40
+  },
+  "code_metrics": {
+    "total_lines": 38482,
+    "code_lines": 29743,
+    "comment_lines": 2375,
+    "blank_lines": 6364,
+    "comment_ratio": 7.985072117809231,
+    "large_files": [
+      {
+        "file": "enterprise_agent_manager.py",
+        "lines": 1491
+      },
+      {
+        "file": "enhanced_base_agent.py",
+        "lines": 1334
+      },
+      {
+        "file": "prod_config_manager.py",
+        "lines": 1191
+      },
+      {
+        "file": "generator_engine_prod.py",
+        "lines": 1186
+      },
+      {
+        "file": "intelligence_engine.py",
+        "lines": 1161
+      },
+      {
+        "file": "learning_agent_main.py",
+        "lines": 1148
+      },
+      {
+        "file": "coding_agent.py",
+        "lines": 1095
+      },
+      {
+        "file": "ai_agents_production.py",
+        "lines": 1051
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "lines": 939
+      },
+      {
+        "file": "editing_agent.py",
+        "lines": 913
+      }
+    ]
+  },
+  "duplicates": [
+    {
+      "type": "old_backup_files",
+      "count": 3,
+      "files": [
+        "backup_recovery.py",
+        "config_template.py",
+        "backup_manager.py"
+      ]
+    }
+  ],
+  "security_issues": [
+    {
+      "type": "hardcoded_password",
+      "file": "tests.unit.test_security.py",
+      "occurrences": 1,
+      "severity": "medium"
+    },
+    {
+      "type": "eval_usage",
+      "file": "test_code_injection.py",
+      "occurrences": 3,
+      "severity": "high"
+    },
+    {
+      "type": "exec_usage",
+      "file": "test_code_injection.py",
+      "occurrences": 1,
+      "severity": "medium"
+    },
+    {
+      "type": "hardcoded_key",
+      "file": "ai_agents_production.py",
+      "occurrences": 1,
+      "severity": "medium"
+    }
+  ],
+  "performance_issues": [],
+  "structure_issues": [
+    {
+      "type": "disorganized_root",
+      "severity": "high",
+      "message": "381 Python files in root directory - should be organized into subdirectories",
+      "files": [
+        "metrics.py",
+        "config_compat.py",
+        "project_integrator.py",
+        "test_fixtures.py",
+        "learning_agent_main.py",
+        "test_result_analyzer.py",
+        "gateway_routing_fixed.py",
+        "knowledge_flow_manager.py",
+        "tests.utils.test_helpers.py",
+        "analyze_agent_dependencies.py",
+        "logger.py",
+        "encryption.py",
+        "test_validation_agent.py",
+        "generate_agent_testing_report.py",
+        "tests.unit.test_security.py",
+        "extensions.py",
+        "scaling.auto_scaler.py",
+        "connection_pool.py",
+        "activate_agents.py",
+        "api_gateway.py"
+      ]
+    }
+  ],
+  "dependency_issues": []
+}

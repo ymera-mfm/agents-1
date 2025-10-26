@@ -1,0 +1,170 @@
+// YMERA Agent System Map
+digraph {
+	rankdir=TB size="16,20"
+	node [shape=box style="rounded,filled"]
+	title [label="YMERA Agent System
+(Measured Data)" fontname="Arial Bold" fontsize=20 shape=plaintext]
+	summary [label="Total Agents: 74
+Complete: 2 (2.7%)
+Async: 64 (86.5%)
+BaseAgent: 28 (37.8%)" fillcolor=lightyellow fontsize=10 shape=note]
+	title -> summary [style=invis]
+	subgraph cluster_learning {
+		fontname="Arial Bold" fontsize=12 label="LEARNING
+(12 agents)"
+		color=black fillcolor=lightblue style="filled,rounded"
+		learning_0 [label="learning-agent-secur
+[A,DB]" fillcolor=yellow fontsize=9]
+		learning_1 [label="learning_agent_helpe
+[A,DB]" fillcolor=yellow fontsize=9]
+		learning_2 [label="learning_agent
+[A,DB]" fillcolor=yellow fontsize=9]
+		learning_3 [label="learning_agent_datab
+[A,DB]" fillcolor=yellow fontsize=9]
+		learning_4 [label="learning_agent_model
+[DB]" fillcolor=yellow fontsize=9]
+		learning_more [label="... +7 more" fontsize=8 shape=plaintext]
+	}
+	subgraph cluster_analysis {
+		fontname="Arial Bold" fontsize=12 label="ANALYSIS
+(1 agents)"
+		color=black fillcolor=lightgreen style="filled,rounded"
+		analysis_0 [label="static_analysis_agen
+[BA,A]" fillcolor=yellow fontsize=9]
+	}
+	subgraph cluster_communication {
+		fontname="Arial Bold" fontsize=12 label="COMMUNICATION
+(3 agents)"
+		color=black fillcolor=lightcoral style="filled,rounded"
+		communication_0 [label="agent_communicator
+[A]" fillcolor=yellow fontsize=9]
+		communication_1 [label="communication_agent
+[BA,A]" fillcolor=yellow fontsize=9]
+		communication_2 [label="prod_communication_a
+[BA,A]" fillcolor=yellow fontsize=9]
+	}
+	subgraph cluster_monitoring {
+		fontname="Arial Bold" fontsize=12 label="MONITORING
+(7 agents)"
+		color=black fillcolor=plum style="filled,rounded"
+		monitoring_0 [label="prod_monitoring_agen
+[BA,A,API]" fillcolor=yellow fontsize=9]
+		monitoring_1 [label="production_monitorin
+[BA,A,API]" fillcolor=yellow fontsize=9]
+		monitoring_2 [label="agent_surveillance
+[A,DB]" fillcolor=yellow fontsize=9]
+		monitoring_3 [label="metrics_agent_produc
+[BA,A]" fillcolor=yellow fontsize=9]
+		monitoring_4 [label="real_time_monitoring
+[BA,A,API]" fillcolor=yellow fontsize=9]
+		monitoring_more [label="... +2 more" fontsize=8 shape=plaintext]
+	}
+	subgraph cluster_management {
+		fontname="Arial Bold" fontsize=12 label="MANAGEMENT
+(6 agents)"
+		color=black fillcolor=wheat style="filled,rounded"
+		management_0 [label="prod_agent_manager
+[A,DB]" fillcolor=yellow fontsize=9]
+		management_1 [label="agent_lifecycle_mana
+[A,DB]" fillcolor=yellow fontsize=9]
+		management_2 [label="agent_manager_integr
+[A]" fillcolor=yellow fontsize=9]
+		management_3 [label="agent_management_api
+[A,DB,API]" fillcolor=yellow fontsize=9]
+		management_4 [label="agent_manager_enhanc
+[A]" fillcolor=yellow fontsize=9]
+		management_more [label="... +1 more" fontsize=8 shape=plaintext]
+	}
+	subgraph cluster_validation {
+		fontname="Arial Bold" fontsize=12 label="VALIDATION
+(2 agents)"
+		color=black fillcolor=lightpink style="filled,rounded"
+		validation_0 [label="validation_agent_com
+[BA,A]" fillcolor=yellow fontsize=9]
+		validation_1 [label="validation_agent
+[BA,A,DB]" fillcolor=yellow fontsize=9]
+	}
+	subgraph cluster_security {
+		fontname="Arial Bold" fontsize=12 label="SECURITY
+(2 agents)"
+		color=black fillcolor=lightgray style="filled,rounded"
+		security_0 [label="learning-agent-secur
+[A,DB]" fillcolor=yellow fontsize=9]
+		security_1 [label="security_agent
+[BA,A]" fillcolor=yellow fontsize=9]
+	}
+	subgraph cluster_lifecycle {
+		fontname="Arial Bold" fontsize=12 label="LIFECYCLE
+(3 agents)"
+		color=black fillcolor=lavender style="filled,rounded"
+		lifecycle_0 [label="agent_lifecycle_mana
+[A,DB]" fillcolor=yellow fontsize=9]
+		lifecycle_1 [label="enhanced_agent_lifec
+[A,DB]" fillcolor=yellow fontsize=9]
+		lifecycle_2 [label="agent_lifecycle_mgr
+[A,DB,API]" fillcolor=yellow fontsize=9]
+	}
+	subgraph cluster_drafting {
+		fontname="Arial Bold" fontsize=12 label="DRAFTING
+(1 agents)"
+		color=black fillcolor=peachpuff style="filled,rounded"
+		drafting_0 [label="drafting_agent
+[BA,A]" fillcolor=yellow fontsize=9]
+	}
+	subgraph cluster_enhancement {
+		fontname="Arial Bold" fontsize=12 label="ENHANCEMENT
+(10 agents)"
+		color=black fillcolor=lightsalmon style="filled,rounded"
+		enhancement_0 [label="enhanced_base_agent
+[BA,A,DB]" fillcolor=yellow fontsize=9]
+		enhancement_1 [label="enhanced_agent_lifec
+[A,DB]" fillcolor=yellow fontsize=9]
+		enhancement_2 [label="agent_manager_enhanc
+[A]" fillcolor=yellow fontsize=9]
+		enhancement_3 [label="enhanced_agent_surve
+[A,DB]" fillcolor=yellow fontsize=9]
+		enhancement_4 [label="enhancement_agent
+[BA,A]" fillcolor=yellow fontsize=9]
+		enhancement_more [label="... +5 more" fontsize=8 shape=plaintext]
+	}
+	subgraph cluster_orchestration {
+		fontname="Arial Bold" fontsize=12 label="ORCHESTRATION
+(4 agents)"
+		color=black fillcolor=powderblue style="filled,rounded"
+		orchestration_0 [label="orchestrator_agent
+[BA,A]" fillcolor=yellow fontsize=9]
+		orchestration_1 [label="agent_coordinator
+[A,DB]" fillcolor=yellow fontsize=9]
+		orchestration_2 [label="enhanced_agent_orche
+[A]" fillcolor=yellow fontsize=9]
+		orchestration_3 [label="agent_orchestrator
+[A,DB,API]" fillcolor=yellow fontsize=9]
+	}
+	subgraph cluster_unknown {
+		fontname="Arial Bold" fontsize=12 label="UNKNOWN
+(21 agents)"
+		color=black fillcolor=white style="filled,rounded"
+		unknown_0 [label="ai_agents_production
+[BA,A]" fillcolor=green fontsize=9]
+		unknown_1 [label="editing_agent_v2 (1)
+[BA,A]" fillcolor=yellow fontsize=9]
+		unknown_2 [label="llm_agent
+[BA,A]" fillcolor=yellow fontsize=9]
+		unknown_3 [label="examination_agent
+[BA,A]" fillcolor=yellow fontsize=9]
+		unknown_4 [label="production_base_agen
+[BA,A,DB]" fillcolor=yellow fontsize=9]
+		unknown_more [label="... +16 more" fontsize=8 shape=plaintext]
+	}
+	subgraph cluster_legend {
+		fontsize=10 label=Legend
+		color=black fillcolor=white style=filled
+		legend_complete [label=Complete fillcolor=green fontsize=8]
+		legend_incomplete [label=Incomplete fillcolor=yellow fontsize=8]
+		legend_error [label="Syntax Error" fillcolor=red fontsize=8]
+		legend_ba [label="BA=BaseAgent" fontsize=8 shape=plaintext]
+		legend_a [label="A=Async" fontsize=8 shape=plaintext]
+		legend_db [label="DB=Database" fontsize=8 shape=plaintext]
+		legend_api [label="API=API Integration" fontsize=8 shape=plaintext]
+	}
+}

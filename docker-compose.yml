@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  api-gateway:
+    build: ./integration/
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=production
+    env_file: .env.production
+    depends_on:
+      - redis
+      - postgres
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: enhanced_platform
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: secure_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

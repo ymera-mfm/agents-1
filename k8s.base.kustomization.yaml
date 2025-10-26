@@ -1,0 +1,25 @@
+# k8s/base/kustomization.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: ymera-enterprise
+resources:
+  - namespace.yaml
+  - config-map.yaml
+  - secrets.yaml
+  - service-account.yaml
+  - rbac.yaml
+  - network-policy.yaml
+  - deployment.yaml
+  - service.yaml
+  - hpa.yaml
+  - vpa.yaml
+  - pdb.yaml
+  - ingress.yaml
+configMapGenerator:
+  - name: app-config
+    files:
+      - config/production.yaml
+secretGenerator:
+  - name: app-secrets
+    envs:
+      - secrets/.env.production

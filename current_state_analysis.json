@@ -1,0 +1,93 @@
+{
+  "timestamp": "2025-10-20T16:33:45.074369",
+  "deliverables": {
+    "agent_catalog_complete.json": {
+      "status": "exists",
+      "size_bytes": 349200,
+      "has_error": false
+    },
+    "agent_classification.json": {
+      "status": "exists",
+      "size_bytes": 71207,
+      "has_error": false
+    },
+    "agent_test_results_complete.json": {
+      "status": "exists",
+      "size_bytes": 364343,
+      "has_error": false
+    },
+    "agent_coverage.json": {
+      "status": "exists",
+      "size_bytes": 2490,
+      "has_error": false
+    },
+    "agent_benchmarks_complete.json": {
+      "status": "exists",
+      "size_bytes": 3755,
+      "has_error": false
+    },
+    "agent_fixes_applied.json": {
+      "status": "exists",
+      "size_bytes": 672,
+      "has_error": false
+    },
+    "integration_results.json": {
+      "status": "exists",
+      "size_bytes": 4680,
+      "has_error": false
+    },
+    "AGENT_INVENTORY_REPORT.md": {
+      "status": "exists",
+      "size_bytes": 8504,
+      "needs_update": false
+    },
+    "AGENT_COVERAGE_REPORT.md": {
+      "status": "exists",
+      "size_bytes": 2344,
+      "needs_update": false
+    },
+    "AGENT_TESTING_REPORT.md": {
+      "status": "exists",
+      "size_bytes": 4064,
+      "needs_update": false
+    },
+    "AGENT_PERFORMANCE_REPORT.md": {
+      "status": "exists",
+      "size_bytes": 6464,
+      "needs_update": false
+    },
+    "AGENT_SYSTEM_ARCHITECTURE.md": {
+      "status": "exists",
+      "size_bytes": 917,
+      "needs_update": true
+    },
+    "INTEGRATION_TEST_REPORT.md": {
+      "status": "exists",
+      "size_bytes": 12038,
+      "needs_update": false
+    },
+    "AGENT_SYSTEM_FINAL_REPORT.md": {
+      "status": "exists",
+      "size_bytes": 15633,
+      "needs_update": false
+    }
+  },
+  "gaps": [
+    "Small report: AGENT_SYSTEM_ARCHITECTURE.md (917 bytes)",
+    "Only 11/309 agents benchmarked",
+    "Integration testing incomplete: partially_complete"
+  ],
+  "recommendations": [
+    "Complete missing deliverables",
+    "Improve pass rate (currently 6.75%)"
+  ],
+  "total_agents": 309,
+  "test_metrics": {
+    "agents_tested": 163,
+    "agents_passed": 11,
+    "agents_failed": 152,
+    "pass_rate": "6.75%"
+  },
+  "benchmarked_agents": 11,
+  "integration_status": "partially_complete"
+}

@@ -1,0 +1,27 @@
+{
+  "module_imports": {
+    "base_agent": "success",
+    "agent": "success",
+    "metrics": "failed: No module named 'prometheus_client'",
+    "logger": "failed: No module named 'pythonjsonlogger'",
+    "encryption": "failed: No module named 'structlog'"
+  },
+  "core_functionality": {
+    "logging": "working",
+    "type_hints": "working",
+    "comprehensive_tests": "passed"
+  },
+  "fixed_files": {
+    "config_compat.py": "compiles",
+    "analyze_agent_dependencies.py": "compiles",
+    "learning_agent_main.py": "compiles",
+    "agent_classifier.py": "compiles",
+    "02_remove_duplicates.py": "compiles",
+    "generator_engine_prod.py": "compiles",
+    "metrics.py": "compiles",
+    "audit_manager.py": "compiles",
+    "extensions.py": "compiles",
+    "knowledge_graph.py": "compiles"
+  },
+  "overall_status": "\u26a0\ufe0f  PARTIAL - Some verifications failed"
+}

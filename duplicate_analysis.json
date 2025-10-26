@@ -1,0 +1,100 @@
+{
+  "analysis_version": "1.0.0",
+  "timestamp": "2025-10-19T17:59:18.444Z",
+  "summary": {
+    "total_files_analyzed": 380,
+    "duplicates_found": 12,
+    "similarity_threshold": 0.85,
+    "potential_refactoring_targets": 8
+  },
+  "duplicate_groups": [
+    {
+      "group_id": 1,
+      "similarity_score": 0.95,
+      "files": [
+        "production_base_agent.py",
+        "enhanced_base_agent.py"
+      ],
+      "duplicate_lines": 45,
+      "recommendation": "Consolidate into single base_agent with production flags"
+    },
+    {
+      "group_id": 2,
+      "similarity_score": 0.88,
+      "files": [
+        "database.py",
+        "database_wrapper.py"
+      ],
+      "duplicate_lines": 32,
+      "recommendation": "Merge wrapper functionality into main database module"
+    },
+    {
+      "group_id": 3,
+      "similarity_score": 0.92,
+      "files": [
+        "config.py",
+        "settings.py",
+        "config_manager.py"
+      ],
+      "duplicate_lines": 28,
+      "recommendation": "Unified configuration management system needed"
+    }
+  ],
+  "code_patterns": {
+    "repeated_patterns": [
+      {
+        "pattern": "error_handling",
+        "occurrences": 85,
+        "files": 45,
+        "recommendation": "Create centralized error handling utility"
+      },
+      {
+        "pattern": "logging_setup",
+        "occurrences": 72,
+        "files": 38,
+        "recommendation": "Standardize logging configuration"
+      },
+      {
+        "pattern": "database_connection",
+        "occurrences": 34,
+        "files": 22,
+        "recommendation": "Use connection pooling utility"
+      }
+    ]
+  },
+  "refactoring_opportunities": [
+    {
+      "priority": "high",
+      "category": "duplicate_code",
+      "description": "Multiple agent implementations with similar initialization",
+      "affected_files": 15,
+      "estimated_reduction": "~500 lines"
+    },
+    {
+      "priority": "medium",
+      "category": "code_smell",
+      "description": "Repeated validation logic across modules",
+      "affected_files": 12,
+      "estimated_reduction": "~200 lines"
+    },
+    {
+      "priority": "low",
+      "category": "style",
+      "description": "Inconsistent naming conventions in some modules",
+      "affected_files": 8,
+      "estimated_reduction": "N/A"
+    }
+  ],
+  "recommendations": {
+    "immediate_actions": [
+      "Consolidate duplicate base agent implementations",
+      "Create shared utility modules for common patterns",
+      "Standardize configuration management"
+    ],
+    "long_term_improvements": [
+      "Implement automated refactoring tools",
+      "Establish code review guidelines",
+      "Set up continuous code quality monitoring"
+    ]
+  }
+}

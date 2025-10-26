@@ -1,0 +1,87 @@
+# Multi-stage Dockerfile for Editing Agent v2.0
+# Optimized for production deployment
+
+# Stage 1: Base image with Python and system dependencies
+FROM python:3.11-slim as base
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    g++ \
+    libpq-dev \
+    curl \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create app directory
+WORKDIR /app
+
+# Stage 2: Dependencies installation
+FROM base as dependencies
+
+# Copy requirements file
+COPY requirements_editing.txt /app/
+
+# Install Python dependencies
+RUN pip install --upgrade pip && \
+    pip install -r requirements_editing.txt
+
+# Download spaCy model
+RUN python -m spacy download en_core_web_sm
+
+# Download NLTK data
+RUN python -c "import nltk; nltk.download('vader_lexicon', quiet=True); nltk.download('punkt', quiet=True)"
+
+# Stage 3: Production image
+FROM base as production
+
+# Copy installed packages from dependencies stage
+COPY --from=dependencies /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
+COPY --from=dependencies /usr/local/bin /usr/local/bin
+COPY --from=dependencies /root/nltk_data /root/nltk_data
+
+# Copy application code
+COPY base_agent.py /app/
+COPY editing_agent.py /app/
+COPY config/ /app/config/
+COPY utils/ /app/utils/
+
+# Create necessary directories
+RUN mkdir -p /var/log/agents /app/data
+
+# Create non-root user for security
+RUN useradd -m -u 1000 -s /bin/bash agent && \
+    chown -R agent:agent /app /var/log/agents
+
+# Switch to non-root user
+USER agent
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD python -c "import sys; sys.exit(0)"
+
+# Expose monitoring port (if applicable)
+EXPOSE 8080
+
+# Set entrypoint
+ENTRYPOINT ["python", "-u", "editing_agent.py"]
+
+# Development stage (optional)
+FROM dependencies as development
+
+# Install development dependencies
+RUN pip install pytest pytest-asyncio pytest-cov pytest-mock black flake8 mypy
+
+# Copy all files including tests
+COPY . /app/
+
+# Run as root in development for easier debugging
+USER root
+
+CMD ["python", "-u", "editing_agent.py"]

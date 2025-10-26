@@ -1,0 +1,214 @@
+# Docker Compose Configuration for Editing Agent v2.0
+version: '3.8'
+
+services:
+  # Editing Agent
+  editing_agent:
+    build:
+      context: .
+      dockerfile: Dockerfile.editing
+    container_name: editing_agent
+    environment:
+      # Agent Configuration
+      - AGENT_ID=editing-001
+      - AGENT_NAME=editing_agent
+      - AGENT_TYPE=editing
+      - AGENT_VERSION=2.0.0
+      
+      # Connection URLs
+      - NATS_URL=nats://nats:4222
+      - POSTGRES_URL=postgresql://agent:secure_password@postgres:5432/agentdb
+      - REDIS_URL=redis://redis:6379
+      
+      # Performance Settings
+      - MAX_CONCURRENT_TASKS=100
+      - REQUEST_TIMEOUT_SECONDS=30
+      - SHUTDOWN_TIMEOUT_SECONDS=30
+      
+      # Monitoring
+      - STATUS_PUBLISH_INTERVAL=30
+      - HEARTBEAT_INTERVAL=10
+      - METRICS_COLLECTION_INTERVAL=60
+      - LOG_LEVEL=INFO
+      
+      # Editing-specific
+      - SESSION_TIMEOUT_HOURS=24
+      - ANALYSIS_INTERVAL_SECONDS=60
+      - MAX_CONTENT_LENGTH=100000
+      
+      # Database connection pool
+      - POSTGRES_MIN_POOL_SIZE=5
+      - POSTGRES_MAX_POOL_SIZE=20
+      - POSTGRES_COMMAND_TIMEOUT=60
+    
+    depends_on:
+      - nats
+      - postgres
+      - redis
+    
+    restart: unless-stopped
+    
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8080/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    
+    networks:
+      - agent_network
+    
+    volumes:
+  nats_data:
+    driver: local
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  pgadmin_data:
+    driver: local
+  prometheus_data:
+    driver: local
+  grafana_data:
+    driver: local:
+      - ./logs:/var/log/agents
+      - ./data:/app/data
+    
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+
+  # NATS Messaging
+  nats:
+    image: nats:2.10-alpine
+    container_name: nats
+    ports:
+      - "4222:4222"  # Client connections
+      - "8222:8222"  # HTTP monitoring
+      - "6222:6222"  # Cluster connections
+    command: 
+      - "-js"                    # Enable JetStream
+      - "-m"                     # Enable monitoring
+      - "8222"                   # Monitoring port
+      - "--max_payload"          # Max message size
+      - "10485760"               # 10MB
+      - "--max_connections"
+      - "1000"
+    networks:
+      - agent_network
+    volumes:
+      - nats_data:/data
+    restart: unless-stopped
+
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: postgres
+    environment:
+      - POSTGRES_DB=agentdb
+      - POSTGRES_USER=agent
+      - POSTGRES_PASSWORD=secure_password
+      - POSTGRES_INITDB_ARGS=--encoding=UTF-8 --lc-collate=C --lc-ctype=C
+    ports:
+      - "5432:5432"
+    networks:
+      - agent_network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-db:/docker-entrypoint-initdb.d
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U agent -d agentdb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    command: redis-server --appendonly yes --maxmemory 512mb --maxmemory-policy allkeys-lru
+    ports:
+      - "6379:6379"
+    networks:
+      - agent_network
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # pgAdmin (Optional - for database management)
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@example.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+      - PGADMIN_LISTEN_PORT=80
+    ports:
+      - "5050:80"
+    networks:
+      - agent_network
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    restart: unless-stopped
+    profiles:
+      - tools
+
+  # Prometheus (Optional - for metrics)
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+    ports:
+      - "9090:9090"
+    networks:
+      - agent_network
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    restart: unless-stopped
+    profiles:
+      - monitoring
+
+  # Grafana (Optional - for visualization)
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    ports:
+      - "3000:3000"
+    networks:
+      - agent_network
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./grafana/datasources:/etc/grafana/provisioning/datasources
+    restart: unless-stopped
+    profiles:
+      - monitoring
+
+networks:
+  agent_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+volumes

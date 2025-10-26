@@ -1,0 +1,144 @@
+{
+  "dashboard": {
+    "title": "YMERA Agents - System Overview",
+    "tags": ["ymera", "agents", "monitoring"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "title": "Request Rate",
+        "type": "graph",
+        "datasource": "Prometheus",
+        "targets": [
+          {
+            "expr": "rate(http_requests_total[5m])",
+            "legendFormat": "{{method}} {{endpoint}}"
+          }
+        ],
+        "gridPos": {"x": 0, "y": 0, "w": 12, "h": 8}
+      },
+      {
+        "title": "Request Duration (95th percentile)",
+        "type": "graph",
+        "datasource": "Prometheus",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m]))",
+            "legendFormat": "{{method}} {{endpoint}}"
+          }
+        ],
+        "gridPos": {"x": 12, "y": 0, "w": 12, "h": 8}
+      },
+      {
+        "title": "Error Rate",
+        "type": "graph",
+        "datasource": "Prometheus",
+        "targets": [
+          {
+            "expr": "rate(http_errors_total[5m])",
+            "legendFormat": "{{error_type}}"
+          }
+        ],
+        "gridPos": {"x": 0, "y": 8, "w": 12, "h": 8}
+      },
+      {
+        "title": "Active Connections",
+        "type": "graph",
+        "datasource": "Prometheus",
+        "targets": [
+          {
+            "expr": "http_active_connections",
+            "legendFormat": "Active Connections"
+          }
+        ],
+        "gridPos": {"x": 12, "y": 8, "w": 12, "h": 8}
+      },
+      {
+        "title": "CPU Usage",
+        "type": "graph",
+        "datasource": "Prometheus",
+        "targets": [
+          {
+            "expr": "system_cpu_usage_percent",
+            "legendFormat": "CPU %"
+          }
+        ],
+        "gridPos": {"x": 0, "y": 16, "w": 8, "h": 8}
+      },
+      {
+        "title": "Memory Usage",
+        "type": "graph",
+        "datasource": "Prometheus",
+        "targets": [
+          {
+            "expr": "system_memory_usage_percent",
+            "legendFormat": "Memory %"
+          }
+        ],
+        "gridPos": {"x": 8, "y": 16, "w": 8, "h": 8}
+      },
+      {
+        "title": "Disk Usage",
+        "type": "graph",
+        "datasource": "Prometheus",
+        "targets": [
+          {
+            "expr": "system_disk_usage_percent",
+            "legendFormat": "Disk %"
+          }
+        ],
+        "gridPos": {"x": 16, "y": 16, "w": 8, "h": 8}
+      },
+      {
+        "title": "Agent Processing Rate",
+        "type": "graph",
+        "datasource": "Prometheus",
+        "targets": [
+          {
+            "expr": "rate(agent_processing_total[5m])",
+            "legendFormat": "{{agent_id}}"
+          }
+        ],
+        "gridPos": {"x": 0, "y": 24, "w": 12, "h": 8}
+      },
+      {
+        "title": "Database Query Duration",
+        "type": "graph",
+        "datasource": "Prometheus",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, rate(db_query_duration_seconds_bucket[5m]))",
+            "legendFormat": "{{operation}} {{table}}"
+          }
+        ],
+        "gridPos": {"x": 12, "y": 24, "w": 12, "h": 8}
+      },
+      {
+        "title": "Cache Hit Ratio",
+        "type": "graph",
+        "datasource": "Prometheus",
+        "targets": [
+          {
+            "expr": "rate(cache_hits_total[5m]) / (rate(cache_hits_total[5m]) + rate(cache_misses_total[5m]))",
+            "legendFormat": "{{cache_name}}"
+          }
+        ],
+        "gridPos": {"x": 0, "y": 32, "w": 12, "h": 8}
+      },
+      {
+        "title": "Queue Depth",
+        "type": "graph",
+        "datasource": "Prometheus",
+        "targets": [
+          {
+            "expr": "queue_depth",
+            "legendFormat": "{{queue_name}}"
+          }
+        ],
+        "gridPos": {"x": 12, "y": 32, "w": 12, "h": 8}
+      }
+    ],
+    "refresh": "10s",
+    "schemaVersion": 27,
+    "version": 1
+  }
+}
