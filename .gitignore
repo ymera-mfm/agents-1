@@ -41,6 +41,12 @@ wheels/
 .coverage
 htmlcov/
 .tox/
+backend_test_results.log
+frontend_test_results.log
+backend_coverage.log
+backend_coverage_report/
+test-results/
+playwright-report/
 
 # IDEs
 .vscode/

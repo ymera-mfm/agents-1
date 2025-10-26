@@ -177,7 +177,7 @@ async def get_agent(agent_id: str) -> Dict[str, Any]:
 
 
 @app.delete(f"{settings.api_prefix}/agents/{{agent_id}}")
-async def delete_agent(agent_id: str) -> Dict[str, str]:
+async def delete_agent(agent_id: str) -> Dict[str, Any]:
     """Delete an agent"""
     # This would stop and remove the agent
     
