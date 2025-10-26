@@ -27,7 +27,7 @@ All requested WebSocket load testing infrastructure has been implemented, valida
 
 ### ✅ Support Files (3 files)
 6. **package.json** - Node.js dependencies and npm scripts
-7. **test_websocket_server.py** - Minimal standalone test server
+7. **websocket_test_server.py** - Minimal standalone test server
 8. **validate_websocket_tests.js** - Installation and structure validator
 
 ### ✅ Documentation (4 files)

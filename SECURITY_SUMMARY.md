@@ -17,7 +17,7 @@ October 26, 2025
 ### Python Code
 **Status:** ✅ No security issues found
 
-All Python code (main.py, test_websocket_server.py) passed security analysis with no vulnerabilities detected.
+All Python code (main.py, websocket_test_server.py) passed security analysis with no vulnerabilities detected.
 
 ### JavaScript Code
 **Status:** ✅ Findings reviewed and documented (false positives for test code)

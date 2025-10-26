@@ -101,7 +101,7 @@ Documentation includes:
 - Best practices
 
 ### 8. Test Server ✅
-**File:** `test_websocket_server.py`
+**File:** `websocket_test_server.py`
 
 - Minimal standalone FastAPI server
 - All WebSocket message handlers implemented
@@ -304,7 +304,7 @@ Potential future improvements (not implemented in this PR):
 6. `package.json` - Node.js dependencies
 7. `WEBSOCKET_TESTING_GUIDE.md` - Comprehensive guide (11K chars)
 8. `WEBSOCKET_TESTING_README.md` - Quick reference (2.3K chars)
-9. `test_websocket_server.py` - Minimal test server
+9. `websocket_test_server.py` - Minimal test server
 10. `validate_websocket_tests.js` - Validation script
 
 ### Modified Files (2)

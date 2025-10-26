@@ -34,7 +34,7 @@ CONNECTIONS=250 MESSAGES=30 WS_URL=ws://localhost:8000/ws node websocket_stress_
 - **websocket_stress_test.js** - Standalone stress test script
 - **run_websocket_test.sh** - Linux/Mac test runner
 - **run_websocket_test.bat** - Windows test runner
-- **test_websocket_server.py** - Minimal test server
+- **websocket_test_server.py** - Minimal test server
 - **WEBSOCKET_TESTING_GUIDE.md** - Complete documentation
 
 ## 📊 Expected Output
