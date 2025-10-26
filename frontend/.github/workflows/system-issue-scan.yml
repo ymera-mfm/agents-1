@@ -1,0 +1,283 @@
+name: System Issue Scanner
+
+on:
+  # Run on schedule (daily at 2 AM UTC)
+  schedule:
+    - cron: '0 2 * * *'
+  
+  # Allow manual trigger
+  workflow_dispatch:
+    inputs:
+      create_issue:
+        description: 'Create GitHub issue with results'
+        required: false
+        type: boolean
+        default: true
+  
+  # Run on push to main branch
+  push:
+    branches:
+      - main
+  
+  # Run on pull requests
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  system-scan:
+    name: Run System Issue Scanner
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run system issue scanner
+        id: scan
+        run: |
+          node scripts/system-issue-scanner.js || true
+          echo "scan_completed=true" >> $GITHUB_OUTPUT
+        continue-on-error: true
+      
+      - name: Upload scan report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: system-issue-report
+          path: system-issue-report.json
+          retention-days: 30
+      
+      - name: Parse scan results
+        if: always() && steps.scan.outputs.scan_completed == 'true'
+        id: parse
+        run: |
+          if [ -f system-issue-report.json ]; then
+            TOTAL=$(jq -r '.summary.totalIssues' system-issue-report.json)
+            CRITICAL=$(jq -r '.summary.criticalCount' system-issue-report.json)
+            HIGH=$(jq -r '.summary.highCount' system-issue-report.json)
+            MEDIUM=$(jq -r '.summary.mediumCount' system-issue-report.json)
+            LOW=$(jq -r '.summary.lowCount' system-issue-report.json)
+            INFO=$(jq -r '.summary.infoCount' system-issue-report.json)
+            
+            echo "total_issues=$TOTAL" >> $GITHUB_OUTPUT
+            echo "critical=$CRITICAL" >> $GITHUB_OUTPUT
+            echo "high=$HIGH" >> $GITHUB_OUTPUT
+            echo "medium=$MEDIUM" >> $GITHUB_OUTPUT
+            echo "low=$LOW" >> $GITHUB_OUTPUT
+            echo "info=$INFO" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Format issue details
+        if: always() && steps.parse.outputs.total_issues > 0
+        id: format
+        run: |
+          if [ -f system-issue-report.json ]; then
+            # Extract critical issues
+            CRITICAL_ISSUES=$(jq -r '.issues.critical[] | "1. [\(.category)] \(.title)\n   \(.description)\n   💡 Fix: \(.fix // "No automated fix available")\n"' system-issue-report.json | head -c 5000)
+            [ -z "$CRITICAL_ISSUES" ] && CRITICAL_ISSUES="None found ✅"
+            
+            # Extract high issues
+            HIGH_ISSUES=$(jq -r '.issues.high[] | "1. [\(.category)] \(.title)\n   \(.description)\n   💡 Fix: \(.fix // "No automated fix available")\n"' system-issue-report.json | head -c 5000)
+            [ -z "$HIGH_ISSUES" ] && HIGH_ISSUES="None found ✅"
+            
+            # Extract medium issues
+            MEDIUM_ISSUES=$(jq -r '.issues.medium[] | "1. [\(.category)] \(.title)\n   \(.description)\n   💡 Fix: \(.fix // "No automated fix available")\n"' system-issue-report.json | head -c 5000)
+            [ -z "$MEDIUM_ISSUES" ] && MEDIUM_ISSUES="None found ✅"
+            
+            # Extract low issues
+            LOW_ISSUES=$(jq -r '.issues.low[] | "1. [\(.category)] \(.title)\n   \(.description)\n   💡 Fix: \(.fix // "No automated fix available")\n"' system-issue-report.json | head -c 5000)
+            [ -z "$LOW_ISSUES" ] && LOW_ISSUES="None found ✅"
+            
+            # Save to temp files to handle multiline
+            echo "$CRITICAL_ISSUES" > /tmp/critical.txt
+            echo "$HIGH_ISSUES" > /tmp/high.txt
+            echo "$MEDIUM_ISSUES" > /tmp/medium.txt
+            echo "$LOW_ISSUES" > /tmp/low.txt
+            
+            echo "formatted=true" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Comment on PR
+        if: github.event_name == 'pull_request' && steps.parse.outputs.total_issues
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const total = '${{ steps.parse.outputs.total_issues }}';
+            const critical = '${{ steps.parse.outputs.critical }}';
+            const high = '${{ steps.parse.outputs.high }}';
+            const medium = '${{ steps.parse.outputs.medium }}';
+            const low = '${{ steps.parse.outputs.low }}';
+            
+            let severity = '✅';
+            let message = 'No issues detected!';
+            
+            if (parseInt(critical) > 0) {
+              severity = '🔴';
+              message = 'Critical issues found! Please address immediately.';
+            } else if (parseInt(high) > 0) {
+              severity = '🟠';
+              message = 'High severity issues found. Please review.';
+            } else if (parseInt(medium) > 0) {
+              severity = '🟡';
+              message = 'Medium severity issues found. Consider addressing.';
+            } else if (parseInt(low) > 0) {
+              severity = '🔵';
+              message = 'Low severity issues found. Review when convenient.';
+            }
+            
+            const comment = `## ${severity} System Issue Scan Results
+            
+            ${message}
+            
+            **Summary:**
+            - Total Issues: ${total}
+            - 🔴 Critical: ${critical}
+            - 🟠 High: ${high}
+            - 🟡 Medium: ${medium}
+            - 🔵 Low: ${low}
+            
+            📊 [View detailed report](../actions/runs/${context.runId})
+            
+            ---
+            *Automated scan by System Issue Scanner*`;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+      
+      - name: Create GitHub Issue
+        if: |
+          always() && 
+          steps.parse.outputs.total_issues > 0 &&
+          (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') &&
+          (github.event.inputs.create_issue != 'false')
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const timestamp = new Date().toISOString();
+            const total = '${{ steps.parse.outputs.total_issues }}';
+            const critical = '${{ steps.parse.outputs.critical }}';
+            const high = '${{ steps.parse.outputs.high }}';
+            const medium = '${{ steps.parse.outputs.medium }}';
+            const low = '${{ steps.parse.outputs.low }}';
+            const info = '${{ steps.parse.outputs.info }}';
+            
+            let criticalText = 'None found ✅';
+            let highText = 'None found ✅';
+            let mediumText = 'None found ✅';
+            let lowText = 'None found ✅';
+            
+            try {
+              if (fs.existsSync('/tmp/critical.txt')) {
+                criticalText = fs.readFileSync('/tmp/critical.txt', 'utf8');
+              }
+              if (fs.existsSync('/tmp/high.txt')) {
+                highText = fs.readFileSync('/tmp/high.txt', 'utf8');
+              }
+              if (fs.existsSync('/tmp/medium.txt')) {
+                mediumText = fs.readFileSync('/tmp/medium.txt', 'utf8');
+              }
+              if (fs.existsSync('/tmp/low.txt')) {
+                lowText = fs.readFileSync('/tmp/low.txt', 'utf8');
+              }
+            } catch (e) {
+              console.log('Could not read formatted issues:', e.message);
+            }
+            
+            const trigger = '${{ github.event_name }}' === 'schedule' ? 'Scheduled (CI/CD)' : 'Manual';
+            
+            const body = `**📊 Scan Summary**
+
+            Scan Date: ${timestamp}
+            Total Issues: ${total}
+            - Critical: ${critical}
+            - High: ${high}
+            - Medium: ${medium}
+            - Low: ${low}
+            - Info: ${info}
+
+            **🔴 Critical Issues**
+
+            ${criticalText}
+
+            **🟠 High Severity Issues**
+
+            ${highText}
+
+            **🟡 Medium Severity Issues**
+
+            ${mediumText}
+
+            **🔵 Low Severity Issues**
+
+            ${lowText}
+
+            **🎯 Prioritized Recommendations**
+
+            ${parseInt(critical) > 0 ? '1. [URGENT] Address critical issues immediately\n' : ''}${parseInt(high) > 0 ? '2. [HIGH] Fix high severity issues within this sprint\n' : ''}${parseInt(medium) > 0 ? '3. [MEDIUM] Plan medium severity fixes for next sprint\n' : ''}
+            - Review and triage all reported issues
+            - Assign issues to appropriate team members
+            - Create follow-up tasks for complex fixes
+
+            **📋 Detailed Scan Report**
+
+            Full scan report available in workflow artifacts: [View Run](../actions/runs/${context.runId})
+
+            **🔄 Scan Trigger:** ${trigger}
+
+            ---
+            *This issue was automatically created by the System Issue Scanner*`;
+            
+            const title = `[SYSTEM-ISSUE]: Automated Scan - ${new Date().toISOString().split('T')[0]}`;
+            
+            const labels = ['system-issue', 'automated', 'needs-triage'];
+            if (parseInt(critical) > 0) labels.push('priority:critical');
+            else if (parseInt(high) > 0) labels.push('priority:high');
+            
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: title,
+              body: body,
+              labels: labels
+            });
+      
+      - name: Fail if critical or high issues found
+        if: steps.parse.outputs.critical > 0 || steps.parse.outputs.high > 0
+        run: |
+          echo "❌ Critical or high severity issues found!"
+          echo "Critical: ${{ steps.parse.outputs.critical }}"
+          echo "High: ${{ steps.parse.outputs.high }}"
+          exit 1
+      
+      - name: Summary
+        if: always()
+        run: |
+          echo "## 📊 System Issue Scan Complete" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Total Issues: ${{ steps.parse.outputs.total_issues || '0' }}" >> $GITHUB_STEP_SUMMARY
+          echo "- 🔴 Critical: ${{ steps.parse.outputs.critical || '0' }}" >> $GITHUB_STEP_SUMMARY
+          echo "- 🟠 High: ${{ steps.parse.outputs.high || '0' }}" >> $GITHUB_STEP_SUMMARY
+          echo "- 🟡 Medium: ${{ steps.parse.outputs.medium || '0' }}" >> $GITHUB_STEP_SUMMARY
+          echo "- 🔵 Low: ${{ steps.parse.outputs.low || '0' }}" >> $GITHUB_STEP_SUMMARY
+          echo "- ⚪ Info: ${{ steps.parse.outputs.info || '0' }}" >> $GITHUB_STEP_SUMMARY

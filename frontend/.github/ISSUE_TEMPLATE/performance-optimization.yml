@@ -1,0 +1,248 @@
+name: "⚡ Performance Optimization"
+description: Analyze and optimize system performance with structured approach
+title: "[PERF]: "
+labels: ["performance", "optimization"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## ⚡ Performance Optimization Request
+        Provide detailed performance metrics to help identify and implement optimizations.
+
+  - type: textarea
+    id: performance-issue
+    attributes:
+      label: "Performance Issue Description"
+      description: "What performance problem needs optimization?"
+      placeholder: "API endpoint /api/users/search is responding slowly under load..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-metrics
+    attributes:
+      label: "📊 Current Performance Metrics (Real Data)"
+      description: "Provide actual measurements, not assumptions!"
+      placeholder: |
+        **Response Time:**
+        - P50: 850ms
+        - P95: 2.3s
+        - P99: 4.1s
+        
+        **Throughput:**
+        - Current: 120 requests/second
+        - Target: 500 requests/second
+        
+        **Resource Usage:**
+        - CPU: 78% average, 95% peak
+        - Memory: 2.1GB / 4GB (growing over time)
+        
+        **Bundle Size:**
+        - Main bundle: 229KB gzipped
+        - Total size: 380KB gzipped
+        
+        **Load Performance:**
+        - FCP: 1.8s
+        - LCP: 3.2s
+        - TTI: 4.5s
+    validations:
+      required: true
+
+  - type: textarea
+    id: target-metrics
+    attributes:
+      label: "🎯 Target Performance Metrics"
+      description: "What are the performance goals?"
+      placeholder: |
+        **Response Time:**
+        - P50: <100ms (8.5x improvement)
+        - P95: <250ms (9.2x improvement)
+        - P99: <500ms (8.2x improvement)
+        
+        **Resource Usage:**
+        - CPU: <40% average, <70% peak
+        - Memory: Stable at <1GB
+        
+        **Bundle Size:**
+        - Main bundle: <150KB gzipped
+        - Total size: <250KB gzipped
+        
+        **Load Performance:**
+        - FCP: <1.0s
+        - LCP: <2.5s
+        - TTI: <3.0s
+    validations:
+      required: true
+
+  - type: textarea
+    id: bottleneck-analysis
+    attributes:
+      label: "🔍 Bottleneck Analysis (with Evidence)"
+      description: "What are the identified bottlenecks? Include profiling data"
+      placeholder: |
+        **Profiling Results:**
+        1. Large Bundle Size (45% of load time)
+           - Main bundle too large
+           - Not using code splitting effectively
+        
+        2. Inefficient Rendering (30% of time)
+           - Unnecessary re-renders
+           - Missing React.memo optimizations
+        
+        3. Unoptimized Images (15% of time)
+           - Large image sizes
+           - No lazy loading
+        
+        **Evidence:**
+        - Chrome DevTools Lighthouse report
+        - Bundle analyzer report
+        - React DevTools profiler data
+    validations:
+      required: true
+
+  - type: textarea
+    id: affected-components
+    attributes:
+      label: "📁 Affected Components & Files"
+      description: "Which files/modules need optimization?"
+      placeholder: |
+        **Primary Components:**
+        - `src/App.js` (code splitting optimization)
+        - `src/components/` (React.memo implementation)
+        - `src/services/api.js` (request caching)
+        - `public/images/` (image optimization)
+        
+        **Supporting Files:**
+        - `package.json` (dependency optimization)
+        - `webpack.config.js` (build optimization)
+    validations:
+      required: true
+
+  - type: textarea
+    id: optimization-strategies
+    attributes:
+      label: "💡 Optimization Strategies"
+      description: "What optimization approaches should be implemented?"
+      value: |
+        **Frontend Optimizations:**
+        - [ ] Implement React.memo for pure components
+        - [ ] Add React.lazy for route-based code splitting
+        - [ ] Optimize bundle size with tree shaking
+        - [ ] Implement virtual scrolling for large lists
+        - [ ] Add image lazy loading
+        - [ ] Optimize images (WebP, compression)
+        
+        **Caching Optimizations:**
+        - [ ] Implement request caching with cache service
+        - [ ] Add service worker for offline caching
+        - [ ] Use localStorage for persistent data
+        - [ ] Implement stale-while-revalidate pattern
+        
+        **Code Optimizations:**
+        - [ ] Remove unnecessary dependencies
+        - [ ] Optimize re-renders with useMemo/useCallback
+        - [ ] Debounce expensive operations
+        - [ ] Use Web Workers for heavy computations
+        
+        **Build Optimizations:**
+        - [ ] Enable production mode optimizations
+        - [ ] Implement code splitting
+        - [ ] Tree shake unused code
+        - [ ] Minify and compress assets
+    validations:
+      required: true
+
+  - type: textarea
+    id: benchmarking-plan
+    attributes:
+      label: "📈 Benchmarking Plan"
+      description: "How will improvements be measured?"
+      value: |
+        **Baseline Benchmarks:**
+        - Run Lighthouse performance audit
+        - Measure bundle size with webpack-bundle-analyzer
+        - Profile with React DevTools
+        - Test with realistic data sets
+        
+        **Testing Tools:**
+        - Lighthouse CI for performance scores
+        - webpack-bundle-analyzer for bundle analysis
+        - React DevTools Profiler for render performance
+        - Chrome DevTools for network/memory analysis
+        
+        **Success Criteria:**
+        - Lighthouse performance score > 90
+        - Bundle size reduced by 30%+
+        - Page load time < 3s on 3G
+        - Memory usage stable over time
+    validations:
+      required: true
+
+  - type: textarea
+    id: testing-requirements
+    attributes:
+      label: "🧪 Testing Requirements"
+      description: "What tests are needed to validate optimizations?"
+      value: |
+        **Performance Tests:**
+        - [ ] Lighthouse performance audit
+        - [ ] Bundle size analysis
+        - [ ] Load time tests
+        - [ ] Memory leak detection
+        
+        **Functional Tests:**
+        - [ ] All existing functionality works
+        - [ ] No visual regressions
+        - [ ] Interactive features respond quickly
+        - [ ] Error handling works correctly
+        
+        **Benchmarks:**
+        - [ ] Compare before/after metrics
+        - [ ] Verify target metrics achieved
+        - [ ] Check resource usage improvements
+        - [ ] Validate render performance gains
+    validations:
+      required: true
+
+  - type: dropdown
+    id: optimization-priority
+    attributes:
+      label: "Priority Level"
+      options:
+        - "🔴 Critical - System struggling under current load"
+        - "🟠 High - Performance degrading user experience"
+        - "🟡 Medium - Proactive optimization"
+        - "🟢 Low - Nice to have improvement"
+      default: 1
+    validations:
+      required: true
+
+  - type: textarea
+    id: rollback-plan
+    attributes:
+      label: "↩️ Rollback Plan"
+      description: "How to revert if optimizations cause issues?"
+      value: |
+        - [ ] Tag current stable version before changes
+        - [ ] Keep feature flags for new optimization code
+        - [ ] Maintain backward-compatible code paths
+        - [ ] Document rollback procedure
+        - [ ] Test rollback process before deployment
+        - [ ] Monitor error rates after deployment
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: "📚 Additional Context"
+      description: "Any other information relevant to optimization?"
+      placeholder: |
+        - User complaints about slow loading
+        - Metrics from production monitoring
+        - Business impact of performance issues
+        - Budget/time constraints
+    validations:
+      required: false

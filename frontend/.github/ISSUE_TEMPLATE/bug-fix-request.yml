@@ -1,0 +1,170 @@
+name: "🐛 Bug Fix Request"
+description: Report and fix bugs with Copilot assistance
+title: "[BUG]: "
+labels: ["bug", "needs-triage", "copilot-task"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🐛 Bug Report for Copilot
+        Provide detailed bug information to help Copilot identify and fix issues efficiently.
+
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: "Bug Description"
+      description: "Clear, concise description of the bug"
+      placeholder: "The user authentication fails when using OAuth2 with Google provider..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction-steps
+    attributes:
+      label: "🔄 Reproduction Steps"
+      description: "Step-by-step instructions to reproduce the bug"
+      placeholder: |
+        1. Navigate to '/login'
+        2. Click 'Sign in with Google'
+        3. Complete Google OAuth flow
+        4. Observe the error: "Invalid token signature"
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: "❌ Actual Behavior (with Real Output)"
+      description: "What actually happens? Include error messages, logs, screenshots"
+      placeholder: |
+        Error in console:
+        ```
+        TypeError: Cannot read property 'id' of undefined
+            at UserService.validateToken (src/services/user-service.js:45)
+            at OAuthHandler.callback (src/auth/oauth-handler.js:89)
+        ```
+        
+        Network Response:
+        Status: 500
+        Body: {"error": "Internal Server Error"}
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: "✅ Expected Behavior"
+      description: "What should happen instead?"
+      placeholder: |
+        User should be:
+        1. Successfully authenticated
+        2. Redirected to dashboard at '/dashboard'
+        3. User session created with JWT token
+        4. Response: 200 OK with user object
+    validations:
+      required: true
+
+  - type: textarea
+    id: affected-files
+    attributes:
+      label: "📁 Affected Files"
+      description: "Which files are involved in this bug?"
+      placeholder: |
+        - `src/auth/oauth-handler.js` (lines 85-95)
+        - `src/services/user-service.js` (lines 40-50)
+        - `src/middleware/token-validator.js`
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: "🖥️ Environment"
+      description: "Where does this bug occur?"
+      value: |
+        - **OS**: 
+        - **Browser**: 
+        - **Node Version**: 
+        - **Package Version**: 
+        - **Environment**: Development / Staging / Production
+    validations:
+      required: true
+
+  - type: textarea
+    id: root-cause
+    attributes:
+      label: "🔍 Root Cause Analysis (if known)"
+      description: "What's causing the bug?"
+      placeholder: |
+        The OAuth callback handler expects `user.id` but Google OAuth returns `user.sub` instead.
+        The code doesn't handle this discrepancy.
+    validations:
+      required: false
+
+  - type: textarea
+    id: proposed-fix
+    attributes:
+      label: "💡 Proposed Fix"
+      description: "How should this be fixed?"
+      value: |
+        - [ ] Add mapping layer for OAuth provider differences
+        - [ ] Update user service to handle both 'id' and 'sub' fields
+        - [ ] Add validation for OAuth response structure
+        - [ ] Include error handling for missing required fields
+        - [ ] Add tests for different OAuth providers
+    validations:
+      required: true
+
+  - type: textarea
+    id: test-requirements
+    attributes:
+      label: "🧪 Test Requirements"
+      description: "What tests are needed?"
+      value: |
+        - [ ] Unit test for OAuth response mapping
+        - [ ] Integration test for Google OAuth flow
+        - [ ] Error case: Invalid OAuth response
+        - [ ] Error case: Missing user identifier
+        - [ ] Test with real OAuth provider (sandbox)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: "Priority"
+      options:
+        - "🔴 Critical - Blocking production"
+        - "🟠 High - Major functionality broken"
+        - "🟡 Medium - Workaround available"
+        - "🟢 Low - Minor issue"
+      default: 2
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: "Severity"
+      options:
+        - "💥 Crash/Data Loss"
+        - "⛔ Major Feature Broken"
+        - "⚠️ Minor Feature Broken"
+        - "📝 Cosmetic/UI Issue"
+      default: 1
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: "📚 Additional Context"
+      description: "Anything else Copilot should know?"
+      placeholder: |
+        - Started happening after deployment on 2025-10-15
+        - Related to PR #456
+        - Similar issue reported in #789
+    validations:
+      required: false

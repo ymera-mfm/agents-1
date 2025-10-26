@@ -1,0 +1,37 @@
+# Development Dockerfile for AgentFlow
+
+FROM node:18-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Install dependencies for development
+RUN apk add --no-cache \
+    git \
+    curl \
+    && rm -rf /var/cache/apk/*
+
+# Copy package files
+COPY package*.json ./
+
+# Install all dependencies (including dev dependencies)
+RUN npm install
+
+# Copy source code
+COPY . .
+
+# Create non-root user
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S agentflow -u 1001 -G nodejs
+
+# Set ownership
+RUN chown -R agentflow:nodejs /app
+
+# Switch to non-root user
+USER agentflow
+
+# Expose port
+EXPOSE 3000
+
+# Start development server
+CMD ["npm", "start"]

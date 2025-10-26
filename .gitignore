@@ -1,6 +1,103 @@
 
-
 #Ignore vscode AI rules
 .github/instructions/codacy.instructions.md
+.github/agents/
 agents_live-main/
 agents_live-main.zip
+
+# Copilot SWE Agent
+copilot-swe-agent.log
+.copilot-swe-agent
+.agent-output
+tmp_changes
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment
+.env
+.env.local
+.env.production
+
+# Logs
+*.log
+logs/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+.dockerignore
+
+# Monitoring
+prometheus_data/
+grafana_data/
+
+# Frontend specific
+frontend/node_modules/
+frontend/build/
+frontend/dist/
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/.DS_Store
+frontend/coverage/
+frontend/.cache/
+frontend/.parcel-cache/
+
+# Temporary files
+*.tmp
+*.temp
+/tmp/
+
+# Archives
+*.zip
+*.tar
+*.tar.gz
+*.rar

@@ -1,0 +1,334 @@
+name: "🔍 System Analysis & Optimization"
+description: Comprehensive system analysis, testing, fixing, and optimization workflow
+title: "[SYSTEM-ANALYSIS]: "
+labels: ["system-analysis", "optimization", "needs-testing", "copilot-task"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 📋 Overview
+        This template guides Copilot through a systematic approach to analyze, test, fix, and optimize system components.
+        
+        **For best Copilot results:** Be specific, provide context, and include file paths.
+
+  - type: textarea
+    id: system-description
+    attributes:
+      label: "System/Component Description"
+      description: "What system or component needs analysis? Provide clear context about its purpose and current state."
+      placeholder: |
+        Example: User authentication module in `src/auth/` directory that handles JWT tokens and OAuth integration.
+        Current status: Working but experiencing performance issues under high load.
+    validations:
+      required: true
+
+  - type: textarea
+    id: files-involved
+    attributes:
+      label: "📁 Files & Directories Involved"
+      description: "List specific files, directories, or modules that need attention. Be explicit!"
+      placeholder: |
+        - `src/auth/jwt-handler.js`
+        - `src/auth/oauth-provider.js`
+        - `src/middleware/auth-middleware.js`
+        - `tests/auth/` (directory)
+    validations:
+      required: true
+
+  - type: textarea
+    id: analysis-requirements
+    attributes:
+      label: "🔬 Analysis Requirements"
+      description: "What specific aspects need analysis?"
+      value: |
+        - [ ] Code structure and architecture review
+        - [ ] Performance bottlenecks identification
+        - [ ] Security vulnerabilities scan
+        - [ ] Code duplication detection
+        - [ ] Dependency conflicts check
+        - [ ] Memory leak analysis
+        - [ ] Database query optimization
+        - [ ] API endpoint performance
+        - [ ] Error handling coverage
+        - [ ] Code complexity metrics
+    validations:
+      required: true
+
+  - type: textarea
+    id: testing-strategy
+    attributes:
+      label: "🧪 Testing Strategy & Expected Outputs"
+      description: "Define how testing should be performed with REAL expected outputs (not assumptions)"
+      placeholder: |
+        **Test Scenarios:**
+        1. Load test with 1000 concurrent users
+           - Expected: Response time < 200ms
+           - Current: Response time ~800ms
+        
+        2. Memory usage under sustained load
+           - Expected: Stable memory at ~500MB
+           - Current: Growing to 2GB over 1 hour
+        
+        3. Database query performance
+           - Expected: Queries complete in < 50ms
+           - Current: Some queries take 300-500ms
+        
+        **Real Data Requirements:**
+        - Use production-like dataset (10,000+ records)
+        - Test with actual user behavior patterns
+        - Measure metrics over 24-hour period
+    validations:
+      required: true
+
+  - type: textarea
+    id: known-issues
+    attributes:
+      label: "⚠️ Known Issues & Symptoms"
+      description: "Document current problems with real examples and error messages"
+      placeholder: |
+        1. Memory leak in token refresh mechanism
+           - Error: "Maximum call stack exceeded" after 6 hours uptime
+           - Frequency: Every deployment
+           - Impact: Requires service restart
+        
+        2. Database connection pooling issues
+           - Error: "Too many connections"
+           - Occurs when: >500 concurrent users
+        
+        3. Duplicate code in authentication handlers
+           - Locations: jwt-handler.js (lines 45-89) and oauth-provider.js (lines 102-146)
+    validations:
+      required: false
+
+  - type: textarea
+    id: fixing-approach
+    attributes:
+      label: "🔧 Systematic Fixing Approach"
+      description: "Define the step-by-step fixing methodology"
+      value: |
+        **Priority Order:**
+        1. Critical bugs (security, crashes, data loss)
+        2. Performance bottlenecks
+        3. Code duplication and conflicts
+        4. Technical debt and refactoring
+        5. Documentation updates
+        
+        **Fixing Process:**
+        - [ ] Create characterization tests before changes
+        - [ ] Fix one issue at a time
+        - [ ] Run full test suite after each fix
+        - [ ] Document each change with reasoning
+        - [ ] Commit incrementally with clear messages
+        - [ ] Benchmark performance improvements
+        - [ ] Update relevant documentation
+    validations:
+      required: true
+
+  - type: textarea
+    id: optimization-targets
+    attributes:
+      label: "⚡ Optimization Targets"
+      description: "Specific performance and quality improvements needed"
+      placeholder: |
+        **Performance Goals:**
+        - Reduce response time from 800ms to <200ms
+        - Decrease memory usage by 60%
+        - Improve database query efficiency by 4x
+        
+        **Code Quality Goals:**
+        - Reduce cyclomatic complexity from 45 to <15
+        - Increase test coverage from 45% to 85%
+        - Eliminate all code duplication
+        
+        **Scalability Goals:**
+        - Support 5,000 concurrent users (currently 500)
+        - Handle 10x current data volume
+    validations:
+      required: true
+
+  - type: dropdown
+    id: upgrade-opportunities
+    attributes:
+      label: "📦 System Upgrade Opportunities"
+      description: "Should Copilot look for upgrade opportunities?"
+      options:
+        - "Yes - Check for all possible upgrades"
+        - "Yes - Only security-critical upgrades"
+        - "Yes - Only dependency upgrades"
+        - "No - Keep current versions"
+      default: 0
+    validations:
+      required: true
+
+  - type: textarea
+    id: upgrade-specifications
+    attributes:
+      label: "📦 Upgrade Specifications (if applicable)"
+      description: "Define constraints and requirements for upgrades"
+      placeholder: |
+        **Allowed Upgrades:**
+        - Node.js: Current 16.x → Target 20.x LTS
+        - React: Current 17.x → Target 18.x
+        - Dependencies: Patch and minor versions only
+        
+        **Upgrade Constraints:**
+        - Must maintain backward compatibility with API v2
+        - No breaking changes to public interfaces
+        - All tests must pass without modification
+        - Follow semantic versioning
+        
+        **Testing Requirements After Upgrade:**
+        - Run full integration test suite
+        - Perform load testing
+        - Check for deprecated API usage
+    validations:
+      required: false
+
+  - type: textarea
+    id: integration-requirements
+    attributes:
+      label: "🔌 Integration & Expansion Requirements"
+      description: "How should the system remain ready for integration and future expansion?"
+      value: |
+        **Integration Readiness:**
+        - [ ] Maintain clean, documented APIs
+        - [ ] Use dependency injection for flexibility
+        - [ ] Implement proper abstraction layers
+        - [ ] Follow SOLID principles
+        - [ ] Ensure loose coupling between modules
+        
+        **Expansion Readiness:**
+        - [ ] Design for extensibility (plugins, hooks)
+        - [ ] Document extension points
+        - [ ] Maintain backward compatibility
+        - [ ] Use feature flags for new functionality
+        - [ ] Keep configuration externalized
+        
+        **Documentation Requirements:**
+        - [ ] API documentation (OpenAPI/Swagger)
+        - [ ] Architecture diagrams
+        - [ ] Setup and configuration guides
+        - [ ] Code-level documentation
+        - [ ] Integration examples
+    validations:
+      required: true
+
+  - type: textarea
+    id: duplicate-conflict-removal
+    attributes:
+      label: "🧹 Duplicate & Conflict Removal Strategy"
+      description: "How to identify and resolve duplicates/conflicts"
+      value: |
+        **Duplicate Detection:**
+        - [ ] Scan for duplicate code blocks (>10 lines similar)
+        - [ ] Identify duplicate logic with different implementations
+        - [ ] Find repeated utility functions
+        - [ ] Detect redundant configuration
+        - [ ] Check for duplicate dependencies
+        
+        **Conflict Resolution:**
+        - [ ] Identify version conflicts in dependencies
+        - [ ] Resolve naming conflicts
+        - [ ] Consolidate configuration inconsistencies
+        - [ ] Standardize coding patterns
+        - [ ] Unify error handling approaches
+        
+        **Consolidation Rules:**
+        - Extract common code to shared utilities
+        - Use inheritance/composition for repeated patterns
+        - Create single source of truth for constants
+        - Centralize configuration management
+    validations:
+      required: true
+
+  - type: textarea
+    id: coding-standards
+    attributes:
+      label: "📝 Coding Standards & Context"
+      description: "Provide coding standards so Copilot matches your style"
+      placeholder: |
+        **Language Standards:**
+        - JavaScript: ES6+, use async/await over promises
+        - TypeScript: Strict mode enabled
+        - Style: Prettier with custom config
+        
+        **Naming Conventions:**
+        - camelCase for variables and functions
+        - PascalCase for classes and components
+        - UPPER_SNAKE_CASE for constants
+        
+        **Testing Standards:**
+        - Jest for unit tests
+        - Minimum 80% coverage required
+        - Integration tests for all API endpoints
+        
+        **Documentation:**
+        - JSDoc for all public functions
+        - README for each module
+        - Architecture Decision Records (ADRs) for major changes
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: "✅ Acceptance Criteria"
+      description: "Define what constitutes successful completion"
+      value: |
+        - [ ] All identified bugs are fixed with tests
+        - [ ] Performance targets are met or exceeded
+        - [ ] Test coverage is at minimum 85%
+        - [ ] No code duplication remains (DRY principle)
+        - [ ] All conflicts are resolved
+        - [ ] Documentation is complete and accurate
+        - [ ] Code passes all linting and quality checks
+        - [ ] Security scan shows no vulnerabilities
+        - [ ] Load tests pass with target metrics
+        - [ ] CI/CD pipeline runs successfully
+        - [ ] Peer review is completed and approved
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: "📚 Additional Context"
+      description: "Any other information Copilot should know"
+      placeholder: |
+        - Related issues: #123, #456
+        - Previous attempts and why they failed
+        - Business constraints or deadlines
+        - External dependencies or integrations
+        - Team members to consult for specific areas
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: copilot-tools
+    attributes:
+      label: "🤖 Copilot Tools to Use"
+      description: "Which Copilot features should be leveraged?"
+      options:
+        - label: "Code completion for implementation"
+        - label: "Copilot Chat for architecture discussions"
+        - label: "Code review and suggestions"
+        - label: "Test generation"
+        - label: "Documentation generation"
+        - label: "Refactoring suggestions"
+        - label: "Performance optimization hints"
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## 💡 Tips for Copilot Success
+        
+        1. **Be Specific**: The more details you provide, the better Copilot can help
+        2. **Include Examples**: Show current vs. expected behavior with real data
+        3. **Break Down Large Tasks**: If too complex, split into multiple issues
+        4. **Provide Context**: Share architecture diagrams, coding standards, related files
+        5. **Iterate**: Start with simple fixes, then move to optimizations
+        
+        **This template is optimized for GitHub Copilot coding agent** 🚀

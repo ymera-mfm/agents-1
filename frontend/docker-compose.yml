@@ -1,0 +1,131 @@
+version: '3.8'
+
+services:
+  # Frontend application
+  agentflow-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: agentflow-frontend
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - NODE_ENV=production
+    volumes:
+      # SSL certificates (uncomment and adjust paths as needed)
+      # - ./ssl/cert.pem:/etc/ssl/certs/cert.pem:ro
+      # - ./ssl/key.pem:/etc/ssl/private/key.pem:ro
+      - ./logs:/var/log/nginx
+    restart: unless-stopped
+    networks:
+      - agentflow-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Redis for caching (optional)
+  redis:
+    image: redis:7-alpine
+    container_name: agentflow-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+    networks:
+      - agentflow-network
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-agentflow123}
+
+  # Monitoring with Prometheus (optional)
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: agentflow-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    restart: unless-stopped
+    networks:
+      - agentflow-network
+
+  # Grafana for visualization (optional)
+  grafana:
+    image: grafana/grafana:latest
+    container_name: agentflow-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin123}
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources:ro
+    restart: unless-stopped
+    networks:
+      - agentflow-network
+    depends_on:
+      - prometheus
+
+  # Nginx Proxy Manager (optional, for SSL and domain management)
+  nginx-proxy-manager:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: agentflow-proxy-manager
+    ports:
+      - '80:80'
+      - '81:81'
+      - '443:443'
+    environment:
+      DB_MYSQL_HOST: "npm-db"
+      DB_MYSQL_PORT: 3306
+      DB_MYSQL_USER: "npm"
+      DB_MYSQL_PASSWORD: "npm"
+      DB_MYSQL_NAME: "npm"
+    volumes:
+      - npm-data:/data
+      - npm-ssl:/etc/letsencrypt
+    restart: unless-stopped
+    networks:
+      - agentflow-network
+    depends_on:
+      - npm-db
+
+  # Database for Nginx Proxy Manager
+  npm-db:
+    image: 'jc21/mariadb-aria:latest'
+    container_name: agentflow-npm-db
+    environment:
+      MYSQL_ROOT_PASSWORD: 'npm'
+      MYSQL_DATABASE: 'npm'
+      MYSQL_USER: 'npm'
+      MYSQL_PASSWORD: 'npm'
+    volumes:
+      - npm-db-data:/var/lib/mysql
+    restart: unless-stopped
+    networks:
+      - agentflow-network
+
+networks:
+  agentflow-network:
+    driver: bridge
+
+volumes:
+  redis-data:
+  prometheus-data:
+  grafana-data:
+  npm-data:
+  npm-ssl:
+  npm-db-data:
