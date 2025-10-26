@@ -126,6 +126,8 @@ class WebSocketStressTest {
   async sendMessagesFromConnection(ws) {
     for (let i = 0; i < this.messagesPerConnection; i++) {
       if (ws.readyState === WebSocket.OPEN) {
+        // Note: Math.random() is sufficient for load testing purposes (generating test data)
+        // This is not used for security-sensitive operations
         const message = {
           type: 'agent_message',
           from: `test_user_${Math.random()}`,

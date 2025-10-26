@@ -11,12 +11,16 @@ module.exports = {
 };
 
 function generateUserId(context, events, done) {
+  // Note: Math.random() is sufficient for load testing purposes (generating test user IDs)
+  // This is not used for security-sensitive operations
   context.vars.userId = 'user_' + Math.floor(Math.random() * 1000000);
   context.vars.agentId = 'agent_' + Math.floor(Math.random() * 10000);
   return done();
 }
 
 function sendAgentMessage(context, events, done) {
+  // Note: Math.random() is sufficient for load testing purposes (choosing test actions)
+  // This is not used for security-sensitive operations
   const message = {
     type: 'agent_message',
     from: context.vars.userId,
