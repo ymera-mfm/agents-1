@@ -1,188 +1,192 @@
-# AgentFlow - AI Agent Orchestration Platform
+# YMERA Multi-Agent AI System
+
+A robust, production-ready enterprise platform designed to manage and execute tasks using multiple specialized AI agents with a modern React-based frontend interface.
 
 ## 📋 Overview
 
-This repository contains the **AgentFlow Frontend System**, a production-ready, comprehensive AI agent orchestration platform built with React. The system provides a complete interface for managing AI agents, projects, and real-time collaboration.
+This repository contains a complete full-stack AI agent orchestration platform:
 
-## 🎯 What's Included
+- **Backend**: Python-based multi-agent system with FastAPI, PostgreSQL, Redis, and NATS
+- **Frontend**: React-based UI with 3D visualization, real-time WebSocket updates, and comprehensive agent management
 
-### Frontend Application (Production-Ready ✅)
+## 🎯 System Architecture
 
-A complete React-based frontend system featuring:
+```
+agents-1/
+├── backend/                    # Python backend (root level)
+│   ├── agent_communication.py  # Agent communication system
+│   ├── agent_monitoring.py     # Monitoring and health checks
+│   ├── base_agent.py           # Base agent implementation
+│   ├── config.py               # Configuration management
+│   ├── database.py             # Database connections
+│   ├── logger.py               # Logging utilities
+│   ├── main.py                 # FastAPI application entry
+│   ├── requirements.txt        # Python dependencies
+│   └── tests/                  # Backend tests
+├── frontend/                   # React frontend application
+│   ├── src/                    # Frontend source code
+│   ├── public/                 # Static assets
+│   ├── docs/                   # Frontend documentation
+│   └── package.json            # Node dependencies
+└── docs/                       # System documentation
+```
 
+## ✨ Key Features
+
+### Backend Features
+- **Modular Architecture**: Component-based design with specialized agents
+- **Production-Ready**: Enhanced security, observability, and scalability
+- **Enterprise-Grade**: Suitable for Kubernetes deployment
+- **Multi-Agent System**: Supports multiple specialized agents working together
+- **Real-time Communication**: NATS-based message broker for inter-agent communication
+- **Comprehensive Monitoring**: Built-in health checks and metrics collection
+- **FastAPI REST API**: Modern async Python web framework
+- **WebSocket Support**: Real-time bidirectional communication
+
+### Frontend Features
 - **12 Complete Pages**: Dashboard, Agents, Projects, Analytics, Monitoring, and more
 - **3D Visualization**: Interactive 3D representations of agents and projects using Three.js
-- **Real-time Features**: WebSocket integration for live updates and communication
+- **Real-time Updates**: WebSocket integration for live agent status and project monitoring
 - **File Operations**: Upload/download capabilities with progress tracking
 - **Responsive Design**: Mobile-first design that works on all devices
-- **Security Hardened**: Input validation, XSS/CSRF protection, secure authentication
+- **Security Hardened**: Input validation, XSS/CSRF protection, JWT authentication
 - **Performance Optimized**: Code splitting, lazy loading, optimized bundle size
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 
+**Backend:**
+- Python 3.11+
+- Docker and Docker Compose
+- PostgreSQL 16+
+- Redis 7+
+- NATS Server
+
+**Frontend:**
 - Node.js 18.0.0 or higher
 - npm 8.0.0 or higher
 
-### Installation
+### Full System Installation
 
+1. Clone the repository:
 ```bash
-# Navigate to the frontend directory
-cd frontend
-
-# Install dependencies
-npm install
-
-# Start the development server
-npm start
+git clone https://github.com/ymera-mfm/agents-1.git
+cd agents-1
 ```
 
-The application will open at `http://localhost:3000`
+### Backend Setup
 
-### Production Build
-
+2. Create Python virtual environment:
 ```bash
-# Navigate to the frontend directory
-cd frontend
-
-# Create an optimized production build
-npm run build
-
-# Serve the production build
-npm run serve
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
-## 📁 Repository Structure
-
-```
-agents-1/
-├── .github/                    # GitHub workflows and configurations
-│   ├── copilot-instructions.md # Instructions for GitHub Copilot
-│   └── workflows/              # CI/CD workflows
-├── frontend/                   # Complete frontend application
-│   ├── src/                    # Source code
-│   │   ├── components/         # Reusable UI components
-│   │   ├── pages/              # Page components
-│   │   ├── features/           # Feature-specific components
-│   │   ├── services/           # API and service integrations
-│   │   ├── hooks/              # Custom React hooks
-│   │   ├── utils/              # Utility functions
-│   │   └── context/            # React context providers
-│   ├── public/                 # Static assets
-│   ├── docs/                   # Comprehensive documentation
-│   ├── e2e/                    # End-to-end tests
-│   ├── scripts/                # Build and deployment scripts
-│   ├── package.json            # Dependencies and scripts
-│   ├── README.md               # Frontend-specific documentation
-│   └── ...                     # Configuration files
-├── .gitignore                  # Git ignore rules
-└── README.md                   # This file
-```
-
-## 🎨 Key Features
-
-### 🤖 Agent Management
-- Create and manage multiple AI agents
-- Real-time agent status monitoring
-- 3D visualization of agent networks
-- Direct chat interface with agents
-- Performance metrics and analytics
-
-### 🏗️ Project Management
-- Project creation and configuration
-- Live build monitoring with 3D visualization
-- Real-time progress tracking
-- File upload and download
-- Build history and logs
-
-### 💬 Real-Time Communication
-- WebSocket-powered live updates
-- Team collaboration features
-- Agent interaction during builds
-- Notifications and alerts
-
-### 📊 Analytics & Monitoring
-- Comprehensive dashboard with metrics
-- Real-time system monitoring
-- Performance analytics
-- Resource usage tracking
-- Alert management
-
-### 🔐 Security
-- JWT authentication ready
-- Role-based access control (RBAC)
-- Input validation on all forms
-- XSS and CSRF protection
-- Secure WebSocket connections
-- Environment variable protection
-
-### ⚡ Performance
-- Code splitting and lazy loading
-- Optimized bundle size (150KB gzipped)
-- Component memoization
-- Virtualized lists for large datasets
-- Service worker for offline support
-
-## 📖 Documentation
-
-The frontend directory contains extensive documentation:
-
-- **[README.md](frontend/README.md)** - Frontend overview and setup
-- **[EXECUTIVE_SUMMARY.md](frontend/EXECUTIVE_SUMMARY.md)** - System summary and status
-- **[BACKEND_INTEGRATION_GUIDE.md](frontend/BACKEND_INTEGRATION_GUIDE.md)** - Complete backend integration guide
-- **[FEATURES_AND_FUNCTIONALITY.md](frontend/FEATURES_AND_FUNCTIONALITY.md)** - Detailed feature documentation
-- **[SYSTEM_DIAGNOSTICS_REPORT.md](frontend/SYSTEM_DIAGNOSTICS_REPORT.md)** - System diagnostics and status
-- **[SECURITY.md](frontend/SECURITY.md)** - Security policies and practices
-- **[CONTRIBUTING.md](frontend/CONTRIBUTING.md)** - Contribution guidelines
-
-Additional documentation is available in the `frontend/docs/` directory.
-
-## 🔌 Backend Integration
-
-The frontend is designed to integrate with a backend API. See the [Backend Integration Guide](frontend/BACKEND_INTEGRATION_GUIDE.md) for:
-
-- Complete API endpoint specifications (50+ endpoints)
-- WebSocket event definitions (15+ events)
-- Authentication flow (JWT-based)
-- Data models and schemas
-- Error handling standards
-- Deployment configuration
-
-### Quick Backend Setup
-
-1. Configure your backend API URL:
+3. Install backend dependencies:
 ```bash
-cd frontend
+pip install -r requirements.txt
+```
+
+4. Setup backend environment:
+```bash
 cp .env.example .env
-# Edit .env and set REACT_APP_API_URL and REACT_APP_WS_URL
+# Edit .env with your configuration
 ```
 
-2. Test the connection:
-```javascript
-import backendIntegration from './utils/backendIntegration';
-const result = await backendIntegration.testConnection();
-```
-
-## 🐳 Docker Deployment
-
-The frontend includes Docker support for easy deployment:
-
+5. Start backend services with Docker Compose:
 ```bash
-cd frontend
-
-# Build Docker image
-npm run docker:build
-
-# Run with Docker Compose
-npm run docker:compose:up
-
-# Or use docker-compose directly
 docker-compose up -d
 ```
 
+6. Run the backend application:
+```bash
+python main.py
+```
+
+The API will be available at `http://localhost:8000`
+
+### Frontend Setup
+
+7. Navigate to the frontend directory:
+```bash
+cd frontend
+```
+
+8. Install frontend dependencies:
+```bash
+npm install
+```
+
+9. Configure frontend environment:
+```bash
+cp .env.example .env
+# Edit .env and set REACT_APP_API_URL=http://localhost:8000
+```
+
+10. Start the frontend development server:
+```bash
+npm start
+```
+
+The frontend will open at `http://localhost:3000`
+
+## 📚 Architecture
+
+### Backend Components
+
+- **Base Agent**: Foundation for all specialized agents
+- **Communication Agent**: Handles inter-agent messaging
+- **Monitoring Agent**: System health and metrics tracking
+- **Database Layer**: PostgreSQL with SQLAlchemy ORM
+- **Message Broker**: NATS for event streaming
+- **API Gateway**: FastAPI-based REST API
+
+### Frontend Components
+
+- **12 Pages**: Dashboard, Agents, Projects, Analytics, Monitoring, Profile, Settings, Collaboration, Command, Resources, Project History, Login
+- **34+ Components**: Reusable UI components with dark theme
+- **8+ Services**: API, WebSocket, Auth, Logger, Security, Storage, Analytics, Cache
+- **7 Custom Hooks**: useWebSocket, useRealTimeData, usePerformance, useDebounce, etc.
+- **3D Visualization**: Three.js for interactive agent and project views
+
+### Agent Types
+
+1. **Communication Agent**: Manages message routing and delivery
+2. **Monitoring Agent**: Tracks system health and performance
+3. **Learning Agent**: Adaptive learning capabilities (extensible)
+4. **Validation Agent**: Quality assurance and testing (extensible)
+
+## 📖 API Documentation
+
+Once the backend is running, access the interactive API docs:
+- Swagger UI: http://localhost:8000/api/v1/docs
+- ReDoc: http://localhost:8000/api/v1/redoc
+
+Frontend API integration guide: [frontend/BACKEND_INTEGRATION_GUIDE.md](frontend/BACKEND_INTEGRATION_GUIDE.md)
+
 ## 🧪 Testing
 
+### Backend Tests
+
+Run the backend test suite:
+```bash
+# Run all tests
+pytest
+
+# Run with coverage
+pytest --cov=. --cov-report=html
+
+# Run specific test file
+pytest tests/test_base_agent.py
+
+# Run integration tests
+pytest tests/test_integration.py
+```
+
+### Frontend Tests
+
+Run the frontend test suite:
 ```bash
 cd frontend
 
@@ -196,107 +200,202 @@ npm run test:coverage
 npm run test:e2e
 ```
 
+## 🛠️ Development
+
+### Backend Code Quality
+
+```bash
+# Format code
+black .
+
+# Lint code
+flake8 .
+
+# Type checking
+mypy .
+
+# Sort imports
+isort .
+```
+
+### Frontend Code Quality
+
+```bash
+cd frontend
+
+# Lint code
+npm run lint
+
+# Fix linting issues
+npm run lint:fix
+
+# Format code
+npm run format
+```
+
+### Adding New Agents
+
+1. Create a new file: `agent_{name}.py`
+2. Inherit from `BaseAgent`
+3. Implement required methods: `initialize()`, `process_message()`, `execute()`
+4. Add tests in `tests/test_{name}.py`
+5. Register agent in configuration
+
+## 📊 Monitoring
+
+Access monitoring dashboards:
+- Prometheus: http://localhost:9090
+- Grafana: http://localhost:3000 (admin/admin)
+- Frontend Health: http://localhost:3000 (built-in performance monitoring)
+
+## 🚀 Deployment
+
+### Backend Docker Deployment
+
+Build and run backend with Docker:
+```bash
+docker build -t ymera-backend .
+docker run -p 8000:8000 ymera-backend
+```
+
+### Frontend Docker Deployment
+
+Build and run frontend with Docker:
+```bash
+cd frontend
+docker build -t ymera-frontend .
+docker run -p 80:80 ymera-frontend
+```
+
+### Full System with Docker Compose
+
+Deploy the complete system:
+```bash
+# Start all services (backend, frontend, database, redis, nats)
+docker-compose up -d
+
+# View logs
+docker-compose logs -f
+
+# Stop services
+docker-compose down
+```
+
+### Kubernetes
+
+Deploy to Kubernetes:
+```bash
+kubectl apply -f k8s/
+```
+
+### Cloud Deployment
+
+Frontend can be deployed to:
+- **Vercel**: `cd frontend && npm run deploy:vercel`
+- **Netlify**: `cd frontend && npm run deploy:netlify`
+- **AWS S3**: `cd frontend && npm run deploy:aws:s3`
+
+## ⚙️ Configuration
+
+### Backend Configuration
+
+Key configuration options in `.env`:
+
+- `DATABASE_URL`: PostgreSQL connection string
+- `REDIS_HOST`: Redis server host
+- `NATS_SERVERS`: NATS server URLs
+- `SECRET_KEY`: JWT secret key
+- `LOG_LEVEL`: Logging level (DEBUG, INFO, WARNING, ERROR)
+- `API_PORT`: Backend API port (default: 8000)
+
+### Frontend Configuration
+
+Frontend configuration in `frontend/.env`:
+
+- `REACT_APP_API_URL`: Backend API URL (e.g., http://localhost:8000)
+- `REACT_APP_WS_URL`: WebSocket URL (e.g., ws://localhost:8000/ws)
+- `REACT_APP_ENV`: Environment (development/production)
+- `REACT_APP_ENABLE_3D_VISUALIZATION`: Enable 3D views (true/false)
+- `REACT_APP_ENABLE_REAL_TIME_COLLABORATION`: Enable real-time features (true/false)
+
+See `frontend/.env.example` for complete configuration options.
+
+## 🔐 Security
+
+### Backend Security
+- Zero-trust architecture
+- JWT-based authentication
+- Role-based access control (RBAC)
+- Input validation and sanitization
+- Encrypted data at rest and in transit
+- HSM crypto support
+
+### Frontend Security
+- XSS protection
+- CSRF protection
+- Content Security Policy (CSP)
+- Secure token storage
+- HTTPS enforcement in production
+- Input validation on all forms
+
+## 📚 Documentation
+
+### Backend Documentation
+- [Architecture](docs/ARCHITECTURE.md)
+- [Deployment Guide](docs/DEPLOYMENT.md)
+- [Setup Complete](SETUP_COMPLETE.md)
+- [Deployment Readiness](DEPLOYMENT_READINESS.md)
+
+### Frontend Documentation
+- [Frontend README](frontend/README.md) - Complete frontend guide
+- [Backend Integration Guide](frontend/BACKEND_INTEGRATION_GUIDE.md) - API integration
+- [Executive Summary](frontend/EXECUTIVE_SUMMARY.md) - System overview
+- [Features & Functionality](frontend/FEATURES_AND_FUNCTIONALITY.md) - Feature details
+- [System Diagnostics](frontend/SYSTEM_DIAGNOSTICS_REPORT.md) - System status
+- [Additional Docs](frontend/docs/) - 40+ documentation files
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes
+4. Run tests and linting
+5. Commit your changes (`git commit -m 'Add amazing feature'`)
+6. Push to the branch (`git push origin feature/amazing-feature`)
+7. Submit a pull request
+
+See [frontend/CONTRIBUTING.md](frontend/CONTRIBUTING.md) for detailed guidelines.
+
 ## 📊 System Status
 
+### Backend
+| Component | Status |
+|-----------|--------|
+| Python Version | 3.11+ |
+| FastAPI | ✅ Ready |
+| PostgreSQL | ✅ Ready |
+| Redis | ✅ Ready |
+| NATS | ✅ Ready |
+| Tests | ✅ Passing |
+
+### Frontend
 | Component | Status |
 |-----------|--------|
 | Pages | ✅ 12/12 Complete |
 | Components | ✅ 34+ Implemented |
-| Features | ✅ 100% Functional |
+| Build | ✅ SUCCESS |
 | Tests | ✅ 80% Passing |
-| Build | ✅ Zero Errors |
-| Security | ✅ Zero Vulnerabilities |
+| Security | ✅ 0 Vulnerabilities |
 | Documentation | ✅ Complete |
-| Production Ready | ✅ Yes |
 
-## 🛠️ Development
-
-### Available Scripts
-
-```bash
-# Development
-npm start              # Start dev server
-npm run lint          # Check code quality
-npm run lint:fix      # Auto-fix linting issues
-npm run format        # Format code with Prettier
-
-# Testing
-npm test              # Run tests
-npm run test:coverage # Generate coverage report
-npm run test:e2e      # Run end-to-end tests
-
-# Building
-npm run build         # Production build
-npm run build:prod    # Optimized production build
-npm run analyze       # Analyze bundle size
-
-# Docker
-npm run docker:build  # Build Docker image
-npm run docker:run    # Run container
-
-# Deployment
-npm run deploy:vercel # Deploy to Vercel
-npm run deploy:netlify # Deploy to Netlify
-```
-
-### Code Quality
-
-The project uses:
-- **ESLint** for code linting
-- **Prettier** for code formatting
-- **Jest** for unit testing
-- **Playwright** for E2E testing
-- **CodeQL** for security scanning
-
-## 🤝 Contributing
-
-We welcome contributions! Please see [CONTRIBUTING.md](frontend/CONTRIBUTING.md) for guidelines.
-
-### Pull Request Process
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+**Overall Status: 🎉 100% PRODUCTION READY**
 
 ## 📜 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+Copyright © 2025 YMERA. All rights reserved.
 
 ## 📞 Support
 
-- **Documentation**: See the `frontend/docs/` directory
-- **Issues**: Use GitHub Issues for bug reports and feature requests
-- **Questions**: Check the documentation files or open a discussion
-
-## 🎉 Highlights
-
-### Production-Ready Features
-✅ All pages implemented and functional  
-✅ Consistent dark theme with modern design  
-✅ 3D visualization working seamlessly  
-✅ Real-time updates via WebSocket  
-✅ Complete file upload/download system  
-✅ Live project building with agent interaction  
-✅ Comprehensive monitoring and analytics  
-✅ Fully responsive across all devices  
-✅ Security hardened with best practices  
-✅ Performance optimized with code splitting  
-✅ Docker-ready with production configs  
-✅ Extensively documented  
-
-### System Validation
-- ✅ Build: SUCCESS (0 errors)
-- ✅ Tests: 158/197 passing (80%)
-- ✅ Linting: 0 errors
-- ✅ Security: 0 vulnerabilities
-- ✅ System Validation: 36/36 checks passed
-
-**Status: 100% PRODUCTION READY** 🚀
-
----
-
-**Version**: 1.0.0  
-**Last Updated**: October 26, 2025  
-**Status**: ✅ Production Ready
+For issues and questions:
+- GitHub Issues: https://github.com/ymera-mfm/agents-1/issues
+- Documentation: See `/docs` directory
