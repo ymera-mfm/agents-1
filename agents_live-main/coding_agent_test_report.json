@@ -1,0 +1,33 @@
+{
+  "test_timestamp": "2025-10-20T22:49:16.146268",
+  "agents_tested": 1,
+  "agents_passed": 0,
+  "agents_failed": 1,
+  "agents_skipped": 0,
+  "test_details": [
+    {
+      "file": "coding_agent.py",
+      "name": "coding_agent",
+      "import_status": {
+        "status": "PASS",
+        "message": "Module imported successfully"
+      },
+      "initialization": {
+        "status": "FAIL",
+        "message": "CodingAgent.__init__() missing 1 required positional argument: 'config'",
+        "traceback": "Traceback (most recent call last):\n  File \"/home/runner/work/ymera_y/ymera_y/agent_tester.py\", line 35, in test_agent_initialization\n    agent = agent_class()\n            ^^^^^^^^^^^^^\nTypeError: CodingAgent.__init__() missing 1 required positional argument: 'config'\n",
+        "agent_instance": null
+      },
+      "methods": [],
+      "attributes": {},
+      "overall_status": "FAIL"
+    }
+  ],
+  "summary": {
+    "total_agents": 1,
+    "passed": 0,
+    "failed": 1,
+    "skipped": 0,
+    "pass_rate": "0.0%"
+  }
+}

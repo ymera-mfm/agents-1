@@ -1,0 +1,685 @@
+{
+  "summary": {
+    "total_agents": 26,
+    "level_0_independent": 3,
+    "level_1_minimal": 22,
+    "level_2_moderate": 1,
+    "level_3_complex": 0
+  },
+  "level_0_agents": [
+    "enhanced_base_agent.py",
+    "production_base_agent.py",
+    "base_agent.py"
+  ],
+  "level_1_agents": [
+    "metrics_agent.py",
+    "llm_agent.py",
+    "editing_agent.py",
+    "enhancement_agent.py",
+    "coding_agent.py",
+    "prod_monitoring_agent.py",
+    "communication_agent.py",
+    "test_learning_agent.py",
+    "prod_communication_agent.py",
+    "production_monitoring_agent.py",
+    "enhanced_llm_agent.py",
+    "static_analysis_agent.py",
+    "security_agent.py",
+    "enhanced_learning_agent.py",
+    "validation_agent.py",
+    "drafting_agent.py",
+    "performance_engine_agent.py",
+    "example_agent.py",
+    "test_project_agent.py",
+    "examination_agent.py",
+    "real_time_monitoring_agent.py",
+    "orchestrator_agent.py"
+  ],
+  "level_2_agents": [
+    "learning_agent.py"
+  ],
+  "level_3_agents": [],
+  "detailed_dependencies": {
+    "metrics_agent.py": {
+      "internal_dependencies": [
+        "base_agent"
+      ],
+      "external_dependencies": [
+        "asyncio",
+        "json",
+        "time",
+        "os",
+        "typing",
+        "collections"
+      ],
+      "internal_count": 1,
+      "external_count": 6,
+      "dependency_level": 1
+    },
+    "enhanced_base_agent.py": {
+      "internal_dependencies": [],
+      "external_dependencies": [
+        "asyncio",
+        "json",
+        "time",
+        "signal",
+        "sys",
+        "uuid",
+        "typing",
+        "enum",
+        "dataclasses",
+        "datetime",
+        "contextlib",
+        "logging",
+        "functools",
+        "random",
+        "traceback",
+        "nats",
+        "nats.aio.client",
+        "nats.errors",
+        "asyncpg",
+        "asyncpg.exceptions",
+        "redis.asyncio",
+        "logging.handlers"
+      ],
+      "internal_count": 0,
+      "external_count": 22,
+      "dependency_level": 0
+    },
+    "llm_agent.py": {
+      "internal_dependencies": [
+        "base_agent"
+      ],
+      "external_dependencies": [
+        "asyncio",
+        "json",
+        "time",
+        "uuid",
+        "traceback",
+        "os",
+        "typing",
+        "dataclasses",
+        "enum",
+        "hashlib",
+        "tiktoken",
+        "re",
+        "openai",
+        "anthropic",
+        "qdrant_client",
+        "qdrant_client.http.models",
+        "sentence_transformers",
+        "numpy",
+        "opentelemetry"
+      ],
+      "internal_count": 1,
+      "external_count": 19,
+      "dependency_level": 1
+    },
+    "editing_agent.py": {
+      "internal_dependencies": [
+        "base_agent"
+      ],
+      "external_dependencies": [
+        "asyncio",
+        "json",
+        "time",
+        "re",
+        "os",
+        "typing",
+        "dataclasses",
+        "enum",
+        "uuid",
+        "difflib",
+        "datetime",
+        "spacy",
+        "nltk",
+        "nltk.sentiment",
+        "textstat",
+        "language_tool_python",
+        "opentelemetry"
+      ],
+      "internal_count": 1,
+      "external_count": 17,
+      "dependency_level": 1
+    },
+    "production_base_agent.py": {
+      "internal_dependencies": [],
+      "external_dependencies": [
+        "asyncio",
+        "json",
+        "logging",
+        "time",
+        "uuid",
+        "abc",
+        "dataclasses",
+        "datetime",
+        "enum",
+        "typing",
+        "contextlib",
+        "traceback",
+        "nats",
+        "nats.errors",
+        "asyncpg",
+        "asyncpg.pool",
+        "redis.asyncio",
+        "opentelemetry",
+        "opentelemetry.exporter.prometheus",
+        "opentelemetry.sdk.metrics",
+        "opentelemetry.sdk.trace",
+        "opentelemetry.sdk.trace.export"
+      ],
+      "internal_count": 0,
+      "external_count": 22,
+      "dependency_level": 0
+    },
+    "enhancement_agent.py": {
+      "internal_dependencies": [
+        "base_agent"
+      ],
+      "external_dependencies": [
+        "asyncio",
+        "json",
+        "time",
+        "re",
+        "difflib",
+        "numpy",
+        "traceback",
+        "os",
+        "typing",
+        "dataclasses",
+        "enum",
+        "collections",
+        "opentelemetry"
+      ],
+      "internal_count": 1,
+      "external_count": 13,
+      "dependency_level": 1
+    },
+    "coding_agent.py": {
+      "internal_dependencies": [
+        "enhanced_base_agent"
+      ],
+      "external_dependencies": [
+        "asyncio",
+        "json",
+        "hashlib",
+        "subprocess",
+        "tempfile",
+        "os",
+        "sys",
+        "re",
+        "typing",
+        "dataclasses",
+        "datetime",
+        "pathlib",
+        "resource",
+        "signal",
+        "contextlib",
+        "time",
+        "shutil"
+      ],
+      "internal_count": 1,
+      "external_count": 17,
+      "dependency_level": 1
+    },
+    "prod_monitoring_agent.py": {
+      "internal_dependencies": [
+        "base_agent"
+      ],
+      "external_dependencies": [
+        "asyncio",
+        "json",
+        "time",
+        "psutil",
+        "aiohttp",
+        "typing",
+        "dataclasses",
+        "enum",
+        "uuid",
+        "collections",
+        "statistics",
+        "datetime",
+        "traceback",
+        "signal",
+        "prometheus_client",
+        "numpy",
+        "sklearn.ensemble",
+        "os"
+      ],
+      "internal_count": 1,
+      "external_count": 18,
+      "dependency_level": 1
+    },
+    "communication_agent.py": {
+      "internal_dependencies": [
+        "base_agent"
+      ],
+      "external_dependencies": [
+        "asyncio",
+        "json",
+        "time",
+        "re",
+        "hashlib",
+        "zlib",
+        "ast",
+        "traceback",
+        "os",
+        "typing",
+        "dataclasses",
+        "enum",
+        "collections",
+        "uuid",
+        "opentelemetry"
+      ],
+      "internal_count": 1,
+      "external_count": 15,
+      "dependency_level": 1
+    },
+    "test_learning_agent.py": {
+      "internal_dependencies": [
+        "agents.learning_agent.agent"
+      ],
+      "external_dependencies": [
+        "pytest"
+      ],
+      "internal_count": 1,
+      "external_count": 1,
+      "dependency_level": 1
+    },
+    "prod_communication_agent.py": {
+      "internal_dependencies": [
+        "base_agent"
+      ],
+      "external_dependencies": [
+        "asyncio",
+        "json",
+        "time",
+        "re",
+        "hashlib",
+        "zlib",
+        "traceback",
+        "os",
+        "typing",
+        "dataclasses",
+        "enum",
+        "collections",
+        "uuid",
+        "datetime",
+        "opentelemetry",
+        "time"
+      ],
+      "internal_count": 1,
+      "external_count": 16,
+      "dependency_level": 1
+    },
+    "production_monitoring_agent.py": {
+      "internal_dependencies": [
+        "enhanced_base_agent"
+      ],
+      "external_dependencies": [
+        "asyncio",
+        "json",
+        "time",
+        "typing",
+        "dataclasses",
+        "enum",
+        "uuid",
+        "collections",
+        "psutil",
+        "aiohttp",
+        "logging",
+        "statistics",
+        "datetime"
+      ],
+      "internal_count": 1,
+      "external_count": 13,
+      "dependency_level": 1
+    },
+    "enhanced_llm_agent.py": {
+      "internal_dependencies": [
+        "enhanced_base_agent"
+      ],
+      "external_dependencies": [
+        "asyncio",
+        "json",
+        "time",
+        "uuid",
+        "os",
+        "typing",
+        "dataclasses",
+        "enum",
+        "collections",
+        "abc",
+        "openai",
+        "anthropic",
+        "qdrant_client",
+        "qdrant_client.http.models",
+        "sentence_transformers",
+        "tiktoken",
+        "sys"
+      ],
+      "internal_count": 1,
+      "external_count": 17,
+      "dependency_level": 1
+    },
+    "static_analysis_agent.py": {
+      "internal_dependencies": [
+        "base_agent"
+      ],
+      "external_dependencies": [
+        "asyncio",
+        "json",
+        "time",
+        "ast",
+        "re",
+        "os",
+        "typing",
+        "dataclasses",
+        "enum",
+        "uuid",
+        "pathlib",
+        "datetime",
+        "opentelemetry"
+      ],
+      "internal_count": 1,
+      "external_count": 13,
+      "dependency_level": 1
+    },
+    "security_agent.py": {
+      "internal_dependencies": [
+        "base_agent"
+      ],
+      "external_dependencies": [
+        "asyncio",
+        "json",
+        "time",
+        "hashlib",
+        "hmac",
+        "jwt",
+        "bcrypt",
+        "typing",
+        "dataclasses",
+        "enum",
+        "re",
+        "uuid",
+        "datetime",
+        "ipaddress",
+        "secrets",
+        "redis",
+        "cryptography.fernet",
+        "cryptography.hazmat.primitives",
+        "cryptography.hazmat.primitives.asymmetric",
+        "cryptography.hazmat.primitives.kdf.pbkdf2",
+        "base64",
+        "os",
+        "opentelemetry",
+        "os"
+      ],
+      "internal_count": 1,
+      "external_count": 24,
+      "dependency_level": 1
+    },
+    "enhanced_learning_agent.py": {
+      "internal_dependencies": [
+        "learning_agent_core"
+      ],
+      "external_dependencies": [
+        "asyncio",
+        "logging",
+        "json",
+        "uuid",
+        "datetime",
+        "typing",
+        "dataclasses",
+        "enum",
+        "collections",
+        "hashlib",
+        "structlog",
+        "httpx",
+        "websockets",
+        "sqlalchemy"
+      ],
+      "internal_count": 1,
+      "external_count": 14,
+      "dependency_level": 1
+    },
+    "validation_agent.py": {
+      "internal_dependencies": [
+        "base_agent"
+      ],
+      "external_dependencies": [
+        "asyncio",
+        "json",
+        "time",
+        "typing",
+        "dataclasses",
+        "enum",
+        "re",
+        "jsonschema",
+        "jsonschema",
+        "pydantic",
+        "pydantic",
+        "sqlalchemy",
+        "sqlalchemy.dialects",
+        "hashlib",
+        "uuid",
+        "opentelemetry"
+      ],
+      "internal_count": 1,
+      "external_count": 16,
+      "dependency_level": 1
+    },
+    "drafting_agent.py": {
+      "internal_dependencies": [
+        "base_agent"
+      ],
+      "external_dependencies": [
+        "asyncio",
+        "json",
+        "time",
+        "re",
+        "uuid",
+        "difflib",
+        "traceback",
+        "os",
+        "typing",
+        "dataclasses",
+        "enum",
+        "datetime",
+        "nltk",
+        "nltk.tokenize",
+        "nltk.corpus",
+        "textstat",
+        "spacy",
+        "opentelemetry",
+        "ssl"
+      ],
+      "internal_count": 1,
+      "external_count": 19,
+      "dependency_level": 1
+    },
+    "performance_engine_agent.py": {
+      "internal_dependencies": [
+        "base_agent"
+      ],
+      "external_dependencies": [
+        "asyncio",
+        "json",
+        "time",
+        "psutil",
+        "gc",
+        "typing",
+        "dataclasses",
+        "enum",
+        "uuid",
+        "statistics",
+        "collections",
+        "threading",
+        "multiprocessing",
+        "concurrent.futures",
+        "cProfile",
+        "pstats",
+        "tracemalloc",
+        "sys",
+        "resource",
+        "datetime",
+        "opentelemetry",
+        "opentelemetry.trace"
+      ],
+      "internal_count": 1,
+      "external_count": 22,
+      "dependency_level": 1
+    },
+    "example_agent.py": {
+      "internal_dependencies": [
+        "agent_client"
+      ],
+      "external_dependencies": [
+        "asyncio",
+        "logging"
+      ],
+      "internal_count": 1,
+      "external_count": 2,
+      "dependency_level": 1
+    },
+    "test_project_agent.py": {
+      "internal_dependencies": [
+        "agents.project_agent.agent"
+      ],
+      "external_dependencies": [
+        "pytest"
+      ],
+      "internal_count": 1,
+      "external_count": 1,
+      "dependency_level": 1
+    },
+    "base_agent.py": {
+      "internal_dependencies": [],
+      "external_dependencies": [
+        "abc",
+        "asyncio",
+        "logging",
+        "json",
+        "uuid",
+        "time",
+        "signal",
+        "sys",
+        "contextlib",
+        "dataclasses",
+        "typing",
+        "enum",
+        "traceback",
+        "nats",
+        "nats.aio.client",
+        "nats.js.api",
+        "redis",
+        "asyncpg",
+        "consul",
+        "opentelemetry.trace",
+        "opentelemetry",
+        "opentelemetry.exporter.jaeger.thrift",
+        "opentelemetry.exporter.prometheus",
+        "opentelemetry.sdk.trace",
+        "opentelemetry.sdk.trace.export",
+        "opentelemetry.sdk.metrics",
+        "opentelemetry.sdk.resources",
+        "prometheus_client",
+        "structlog"
+      ],
+      "internal_count": 0,
+      "external_count": 29,
+      "dependency_level": 0
+    },
+    "examination_agent.py": {
+      "internal_dependencies": [
+        "base_agent"
+      ],
+      "external_dependencies": [
+        "asyncio",
+        "json",
+        "time",
+        "re",
+        "hashlib",
+        "statistics",
+        "traceback",
+        "os",
+        "typing",
+        "dataclasses",
+        "enum",
+        "collections",
+        "numpy",
+        "datetime",
+        "opentelemetry"
+      ],
+      "internal_count": 1,
+      "external_count": 15,
+      "dependency_level": 1
+    },
+    "learning_agent.py": {
+      "internal_dependencies": [
+        "shared.config.settings",
+        "shared.database.connection_pool",
+        "shared.utils.metrics",
+        "shared.communication.agent_communicator"
+      ],
+      "external_dependencies": [
+        "asyncio",
+        "json",
+        "datetime",
+        "typing",
+        "pathlib",
+        "structlog",
+        "numpy",
+        "sqlalchemy",
+        "sqlalchemy.ext.asyncio"
+      ],
+      "internal_count": 4,
+      "external_count": 9,
+      "dependency_level": 4
+    },
+    "real_time_monitoring_agent.py": {
+      "internal_dependencies": [
+        "base_agent"
+      ],
+      "external_dependencies": [
+        "asyncio",
+        "json",
+        "time",
+        "typing",
+        "dataclasses",
+        "enum",
+        "uuid",
+        "collections",
+        "psutil",
+        "aiohttp",
+        "logging",
+        "statistics",
+        "datetime",
+        "opentelemetry"
+      ],
+      "internal_count": 1,
+      "external_count": 14,
+      "dependency_level": 1
+    },
+    "orchestrator_agent.py": {
+      "internal_dependencies": [
+        "base_agent"
+      ],
+      "external_dependencies": [
+        "asyncio",
+        "json",
+        "time",
+        "traceback",
+        "typing",
+        "dataclasses",
+        "collections",
+        "heapq",
+        "random",
+        "opentelemetry"
+      ],
+      "internal_count": 1,
+      "external_count": 10,
+      "dependency_level": 1
+    }
+  }
+}

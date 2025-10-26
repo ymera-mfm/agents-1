@@ -1,0 +1,639 @@
+# docker-compose.yml
+version: '3.9'
+
+services:
+  learning-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ymera-learning-agent
+    restart: unless-stopped
+    environment:
+      - ENVIRONMENT=production
+      - DATABASE_URL=postgresql+asyncpg://postgres:password@postgres:5432/ymera
+      - REDIS_URL=redis://redis:6379/0
+      - VAULT_URL=http://vault:8200
+      - VAULT_TOKEN=${VAULT_TOKEN}
+      - PROMETHEUS_PUSHGATEWAY_URL=http://prometheus-pushgateway:9091
+      - ALERTMANAGER_URL=http://alertmanager:9093
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./models:/models
+      - ./uploads:/uploads
+      - ./backups:/backups
+    depends_on:
+      - postgres
+      - redis
+      - vault
+    networks:
+      - ymera-network
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 8G
+        reservations:
+          cpus: '2'
+          memory: 4G
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: ymera-postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=ymera
+      - POSTGRES_MAX_CONNECTIONS=200
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - ymera-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: ymera-redis
+    restart: unless-stopped
+    command: redis-server --maxmemory 2gb --maxmemory-policy allkeys-lru
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - ymera-network
+
+  vault:
+    image: vault:latest
+    container_name: ymera-vault
+    restart: unless-stopped
+    cap_add:
+      - IPC_LOCK
+    environment:
+      - VAULT_DEV_ROOT_TOKEN_ID=${VAULT_TOKEN}
+      - VAULT_DEV_LISTEN_ADDRESS=0.0.0.0:8200
+    ports:
+      - "8200:8200"
+    networks:
+      - ymera-network
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: ymera-prometheus
+    restart: unless-stopped
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - ymera-network
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: ymera-grafana
+    restart: unless-stopped
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_INSTALL_PLUGINS=redis-datasource
+    volumes:
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources
+      - grafana-data:/var/lib/grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    networks:
+      - ymera-network
+
+  alertmanager:
+    image: prom/alertmanager:latest
+    container_name: ymera-alertmanager
+    restart: unless-stopped
+    volumes:
+      - ./monitoring/alertmanager.yml:/etc/alertmanager/alertmanager.yml
+    ports:
+      - "9093:9093"
+    networks:
+      - ymera-network
+
+  prometheus-pushgateway:
+    image: prom/pushgateway:latest
+    container_name: ymera-pushgateway
+    restart: unless-stopped
+    ports:
+      - "9091:9091"
+    networks:
+      - ymera-network
+
+networks:
+  ymera-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
+  redis-data:
+  prometheus-data:
+  grafana-data:
+
+---
+# Dockerfile
+FROM python:3.11-slim
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    gcc \
+    g++ \
+    postgresql-client \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set working directory
+WORKDIR /app
+
+# Copy requirements
+COPY requirements.txt .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application code
+COPY . .
+
+# Create necessary directories
+RUN mkdir -p /models /uploads /backups /archives /var/log/ymera
+
+# Run database migrations
+RUN alembic upgrade head
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+  CMD curl -f http://localhost:8000/health || exit 1
+
+# Start application
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "4"]
+
+---
+# kubernetes/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ymera-learning-agent
+  namespace: ymera
+  labels:
+    app: learning-agent
+    version: v3.0.0
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: learning-agent
+  template:
+    metadata:
+      labels:
+        app: learning-agent
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8000"
+        prometheus.io/path: "/api/metrics"
+    spec:
+      serviceAccountName: learning-agent
+      containers:
+      - name: learning-agent
+        image: ymera/learning-agent:3.0.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+          name: http
+        env:
+        - name: ENVIRONMENT
+          value: "production"
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: learning-agent-secrets
+              key: database-url
+        - name: REDIS_URL
+          valueFrom:
+            secretKeyRef:
+              name: learning-agent-secrets
+              key: redis-url
+        - name: VAULT_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: learning-agent-secrets
+              key: vault-token
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "1000m"
+          limits:
+            memory: "4Gi"
+            cpu: "2000m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        volumeMounts:
+        - name: models
+          mountPath: /models
+        - name: uploads
+          mountPath: /uploads
+      volumes:
+      - name: models
+        persistentVolumeClaim:
+          claimName: learning-agent-models-pvc
+      - name: uploads
+        persistentVolumeClaim:
+          claimName: learning-agent-uploads-pvc
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - learning-agent
+              topologyKey: kubernetes.io/hostname
+
+---
+# kubernetes/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: learning-agent-service
+  namespace: ymera
+  labels:
+    app: learning-agent
+spec:
+  type: ClusterIP
+  selector:
+    app: learning-agent
+  ports:
+  - port: 8000
+    targetPort: 8000
+    protocol: TCP
+    name: http
+
+---
+# kubernetes/hpa.yaml
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: learning-agent-hpa
+  namespace: ymera
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: ymera-learning-agent
+  minReplicas: 3
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+
+---
+# kubernetes/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: learning-agent-config
+  namespace: ymera
+data:
+  app-config.json: |
+    {
+      "model_update_interval": 3600,
+      "health_check_interval": 60,
+      "experience_buffer_size": 10000,
+      "vector_dimension": 768,
+      "max_batch_size": 32
+    }
+
+---
+# terraform/main.tf
+terraform {
+  required_version = ">= 1.0"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "~> 2.23"
+    }
+  }
+}
+
+provider "aws" {
+  region = var.aws_region
+}
+
+# RDS PostgreSQL Instance
+resource "aws_db_instance" "ymera_postgres" {
+  identifier     = "ymera-learning-agent-db"
+  engine         = "postgres"
+  engine_version = "15.4"
+  instance_class = "db.r6g.xlarge"
+  
+  allocated_storage     = 100
+  max_allocated_storage = 1000
+  storage_encrypted     = true
+  storage_type         = "gp3"
+  
+  db_name  = "ymera"
+  username = var.db_username
+  password = var.db_password
+  
+  vpc_security_group_ids = [aws_security_group.rds_sg.id]
+  db_subnet_group_name   = aws_db_subnet_group.ymera_subnet_group.name
+  
+  backup_retention_period = 30
+  backup_window          = "03:00-04:00"
+  maintenance_window     = "sun:04:00-sun:05:00"
+  
+  multi_az               = true
+  deletion_protection    = true
+  skip_final_snapshot    = false
+  final_snapshot_identifier = "ymera-final-snapshot-${timestamp()}"
+  
+  enabled_cloudwatch_logs_exports = ["postgresql"]
+  
+  tags = {
+    Name        = "ymera-learning-agent-db"
+    Environment = var.environment
+    Managed_by  = "terraform"
+  }
+}
+
+# ElastiCache Redis Cluster
+resource "aws_elasticache_replication_group" "ymera_redis" {
+  replication_group_id       = "ymera-learning-agent-redis"
+  replication_group_description = "Redis cluster for YMERA Learning Agent"
+  
+  engine               = "redis"
+  engine_version       = "7.0"
+  node_type           = "cache.r7g.large"
+  number_cache_clusters = 3
+  
+  port                 = 6379
+  parameter_group_name = aws_elasticache_parameter_group.redis_params.name
+  
+  subnet_group_name = aws_elasticache_subnet_group.ymera_subnet_group.name
+  security_group_ids = [aws_security_group.redis_sg.id]
+  
+  at_rest_encryption_enabled = true
+  transit_encryption_enabled = true
+  auth_token_enabled        = true
+  auth_token               = var.redis_auth_token
+  
+  automatic_failover_enabled = true
+  multi_az_enabled          = true
+  
+  snapshot_retention_limit = 7
+  snapshot_window         = "03:00-05:00"
+  maintenance_window      = "sun:05:00-sun:07:00"
+  
+  notification_topic_arn = aws_sns_topic.ymera_alerts.arn
+  
+  tags = {
+    Name        = "ymera-learning-agent-redis"
+    Environment = var.environment
+    Managed_by  = "terraform"
+  }
+}
+
+# S3 Buckets for storage
+resource "aws_s3_bucket" "ymera_models" {
+  bucket = "ymera-learning-agent-models-${var.environment}"
+  
+  tags = {
+    Name        = "ymera-learning-agent-models"
+    Environment = var.environment
+  }
+}
+
+resource "aws_s3_bucket_versioning" "models_versioning" {
+  bucket = aws_s3_bucket.ymera_models.id
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+resource "aws_s3_bucket_encryption" "models_encryption" {
+  bucket = aws_s3_bucket.ymera_models.id
+  
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
+  }
+}
+
+# EKS Cluster for Kubernetes
+resource "aws_eks_cluster" "ymera_cluster" {
+  name     = "ymera-learning-agent-cluster"
+  role_arn = aws_iam_role.eks_cluster_role.arn
+  
+  vpc_config {
+    subnet_ids              = var.subnet_ids
+    endpoint_private_access = true
+    endpoint_public_access  = false
+    security_group_ids      = [aws_security_group.eks_sg.id]
+  }
+  
+  enabled_cluster_log_types = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
+  
+  encryption_config {
+    provider {
+      key_arn = aws_kms_key.eks_key.arn
+    }
+    resources = ["secrets"]
+  }
+  
+  tags = {
+    Name        = "ymera-learning-agent-cluster"
+    Environment = var.environment
+  }
+}
+
+# CloudWatch Log Groups
+resource "aws_cloudwatch_log_group" "ymera_logs" {
+  name              = "/aws/ymera/learning-agent"
+  retention_in_days = 30
+  
+  tags = {
+    Application = "ymera-learning-agent"
+    Environment = var.environment
+  }
+}
+
+# CloudWatch Alarms
+resource "aws_cloudwatch_metric_alarm" "cpu_high" {
+  alarm_name          = "ymera-learning-agent-cpu-high"
+  comparison_operator = "GreaterThanThreshold"
+  evaluation_periods  = "2"
+  metric_name        = "CPUUtilization"
+  namespace          = "AWS/ECS"
+  period             = "300"
+  statistic          = "Average"
+  threshold          = "80"
+  alarm_description  = "This metric monitors CPU utilization"
+  alarm_actions      = [aws_sns_topic.ymera_alerts.arn]
+}
+
+# SNS Topic for Alerts
+resource "aws_sns_topic" "ymera_alerts" {
+  name = "ymera-learning-agent-alerts"
+  
+  tags = {
+    Application = "ymera-learning-agent"
+    Environment = var.environment
+  }
+}
+
+---
+# monitoring/prometheus.yml
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    cluster: 'ymera-production'
+    app: 'learning-agent'
+
+scrape_configs:
+  - job_name: 'learning-agent'
+    kubernetes_sd_configs:
+      - role: pod
+        namespaces:
+          names:
+            - ymera
+    relabel_configs:
+      - source_labels: [__meta_kubernetes_pod_label_app]
+        action: keep
+        regex: learning-agent
+      - source_labels: [__meta_kubernetes_pod_name]
+        target_label: pod
+      - source_labels: [__meta_kubernetes_namespace]
+        target_label: namespace
+
+  - job_name: 'kubernetes-pods'
+    kubernetes_sd_configs:
+      - role: pod
+    relabel_configs:
+      - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+        action: keep
+        regex: true
+      - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
+        action: replace
+        target_label: __metrics_path__
+        regex: (.+)
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - alertmanager:9093
+
+rule_files:
+  - '/etc/prometheus/rules/*.yml'
+
+---
+# monitoring/alerts.yml
+groups:
+  - name: learning_agent_alerts
+    interval: 30s
+    rules:
+      - alert: HighErrorRate
+        expr: rate(experience_processing_errors_total[5m]) > 0.05
+        for: 5m
+        labels:
+          severity: critical
+          component: learning-agent
+        annotations:
+          summary: "High error rate in experience processing"
+          description: "Error rate is {{ $value }} errors per second"
+
+      - alert: LowHealthStatus
+        expr: up{job="learning-agent"} == 0
+        for: 2m
+        labels:
+          severity: critical
+          component: learning-agent
+        annotations:
+          summary: "Learning agent is down"
+          description: "Learning agent instance {{ $labels.instance }} is not responding"
+
+      - alert: HighMemoryUsage
+        expr: container_memory_usage_bytes{pod=~"ymera-learning-agent.*"} / container_spec_memory_limit_bytes > 0.9
+        for: 5m
+        labels:
+          severity: warning
+          component: learning-agent
+        annotations:
+          summary: "High memory usage"
+          description: "Memory usage is above 90% for pod {{ $labels.pod }}"
+
+      - alert: DatabaseConnectionPoolExhausted
+        expr: database_pool_connections_used / database_pool_max_connections > 0.9
+        for: 5m
+        labels:
+          severity: critical
+          component: database
+        annotations:
+          summary: "Database connection pool near exhaustion"
+          description: "Connection pool usage is {{ $value }}%"
+
+      - alert: ModelRetrainingFailed
+        expr: increase(model_retraining_errors_total[1h]) > 0
+        labels:
+          severity: high
+          component: ml-pipeline
+        annotations:
+          summary: "Model retraining failed"
+          description: "Model retraining has failed {{ $value }} times in the last hour"
+
+      - alert: KnowledgeSyncDelayed
+        expr: time() - knowledge_last_sync_timestamp > 600
+        for: 5m
+        labels:
+          severity: warning
+          component: knowledge-sync
+        annotations:
+          summary: "Knowledge synchronization delayed"
+          description: "Knowledge hasn't been synchronized for {{ $value }} seconds"

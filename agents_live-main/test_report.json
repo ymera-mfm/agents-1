@@ -1,0 +1,32 @@
+{
+  "title": "Test Report",
+  "author": "E2E Test",
+  "sections": [
+    {
+      "title": "Introduction",
+      "content": "This is a test."
+    },
+    {
+      "title": "Results",
+      "content": "Tests are passing."
+    }
+  ],
+  "tables": [
+    {
+      "headers": [
+        "Metric",
+        "Value"
+      ],
+      "rows": [
+        [
+          "Tests",
+          "100"
+        ],
+        [
+          "Passed",
+          "95"
+        ]
+      ]
+    }
+  ]
+}

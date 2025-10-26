@@ -1,0 +1,329 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "projectName": {
+      "type": "string",
+      "defaultValue": "ymera"
+    },
+    "location": {
+      "type": "string",
+      "defaultValue": "eastus"
+    },
+    "secondaryLocation": {
+      "type": "string",
+      "defaultValue": "westus2",
+      "metadata": {
+        "description": "Secondary region for geo-replication and disaster recovery"
+      }
+    },
+    "sqlAdminLogin": {
+      "type": "string",
+      "defaultValue": "ymeraadmin"
+    },
+    "sqlAdminPassword": {
+      "type": "securestring"
+    },
+    "enableGeoReplication": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "Enable geo-replication for disaster recovery"
+      }
+    }
+  },
+  "variables": {
+    "sqlServerName": "[concat(parameters('projectName'), '-sql')]",
+    "sqlServerSecondaryName": "[concat(parameters('projectName'), '-sql-secondary')]",
+    "sqlDatabaseName": "ymeradb",
+    "cognitiveServicesName": "[concat(parameters('projectName'), '-cognitive')]",
+    "apiManagementName": "[concat(parameters('projectName'), '-apim')]",
+    "appServicePlanName": "[concat(parameters('projectName'), '-plan')]",
+    "webAppName": "[concat(parameters('projectName'), '-app')]",
+    "storageAccountName": "[concat(parameters('projectName'), 'storage')]",
+    "logAnalyticsName": "[concat(parameters('projectName'), '-logs')]"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.OperationalInsights/workspaces",
+      "apiVersion": "2021-06-01",
+      "name": "[variables('logAnalyticsName')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "sku": {
+          "name": "PerGB2018"
+        },
+        "retentionInDays": 30
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers",
+      "apiVersion": "2021-11-01",
+      "name": "[variables('sqlServerName')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "administratorLogin": "[parameters('sqlAdminLogin')]",
+        "administratorLoginPassword": "[parameters('sqlAdminPassword')]",
+        "version": "12.0",
+        "publicNetworkAccess": "Enabled",
+        "minimalTlsVersion": "1.2"
+      },
+      "resources": [
+        {
+          "type": "databases",
+          "apiVersion": "2021-11-01",
+          "name": "[variables('sqlDatabaseName')]",
+          "location": "[parameters('location')]",
+          "sku": {
+            "name": "GP_S_Gen5_2",
+            "tier": "GeneralPurpose",
+            "family": "Gen5",
+            "capacity": 2
+          },
+          "properties": {
+            "collation": "SQL_Latin1_General_CP1_CI_AS",
+            "maxSizeBytes": 34359738368,
+            "zoneRedundant": false,
+            "readScale": "Disabled",
+            "requestedBackupStorageRedundancy": "Geo"
+          },
+          "dependsOn": [
+            "[resourceId('Microsoft.Sql/servers', variables('sqlServerName'))]"
+          ]
+        },
+        {
+          "type": "firewallRules",
+          "apiVersion": "2021-11-01",
+          "name": "AllowAllAzureIPs",
+          "properties": {
+            "startIpAddress": "0.0.0.0",
+            "endIpAddress": "0.0.0.0"
+          },
+          "dependsOn": [
+            "[resourceId('Microsoft.Sql/servers', variables('sqlServerName'))]"
+          ]
+        },
+        {
+          "type": "auditingSettings",
+          "apiVersion": "2021-11-01",
+          "name": "default",
+          "properties": {
+            "state": "Enabled",
+            "storageEndpoint": "[concat('https://', variables('storageAccountName'), '.blob.core.windows.net/')]",
+            "storageAccountAccessKey": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2021-09-01').keys[0].value]",
+            "retentionDays": 90,
+            "isAzureMonitorTargetEnabled": true
+          },
+          "dependsOn": [
+            "[resourceId('Microsoft.Sql/servers', variables('sqlServerName'))]",
+            "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Microsoft.Sql/servers/databases/backupShortTermRetentionPolicies",
+      "apiVersion": "2021-11-01",
+      "name": "[concat(variables('sqlServerName'), '/', variables('sqlDatabaseName'), '/default')]",
+      "properties": {
+        "retentionDays": 35
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers/databases', variables('sqlServerName'), variables('sqlDatabaseName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Sql/servers/databases/backupLongTermRetentionPolicies",
+      "apiVersion": "2021-11-01",
+      "name": "[concat(variables('sqlServerName'), '/', variables('sqlDatabaseName'), '/default')]",
+      "properties": {
+        "weeklyRetention": "P4W",
+        "monthlyRetention": "P12M",
+        "yearlyRetention": "P5Y",
+        "weekOfYear": 1
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers/databases', variables('sqlServerName'), variables('sqlDatabaseName'))]"
+      ]
+    },
+    {
+      "condition": "[parameters('enableGeoReplication')]",
+      "type": "Microsoft.Sql/servers",
+      "apiVersion": "2021-11-01",
+      "name": "[variables('sqlServerSecondaryName')]",
+      "location": "[parameters('secondaryLocation')]",
+      "properties": {
+        "administratorLogin": "[parameters('sqlAdminLogin')]",
+        "administratorLoginPassword": "[parameters('sqlAdminPassword')]",
+        "version": "12.0",
+        "publicNetworkAccess": "Enabled",
+        "minimalTlsVersion": "1.2"
+      }
+    },
+    {
+      "condition": "[parameters('enableGeoReplication')]",
+      "type": "Microsoft.Sql/servers/databases",
+      "apiVersion": "2021-11-01",
+      "name": "[concat(variables('sqlServerSecondaryName'), '/', variables('sqlDatabaseName'))]",
+      "location": "[parameters('secondaryLocation')]",
+      "sku": {
+        "name": "GP_S_Gen5_2",
+        "tier": "GeneralPurpose"
+      },
+      "properties": {
+        "createMode": "Secondary",
+        "sourceDatabaseId": "[resourceId('Microsoft.Sql/servers/databases', variables('sqlServerName'), variables('sqlDatabaseName'))]"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', variables('sqlServerSecondaryName'))]",
+        "[resourceId('Microsoft.Sql/servers/databases', variables('sqlServerName'), variables('sqlDatabaseName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "apiVersion": "2021-09-01",
+      "name": "[variables('storageAccountName')]",
+      "location": "[parameters('location')]",
+      "sku": {
+        "name": "Standard_GRS"
+      },
+      "kind": "StorageV2",
+      "properties": {
+        "supportsHttpsTrafficOnly": true,
+        "minimumTlsVersion": "TLS1_2",
+        "encryption": {
+          "services": {
+            "blob": {
+              "enabled": true
+            },
+            "file": {
+              "enabled": true
+            }
+          },
+          "keySource": "Microsoft.Storage"
+        }
+      }
+    },
+    {
+      "type": "Microsoft.CognitiveServices/accounts",
+      "apiVersion": "2021-10-01",
+      "name": "[variables('cognitiveServicesName')]",
+      "location": "[parameters('location')]",
+      "sku": {
+        "name": "S0"
+      },
+      "kind": "TextAnalytics",
+      "properties": {
+        "customSubDomainName": "[variables('cognitiveServicesName')]",
+        "publicNetworkAccess": "Enabled"
+      }
+    },
+    {
+      "type": "Microsoft.ApiManagement/service",
+      "apiVersion": "2021-08-01",
+      "name": "[variables('apiManagementName')]",
+      "location": "[parameters('location')]",
+      "sku": {
+        "name": "Consumption",
+        "capacity": 0
+      },
+      "properties": {
+        "publisherEmail": "mohamed.mansour2299@gmail.com",
+        "publisherName": "ymera"
+      }
+    },
+    {
+      "type": "Microsoft.Web/serverfarms",
+      "apiVersion": "2021-03-01",
+      "name": "[variables('appServicePlanName')]",
+      "location": "[parameters('location')]",
+      "sku": {
+        "name": "P1v3",
+        "tier": "PremiumV3",
+        "size": "P1v3",
+        "family": "Pv3",
+        "capacity": 1
+      },
+      "properties": {
+        "perSiteScaling": false,
+        "reserved": false
+      }
+    },
+    {
+      "type": "Microsoft.Web/sites",
+      "apiVersion": "2021-03-01",
+      "name": "[variables('webAppName')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]",
+        "siteConfig": {
+          "nodeVersion": "18-lts",
+          "appSettings": [
+            {
+              "name": "WEBSITE_NODE_DEFAULT_VERSION",
+              "value": "~18"
+            },
+            {
+              "name": "AZURE_SQL_SERVER",
+              "value": "[concat(variables('sqlServerName'), '.database.windows.net')]"
+            },
+            {
+              "name": "AZURE_SQL_DATABASE",
+              "value": "[variables('sqlDatabaseName')]"
+            },
+            {
+              "name": "APPLICATIONINSIGHTS_CONNECTION_STRING",
+              "value": "[reference(resourceId('Microsoft.OperationalInsights/workspaces', variables('logAnalyticsName'))).customerId]"
+            }
+          ],
+          "connectionStrings": [
+            {
+              "name": "DefaultConnection",
+              "connectionString": "[concat('Server=tcp:', variables('sqlServerName'), '.database.windows.net,1433;Initial Catalog=', variables('sqlDatabaseName'), ';Persist Security Info=False;User ID=', parameters('sqlAdminLogin'), ';Password=', parameters('sqlAdminPassword'), ';MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;')]",
+              "type": "SQLAzure"
+            }
+          ]
+        },
+        "httpsOnly": true
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]",
+        "[resourceId('Microsoft.Sql/servers/databases', variables('sqlServerName'), variables('sqlDatabaseName'))]"
+      ]
+    }
+  ],
+  "outputs": {
+    "sqlServerName": {
+      "type": "string",
+      "value": "[variables('sqlServerName')]"
+    },
+    "sqlServerFQDN": {
+      "type": "string",
+      "value": "[reference(resourceId('Microsoft.Sql/servers', variables('sqlServerName'))).fullyQualifiedDomainName]"
+    },
+    "sqlConnectionString": {
+      "type": "string",
+      "value": "[concat('Server=tcp:', variables('sqlServerName'), '.database.windows.net,1433;Initial Catalog=', variables('sqlDatabaseName'), ';Persist Security Info=False;User ID=', parameters('sqlAdminLogin'), ';Password=', parameters('sqlAdminPassword'), ';MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;')]"
+    },
+    "secondarySqlServerName": {
+      "type": "string",
+      "value": "[if(parameters('enableGeoReplication'), variables('sqlServerSecondaryName'), 'Not configured')]"
+    },
+    "storageAccountName": {
+      "type": "string",
+      "value": "[variables('storageAccountName')]"
+    },
+    "cognitiveServicesEndpoint": {
+      "type": "string",
+      "value": "[concat('https://', variables('cognitiveServicesName'), '.cognitiveservices.azure.com/')]"
+    },
+    "apiManagementGatewayUrl": {
+      "type": "string",
+      "value": "[concat('https://', variables('apiManagementName'), '.azure-api.net')]"
+    },
+    "webAppUrl": {
+      "type": "string",
+      "value": "[concat('https://', variables('webAppName'), '.azurewebsites.net')]"
+    }
+  }
+}

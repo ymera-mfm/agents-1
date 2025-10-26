@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="6" failures="0" skipped="0" tests="6" time="23.515" timestamp="2025-10-19T22:56:56.219651" hostname="runnervmzdgdc"><testcase classname="" name="test_client" time="0.000"><error message="collection failure">ImportError while importing test module '/home/runner/work/ymera_y/ymera_y/test_client.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+venv/lib/python3.12/site-packages/_pytest/python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+venv/lib/python3.12/site-packages/_pytest/pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+&lt;frozen importlib._bootstrap&gt;:1387: in _gcd_import
+    ???
+&lt;frozen importlib._bootstrap&gt;:1360: in _find_and_load
+    ???
+&lt;frozen importlib._bootstrap&gt;:1331: in _find_and_load_unlocked
+    ???
+&lt;frozen importlib._bootstrap&gt;:935: in _load_unlocked
+    ???
+venv/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:186: in exec_module
+    exec(co, module.__dict__)
+test_client.py:12: in &lt;module&gt;
+    import nats
+E   ModuleNotFoundError: No module named 'nats'</error></testcase><testcase classname="" name="test_component_enhancement_workflow" time="0.000"><error message="collection failure">venv/lib/python3.12/site-packages/_pytest/python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+venv/lib/python3.12/site-packages/_pytest/pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+&lt;frozen importlib._bootstrap&gt;:1387: in _gcd_import
+    ???
+&lt;frozen importlib._bootstrap&gt;:1360: in _find_and_load
+    ???
+&lt;frozen importlib._bootstrap&gt;:1331: in _find_and_load_unlocked
+    ???
+&lt;frozen importlib._bootstrap&gt;:935: in _load_unlocked
+    ???
+venv/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:177: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+venv/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:359: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+/usr/lib/python3.12/ast.py:52: in parse
+    return compile(source, filename, mode, flags,
+E     File "/home/runner/work/ymera_y/ymera_y/test_component_enhancement_workflow.py", line 543
+E       """Test complete enhancement workflow"""
+E                                            ^
+E   SyntaxError: unterminated triple-quoted string literal (detected at line 561)</error></testcase><testcase classname="" name="test_comprehensive" time="0.000"><error message="collection failure">ImportError while importing test module '/home/runner/work/ymera_y/ymera_y/test_comprehensive.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+venv/lib/python3.12/site-packages/_pytest/python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+venv/lib/python3.12/site-packages/_pytest/pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+&lt;frozen importlib._bootstrap&gt;:1387: in _gcd_import
+    ???
+&lt;frozen importlib._bootstrap&gt;:1360: in _find_and_load
+    ???
+&lt;frozen importlib._bootstrap&gt;:1331: in _find_and_load_unlocked
+    ???
+&lt;frozen importlib._bootstrap&gt;:935: in _load_unlocked
+    ???
+venv/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:186: in exec_module
+    exec(co, module.__dict__)
+test_comprehensive.py:13: in &lt;module&gt;
+    from core.system import YMERASystem, get_system
+E   ModuleNotFoundError: No module named 'core.system'</error></testcase><testcase classname="" name="test_learning_agent" time="0.000"><error message="collection failure">ImportError while importing test module '/home/runner/work/ymera_y/ymera_y/test_learning_agent.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+venv/lib/python3.12/site-packages/_pytest/python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+venv/lib/python3.12/site-packages/_pytest/pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+&lt;frozen importlib._bootstrap&gt;:1387: in _gcd_import
+    ???
+&lt;frozen importlib._bootstrap&gt;:1360: in _find_and_load
+    ???
+&lt;frozen importlib._bootstrap&gt;:1331: in _find_and_load_unlocked
+    ???
+&lt;frozen importlib._bootstrap&gt;:935: in _load_unlocked
+    ???
+venv/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:186: in exec_module
+    exec(co, module.__dict__)
+test_learning_agent.py:4: in &lt;module&gt;
+    from agents.learning_agent.agent import LearningAgent, KnowledgeExtractor
+E   ModuleNotFoundError: No module named 'agents'</error></testcase><testcase classname="" name="test_project_agent" time="0.000"><error message="collection failure">ImportError while importing test module '/home/runner/work/ymera_y/ymera_y/test_project_agent.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+venv/lib/python3.12/site-packages/_pytest/python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+venv/lib/python3.12/site-packages/_pytest/pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+&lt;frozen importlib._bootstrap&gt;:1387: in _gcd_import
+    ???
+&lt;frozen importlib._bootstrap&gt;:1360: in _find_and_load
+    ???
+&lt;frozen importlib._bootstrap&gt;:1331: in _find_and_load_unlocked
+    ???
+&lt;frozen importlib._bootstrap&gt;:935: in _load_unlocked
+    ???
+venv/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:186: in exec_module
+    exec(co, module.__dict__)
+test_project_agent.py:4: in &lt;module&gt;
+    from agents.project_agent.agent import ProjectAgent, QualityAnalyzer
+E   ModuleNotFoundError: No module named 'agents'</error></testcase><testcase classname="" name="test_suite (1)" time="0.000"><error message="collection failure">ImportError while importing test module '/home/runner/work/ymera_y/ymera_y/test_suite (1).py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+venv/lib/python3.12/site-packages/_pytest/python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+venv/lib/python3.12/site-packages/_pytest/pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+&lt;frozen importlib._bootstrap&gt;:1387: in _gcd_import
+    ???
+&lt;frozen importlib._bootstrap&gt;:1360: in _find_and_load
+    ???
+&lt;frozen importlib._bootstrap&gt;:1331: in _find_and_load_unlocked
+    ???
+&lt;frozen importlib._bootstrap&gt;:935: in _load_unlocked
+    ???
+venv/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:186: in exec_module
+    exec(co, module.__dict__)
+test_suite (1).py:12: in &lt;module&gt;
+    from app.database import DatabaseManager, DatabaseConfig
+E   ModuleNotFoundError: No module named 'app'</error></testcase></testsuite></testsuites>

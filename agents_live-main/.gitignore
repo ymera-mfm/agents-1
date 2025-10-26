@@ -1,0 +1,138 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environments
+# Virtual Environment
+venv/
+ENV/
+env/
+.venv
+
+# IDEs
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Database Files
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+logs/
+*.log.*
+logs/
+*.log
+
+# Uploads
+uploads/
+*.tmp
+
+# Database
+*.db
+*.sqlite
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.hypothesis/
+test_report_enhanced.json
+*.pyc
+.mypy_cache/
+audit_reports/testing/htmlcov/
+audit_reports/quality/mypy_html/
+
+# Documentation
+docs/_build/
+
+# Backup files
+*.backup
+*.bak
+*.tmp
+
+# OS Files
+Thumbs.db
+desktop.ini
+
+# Application specific
+quickstart_test.db
+api_example.db
+example_ymera.db
+test_ymera.db
+site/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets
+*.pem
+*.key
+secrets/
+
+# Verification Reports
+verification_success_report.json
+verification_issues_report.json
+# Generated integration workspace
+enhanced_workspace/
+# Component Enhancement Workspace
+enhanced_workspace/
+enhanced_workspace/
+
+# Analysis artifacts
+repository_analysis/
+enhanced_platform/
+analysis_config.json
+cleanup/01_analysis_report.json
+cleanup/01_ANALYSIS_REPORT.md
+cleanup/backups/
+cleanup/backup/
+
+# Validation and test reports
+validation_reports/
+htmlcov/
+agent_coverage_html/
+coverage.json
+agent_coverage.json
+agent_coverage.xml
+*.coverage
+
+# Performance benchmarking outputs
+agent_benchmarks_complete.json
+agent_load_test_results.json
+
+
+#Ignore vscode AI rules
+.github/instructions/codacy.instructions.md

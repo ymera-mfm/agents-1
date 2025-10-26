@@ -1,0 +1,19 @@
+# k8s/base/config-map.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ymera-config
+data:
+  ENVIRONMENT: "production"
+  LOG_LEVEL: "INFO"
+  DATABASE_PRIMARY_URL: "postgresql://user:pass@primary-db:5432/ymera"
+  DATABASE_REPLICA_URLS: "postgresql://user:pass@replica-db-1:5432/ymera,postgresql://user:pass@replica-db-2:5432/ymera"
+  REDIS_URL: "redis://redis-master:6379"
+  KAFKA_BOOTSTRAP_SERVERS: "kafka-0.kafka:9092,kafka-1.kafka:9092,kafka-2.kafka:9092"
+  ELASTICSEARCH_HOST: "elasticsearch:9200"
+  JAEGER_HOST: "jaeger-collector"
+  PROMETHEUS_HOST: "prometheus-server"
+  SERVICE_DISCOVERY_ENABLED: "true"
+  EVENT_STORE_ENABLED: "true"
+  READ_REPLICA_ENABLED: "true"
+  CACHE_STRATEGY: "multi_level"

@@ -1,0 +1,612 @@
+{
+  "total_tests": 66,
+  "passed": 44,
+  "failed": 21,
+  "skipped": 1,
+  "warnings": 0,
+  "categories": {
+    "Environment": {
+      "total": 11,
+      "passed": 11,
+      "failed": 0,
+      "skipped": 0,
+      "warnings": 0
+    },
+    "Module Structure": {
+      "total": 8,
+      "passed": 3,
+      "failed": 5,
+      "skipped": 0,
+      "warnings": 0
+    },
+    "Database": {
+      "total": 10,
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0,
+      "warnings": 0
+    },
+    "API": {
+      "total": 8,
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0,
+      "warnings": 0
+    },
+    "Agents": {
+      "total": 9,
+      "passed": 0,
+      "failed": 8,
+      "skipped": 1,
+      "warnings": 0
+    },
+    "Engines": {
+      "total": 4,
+      "passed": 0,
+      "failed": 4,
+      "skipped": 0,
+      "warnings": 0
+    },
+    "Configuration": {
+      "total": 4,
+      "passed": 2,
+      "failed": 2,
+      "skipped": 0,
+      "warnings": 0
+    },
+    "Security": {
+      "total": 4,
+      "passed": 2,
+      "failed": 2,
+      "skipped": 0,
+      "warnings": 0
+    },
+    "Existing Tests": {
+      "total": 4,
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "warnings": 0
+    },
+    "Documentation": {
+      "total": 4,
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "warnings": 0
+    }
+  },
+  "start_time": "2025-10-20T00:41:53.079392",
+  "end_time": "2025-10-20T00:41:54.216762",
+  "duration": 1.1373674869537354,
+  "tests": [
+    {
+      "category": "Environment",
+      "name": "Python Version",
+      "status": "passed",
+      "message": "Python 3.12.3",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:53.079404"
+    },
+    {
+      "category": "Environment",
+      "name": "FastAPI Import",
+      "status": "passed",
+      "message": "v0.104.1",
+      "duration": 0.39171719551086426,
+      "timestamp": "2025-10-20T00:41:53.471136"
+    },
+    {
+      "category": "Environment",
+      "name": "SQLAlchemy Import",
+      "status": "passed",
+      "message": "v2.0.23",
+      "duration": 0.11620950698852539,
+      "timestamp": "2025-10-20T00:41:53.587374"
+    },
+    {
+      "category": "Environment",
+      "name": "Pydantic Import",
+      "status": "passed",
+      "message": "v2.5.0",
+      "duration": 1.6689300537109375e-06,
+      "timestamp": "2025-10-20T00:41:53.587396"
+    },
+    {
+      "category": "Environment",
+      "name": "AsyncIO Import",
+      "status": "passed",
+      "message": "vbuilt-in",
+      "duration": 1.6689300537109375e-06,
+      "timestamp": "2025-10-20T00:41:53.587406"
+    },
+    {
+      "category": "Environment",
+      "name": "Uvicorn (Optional)",
+      "status": "passed",
+      "message": "v0.24.0",
+      "duration": 0.02295660972595215,
+      "timestamp": "2025-10-20T00:41:53.610374"
+    },
+    {
+      "category": "Environment",
+      "name": "HTTPX (Optional)",
+      "status": "passed",
+      "message": "v0.25.2",
+      "duration": 0.0370028018951416,
+      "timestamp": "2025-10-20T00:41:53.647397"
+    },
+    {
+      "category": "Environment",
+      "name": "AsyncPG (Optional)",
+      "status": "passed",
+      "message": "v0.29.0",
+      "duration": 0.014540672302246094,
+      "timestamp": "2025-10-20T00:41:53.661962"
+    },
+    {
+      "category": "Environment",
+      "name": "AIOSqlite (Optional)",
+      "status": "passed",
+      "message": "v0.19.0",
+      "duration": 0.004607677459716797,
+      "timestamp": "2025-10-20T00:41:53.666592"
+    },
+    {
+      "category": "Environment",
+      "name": "Structlog (Optional)",
+      "status": "passed",
+      "message": "v23.2.0",
+      "duration": 0.007662296295166016,
+      "timestamp": "2025-10-20T00:41:53.674882"
+    },
+    {
+      "category": "Environment",
+      "name": "Pytest (Optional)",
+      "status": "passed",
+      "message": "v7.4.3",
+      "duration": 0.10852813720703125,
+      "timestamp": "2025-10-20T00:41:53.783429"
+    },
+    {
+      "category": "Module Structure",
+      "name": "Module: main",
+      "status": "passed",
+      "message": "Loaded successfully",
+      "duration": 0.24360179901123047,
+      "timestamp": "2025-10-20T00:41:54.027065"
+    },
+    {
+      "category": "Module Structure",
+      "name": "Module: config",
+      "status": "failed",
+      "message": "Error: 2 validation errors for ProjectAgentSettings\napi_host\n  Extra inputs are not permitted [type=extra_f",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.040473"
+    },
+    {
+      "category": "Module Structure",
+      "name": "Module: database",
+      "status": "passed",
+      "message": "Loaded successfully",
+      "duration": 0.0009729862213134766,
+      "timestamp": "2025-10-20T00:41:54.041466"
+    },
+    {
+      "category": "Module Structure",
+      "name": "Module: models",
+      "status": "passed",
+      "message": "Loaded successfully",
+      "duration": 0.006839752197265625,
+      "timestamp": "2025-10-20T00:41:54.048321"
+    },
+    {
+      "category": "Module Structure",
+      "name": "Module: unified_system",
+      "status": "failed",
+      "message": "Error: No module named 'nats'",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.059840"
+    },
+    {
+      "category": "Module Structure",
+      "name": "Module: base_agent",
+      "status": "failed",
+      "message": "Error: No module named 'nats'",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.060333"
+    },
+    {
+      "category": "Module Structure",
+      "name": "Module: learning_agent",
+      "status": "failed",
+      "message": "Error: No module named 'numpy'",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.063659"
+    },
+    {
+      "category": "Module Structure",
+      "name": "Module: intelligence_engine",
+      "status": "failed",
+      "message": "Error: No module named 'numpy'",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.070559"
+    },
+    {
+      "category": "Database",
+      "name": "Database Core Import",
+      "status": "passed",
+      "message": "Module loaded",
+      "duration": 0.04572629928588867,
+      "timestamp": "2025-10-20T00:41:54.116327"
+    },
+    {
+      "category": "Database",
+      "name": "Class: DatabaseConfig",
+      "status": "passed",
+      "message": "Available",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.116348"
+    },
+    {
+      "category": "Database",
+      "name": "Class: IntegratedDatabaseManager",
+      "status": "passed",
+      "message": "Available",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.116353"
+    },
+    {
+      "category": "Database",
+      "name": "Class: User",
+      "status": "passed",
+      "message": "Available",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.116357"
+    },
+    {
+      "category": "Database",
+      "name": "Class: Project",
+      "status": "passed",
+      "message": "Available",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.116361"
+    },
+    {
+      "category": "Database",
+      "name": "Class: Agent",
+      "status": "passed",
+      "message": "Available",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.116364"
+    },
+    {
+      "category": "Database",
+      "name": "Class: Task",
+      "status": "passed",
+      "message": "Available",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.116367"
+    },
+    {
+      "category": "Database",
+      "name": "Class: File",
+      "status": "passed",
+      "message": "Available",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.116370"
+    },
+    {
+      "category": "Database",
+      "name": "Class: AuditLog",
+      "status": "passed",
+      "message": "Available",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.116374"
+    },
+    {
+      "category": "Database",
+      "name": "SQLAlchemy Models",
+      "status": "passed",
+      "message": "Models imported",
+      "duration": 2.6226043701171875e-06,
+      "timestamp": "2025-10-20T00:41:54.116380"
+    },
+    {
+      "category": "API",
+      "name": "FastAPI App Import",
+      "status": "passed",
+      "message": "Application loaded",
+      "duration": 2.384185791015625e-06,
+      "timestamp": "2025-10-20T00:41:54.116393"
+    },
+    {
+      "category": "API",
+      "name": "API Routes",
+      "status": "passed",
+      "message": "Found 18 routes",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.116401"
+    },
+    {
+      "category": "API",
+      "name": "Route: /auth/register",
+      "status": "passed",
+      "message": "Available",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.116410"
+    },
+    {
+      "category": "API",
+      "name": "Route: /auth/login",
+      "status": "passed",
+      "message": "Available",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.116415"
+    },
+    {
+      "category": "API",
+      "name": "Route: /health",
+      "status": "passed",
+      "message": "Available",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.116424"
+    },
+    {
+      "category": "API",
+      "name": "Route: /metrics",
+      "status": "passed",
+      "message": "Available",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.116428"
+    },
+    {
+      "category": "API",
+      "name": "Route: /health/live",
+      "status": "passed",
+      "message": "Available",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.116432"
+    },
+    {
+      "category": "API",
+      "name": "Route: /health/ready",
+      "status": "passed",
+      "message": "Available",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.116435"
+    },
+    {
+      "category": "Agents",
+      "name": "Base Agent Import",
+      "status": "skipped",
+      "message": "base_agent.py not found",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.116980"
+    },
+    {
+      "category": "Agents",
+      "name": "Agent: learning_agent",
+      "status": "failed",
+      "message": "No module named 'numpy'",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.117336"
+    },
+    {
+      "category": "Agents",
+      "name": "Agent: communication_agent",
+      "status": "failed",
+      "message": "No module named 'nats'",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.125312"
+    },
+    {
+      "category": "Agents",
+      "name": "Agent: drafting_agent",
+      "status": "failed",
+      "message": "No module named 'nltk'",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.129552"
+    },
+    {
+      "category": "Agents",
+      "name": "Agent: editing_agent",
+      "status": "failed",
+      "message": "No module named 'spacy'",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.134773"
+    },
+    {
+      "category": "Agents",
+      "name": "Agent: enhancement_agent",
+      "status": "failed",
+      "message": "No module named 'numpy'",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.140456"
+    },
+    {
+      "category": "Agents",
+      "name": "Agent: examination_agent",
+      "status": "failed",
+      "message": "No module named 'numpy'",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.150007"
+    },
+    {
+      "category": "Agents",
+      "name": "Agent: metrics_agent",
+      "status": "failed",
+      "message": "No module named 'nats'",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.151577"
+    },
+    {
+      "category": "Agents",
+      "name": "Agent: llm_agent",
+      "status": "failed",
+      "message": "No module named 'tiktoken'",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.156589"
+    },
+    {
+      "category": "Engines",
+      "name": "Engine: intelligence_engine",
+      "status": "failed",
+      "message": "No module named 'numpy'",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.157080"
+    },
+    {
+      "category": "Engines",
+      "name": "Engine: optimization_engine",
+      "status": "failed",
+      "message": "No module named 'numpy'",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.169207"
+    },
+    {
+      "category": "Engines",
+      "name": "Engine: performance_engine",
+      "status": "failed",
+      "message": "No module named 'numpy'",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.175006"
+    },
+    {
+      "category": "Engines",
+      "name": "Engine: learning_engine",
+      "status": "failed",
+      "message": "No module named 'numpy'",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.178660"
+    },
+    {
+      "category": "Configuration",
+      "name": ".env File",
+      "status": "passed",
+      "message": "Configuration file exists",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.178696"
+    },
+    {
+      "category": "Configuration",
+      "name": "Config: config",
+      "status": "failed",
+      "message": "2 validation errors for ProjectAgentSettings\napi_host\n  Extra inputs are not permitted [type=extra_f",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.191351"
+    },
+    {
+      "category": "Configuration",
+      "name": "Config: settings",
+      "status": "passed",
+      "message": "Loaded",
+      "duration": 0.012841224670410156,
+      "timestamp": "2025-10-20T00:41:54.204217"
+    },
+    {
+      "category": "Configuration",
+      "name": "Config: ProductionConfig",
+      "status": "failed",
+      "message": "name 'BaseConfig' is not defined",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.205060"
+    },
+    {
+      "category": "Security",
+      "name": "Security: auth",
+      "status": "passed",
+      "message": "Loaded",
+      "duration": 0.000881195068359375,
+      "timestamp": "2025-10-20T00:41:54.205969"
+    },
+    {
+      "category": "Security",
+      "name": "Security: security_agent",
+      "status": "failed",
+      "message": "No module named 'aioredis'",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.212270"
+    },
+    {
+      "category": "Security",
+      "name": "Security: security_monitor",
+      "status": "failed",
+      "message": "cannot import name 'SecurityEvent' from 'models' (/home/runner/work/ymera_y/ymera_y/models.py)",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.214514"
+    },
+    {
+      "category": "Security",
+      "name": "Security: security_scanner",
+      "status": "passed",
+      "message": "Loaded",
+      "duration": 0.0021295547485351562,
+      "timestamp": "2025-10-20T00:41:54.216670"
+    },
+    {
+      "category": "Existing Tests",
+      "name": "Test Suite: test_api.py",
+      "status": "passed",
+      "message": "Test file exists",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.216694"
+    },
+    {
+      "category": "Existing Tests",
+      "name": "Test Suite: test_database.py",
+      "status": "passed",
+      "message": "Test file exists",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.216704"
+    },
+    {
+      "category": "Existing Tests",
+      "name": "Test Suite: test_comprehensive.py",
+      "status": "passed",
+      "message": "Test file exists",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.216711"
+    },
+    {
+      "category": "Existing Tests",
+      "name": "Test Suite: test_fixtures.py",
+      "status": "passed",
+      "message": "Test file exists",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.216717"
+    },
+    {
+      "category": "Documentation",
+      "name": "Doc: README.md",
+      "status": "passed",
+      "message": "Size: 10799 bytes",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.216732"
+    },
+    {
+      "category": "Documentation",
+      "name": "Doc: START_HERE.md",
+      "status": "passed",
+      "message": "Size: 17532 bytes",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.216742"
+    },
+    {
+      "category": "Documentation",
+      "name": "Doc: DEPLOYMENT_GUIDE.md",
+      "status": "passed",
+      "message": "Size: 13724 bytes",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.216750"
+    },
+    {
+      "category": "Documentation",
+      "name": "Doc: CHANGELOG.md",
+      "status": "passed",
+      "message": "Size: 9853 bytes",
+      "duration": 0,
+      "timestamp": "2025-10-20T00:41:54.216758"
+    }
+  ]
+}

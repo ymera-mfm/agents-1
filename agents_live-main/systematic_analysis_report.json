@@ -1,0 +1,5021 @@
+{
+  "issues": {
+    "unused_imports": [
+      {
+        "file": "metrics.py",
+        "line": 3,
+        "type": "potentially_unused_import",
+        "module": "Summary",
+        "content": "from prometheus_client import Counter, Gauge, Histogram, Summary"
+      },
+      {
+        "file": "project_integrator.py",
+        "line": 8,
+        "type": "potentially_unused_import",
+        "module": "List",
+        "content": "from typing import Dict, List, Optional"
+      },
+      {
+        "file": "project_integrator.py",
+        "line": 10,
+        "type": "potentially_unused_import",
+        "module": "json",
+        "content": "import json"
+      },
+      {
+        "file": "learning_agent_main.py",
+        "line": 12,
+        "type": "potentially_unused_import",
+        "module": "Tuple",
+        "content": "from typing import Dict, List, Any, Optional, Set, Tuple"
+      },
+      {
+        "file": "learning_agent_main.py",
+        "line": 13,
+        "type": "potentially_unused_import",
+        "module": "asdict",
+        "content": "from dataclasses import dataclass, field, asdict"
+      },
+      {
+        "file": "gateway_routing_fixed.py",
+        "line": 13,
+        "type": "potentially_unused_import",
+        "module": "timedelta",
+        "content": "from datetime import datetime, timedelta"
+      },
+      {
+        "file": "gateway_routing_fixed.py",
+        "line": 14,
+        "type": "potentially_unused_import",
+        "module": "Union",
+        "content": "from typing import Dict, List, Optional, Any, Callable, Union"
+      },
+      {
+        "file": "gateway_routing_fixed.py",
+        "line": 18,
+        "type": "potentially_unused_import",
+        "module": "weakref",
+        "content": "import weakref"
+      },
+      {
+        "file": "gateway_routing_fixed.py",
+        "line": 20,
+        "type": "potentially_unused_import",
+        "module": "contextlib",
+        "content": "import contextlib"
+      },
+      {
+        "file": "gateway_routing_fixed.py",
+        "line": 22,
+        "type": "potentially_unused_import",
+        "module": "traceback",
+        "content": "import traceback"
+      },
+      {
+        "file": "gateway_routing_fixed.py",
+        "line": 24,
+        "type": "potentially_unused_import",
+        "module": "Depends",
+        "content": "from fastapi import FastAPI, Request, Response, HTTPException, UploadFile, File, Form, Depends"
+      },
+      {
+        "file": "gateway_routing_fixed.py",
+        "line": 25,
+        "type": "potentially_unused_import",
+        "module": "JSONResponse",
+        "content": "from fastapi.responses import JSONResponse, StreamingResponse, FileResponse"
+      },
+      {
+        "file": "gateway_routing_fixed.py",
+        "line": 25,
+        "type": "potentially_unused_import",
+        "module": "StreamingResponse",
+        "content": "from fastapi.responses import JSONResponse, StreamingResponse, FileResponse"
+      },
+      {
+        "file": "gateway_routing_fixed.py",
+        "line": 29,
+        "type": "potentially_unused_import",
+        "module": "StaticFiles",
+        "content": "from fastapi.staticfiles import StaticFiles"
+      },
+      {
+        "file": "gateway_routing_fixed.py",
+        "line": 30,
+        "type": "potentially_unused_import",
+        "module": "HTTPBearer",
+        "content": "from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials"
+      },
+      {
+        "file": "gateway_routing_fixed.py",
+        "line": 30,
+        "type": "potentially_unused_import",
+        "module": "HTTPAuthorizationCredentials",
+        "content": "from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials"
+      },
+      {
+        "file": "gateway_routing_fixed.py",
+        "line": 32,
+        "type": "potentially_unused_import",
+        "module": "BaseModel",
+        "content": "from pydantic import BaseModel, Field"
+      },
+      {
+        "file": "gateway_routing_fixed.py",
+        "line": 32,
+        "type": "potentially_unused_import",
+        "module": "Field",
+        "content": "from pydantic import BaseModel, Field"
+      },
+      {
+        "file": "knowledge_flow_manager.py",
+        "line": 16,
+        "type": "potentially_unused_import",
+        "module": "KnowledgeItem",
+        "content": "from models import KnowledgeItem"
+      },
+      {
+        "file": "tests.utils.test_helpers.py",
+        "line": 2,
+        "type": "potentially_unused_import",
+        "module": "pytest",
+        "content": "import pytest"
+      },
+      {
+        "file": "tests.utils.test_helpers.py",
+        "line": 3,
+        "type": "potentially_unused_import",
+        "module": "timedelta",
+        "content": "from datetime import datetime, timedelta"
+      },
+      {
+        "file": "tests.utils.test_helpers.py",
+        "line": 4,
+        "type": "potentially_unused_import",
+        "module": "List",
+        "content": "from typing import Dict, Any, List"
+      },
+      {
+        "file": "tests.utils.test_helpers.py",
+        "line": 5,
+        "type": "potentially_unused_import",
+        "module": "json",
+        "content": "import json"
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 16,
+        "type": "potentially_unused_import",
+        "module": "os",
+        "content": "import os"
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 20,
+        "type": "potentially_unused_import",
+        "module": "defaultdict",
+        "content": "from collections import defaultdict"
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 21,
+        "type": "potentially_unused_import",
+        "module": "Set",
+        "content": "from typing import List, Dict, Set, Tuple"
+      },
+      {
+        "file": "encryption.py",
+        "line": 7,
+        "type": "potentially_unused_import",
+        "module": "os",
+        "content": "import os"
+      },
+      {
+        "file": "encryption.py",
+        "line": 13,
+        "type": "potentially_unused_import",
+        "module": "hashes",
+        "content": "from cryptography.hazmat.primitives import hashes"
+      },
+      {
+        "file": "encryption.py",
+        "line": 14,
+        "type": "potentially_unused_import",
+        "module": "PBKDF2",
+        "content": "from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2"
+      },
+      {
+        "file": "tests.unit.test_security.py",
+        "line": 3,
+        "type": "potentially_unused_import",
+        "module": "AsyncMock",
+        "content": "from unittest.mock import patch, AsyncMock"
+      },
+      {
+        "file": "tests.unit.test_security.py",
+        "line": 6,
+        "type": "potentially_unused_import",
+        "module": "UserRecord",
+        "content": "from src.models.user import UserRecord"
+      },
+      {
+        "file": "extensions.py",
+        "line": 9,
+        "type": "potentially_unused_import",
+        "module": "Dict",
+        "content": "from typing import Dict, List, Optional, Any"
+      },
+      {
+        "file": "extensions.py",
+        "line": 9,
+        "type": "potentially_unused_import",
+        "module": "Any",
+        "content": "from typing import Dict, List, Optional, Any"
+      },
+      {
+        "file": "extensions.py",
+        "line": 10,
+        "type": "potentially_unused_import",
+        "module": "asyncio",
+        "content": "import asyncio"
+      },
+      {
+        "file": "scaling.auto_scaler.py",
+        "line": 5,
+        "type": "potentially_unused_import",
+        "module": "Any",
+        "content": "from typing import Dict, List, Any, Optional"
+      },
+      {
+        "file": "scaling.auto_scaler.py",
+        "line": 5,
+        "type": "potentially_unused_import",
+        "module": "Optional",
+        "content": "from typing import Dict, List, Any, Optional"
+      },
+      {
+        "file": "scaling.auto_scaler.py",
+        "line": 10,
+        "type": "potentially_unused_import",
+        "module": "numpy",
+        "content": "import numpy as np"
+      },
+      {
+        "file": "connection_pool.py",
+        "line": 6,
+        "type": "potentially_unused_import",
+        "module": "asyncio",
+        "content": "import asyncio"
+      },
+      {
+        "file": "activate_agents.py",
+        "line": 12,
+        "type": "potentially_unused_import",
+        "module": "List",
+        "content": "from typing import Dict, List, Any"
+      },
+      {
+        "file": "api_gateway.py",
+        "line": 16,
+        "type": "potentially_unused_import",
+        "module": "Union",
+        "content": "from typing import Dict, List, Optional, Any, Union"
+      },
+      {
+        "file": "agent_classifier.py",
+        "line": 9,
+        "type": "potentially_unused_import",
+        "module": "List",
+        "content": "from typing import Dict, List, Any"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 7,
+        "type": "potentially_unused_import",
+        "module": "os",
+        "content": "import os"
+      },
+      {
+        "file": "generator_engine_prod.py",
+        "line": 8,
+        "type": "potentially_unused_import",
+        "module": "hashlib",
+        "content": "import hashlib"
+      },
+      {
+        "file": "generator_engine_prod.py",
+        "line": 9,
+        "type": "potentially_unused_import",
+        "module": "json",
+        "content": "import json"
+      },
+      {
+        "file": "generator_engine_prod.py",
+        "line": 13,
+        "type": "potentially_unused_import",
+        "module": "Tuple",
+        "content": "from typing import Dict, Any, List, Optional, Set, Tuple"
+      },
+      {
+        "file": "generator_engine_prod.py",
+        "line": 17,
+        "type": "potentially_unused_import",
+        "module": "Path",
+        "content": "from pathlib import Path"
+      },
+      {
+        "file": "generator_engine_prod.py",
+        "line": 350,
+        "type": "potentially_unused_import",
+        "module": "pytest",
+        "content": "import pytest"
+      },
+      {
+        "file": "generator_engine_prod.py",
+        "line": 351,
+        "type": "potentially_unused_import",
+        "module": "Mock",
+        "content": "from unittest.mock import Mock, patch"
+      },
+      {
+        "file": "generator_engine_prod.py",
+        "line": 351,
+        "type": "potentially_unused_import",
+        "module": "patch",
+        "content": "from unittest.mock import Mock, patch"
+      },
+      {
+        "file": "resource_allocator.py",
+        "line": 8,
+        "type": "potentially_unused_import",
+        "module": "List",
+        "content": "from typing import Dict, Any, List, Optional"
+      },
+      {
+        "file": "data_pipeline.etl_processor.py",
+        "line": 4,
+        "type": "potentially_unused_import",
+        "module": "timedelta",
+        "content": "from datetime import datetime, timedelta"
+      },
+      {
+        "file": "data_pipeline.etl_processor.py",
+        "line": 6,
+        "type": "potentially_unused_import",
+        "module": "pandas",
+        "content": "import pandas as pd"
+      },
+      {
+        "file": "data_pipeline.etl_processor.py",
+        "line": 7,
+        "type": "potentially_unused_import",
+        "module": "numpy",
+        "content": "import numpy as np"
+      },
+      {
+        "file": "data_pipeline.etl_processor.py",
+        "line": 9,
+        "type": "potentially_unused_import",
+        "module": "KafkaAdminClient",
+        "content": "from kafka.admin import KafkaAdminClient, NewTopic"
+      },
+      {
+        "file": "data_pipeline.etl_processor.py",
+        "line": 9,
+        "type": "potentially_unused_import",
+        "module": "NewTopic",
+        "content": "from kafka.admin import KafkaAdminClient, NewTopic"
+      },
+      {
+        "file": "tests.conftest.py",
+        "line": 10,
+        "type": "potentially_unused_import",
+        "module": "timedelta",
+        "content": "from datetime import datetime, timedelta"
+      },
+      {
+        "file": "tests.conftest.py",
+        "line": 11,
+        "type": "potentially_unused_import",
+        "module": "Dict",
+        "content": "from typing import Dict, List, Any, Optional, Generator"
+      },
+      {
+        "file": "tests.conftest.py",
+        "line": 11,
+        "type": "potentially_unused_import",
+        "module": "List",
+        "content": "from typing import Dict, List, Any, Optional, Generator"
+      },
+      {
+        "file": "tests.conftest.py",
+        "line": 11,
+        "type": "potentially_unused_import",
+        "module": "Any",
+        "content": "from typing import Dict, List, Any, Optional, Generator"
+      },
+      {
+        "file": "tests.conftest.py",
+        "line": 11,
+        "type": "potentially_unused_import",
+        "module": "Optional",
+        "content": "from typing import Dict, List, Any, Optional, Generator"
+      },
+      {
+        "file": "tests.conftest.py",
+        "line": 11,
+        "type": "potentially_unused_import",
+        "module": "Generator",
+        "content": "from typing import Dict, List, Any, Optional, Generator"
+      },
+      {
+        "file": "agent_tester.py",
+        "line": 15,
+        "type": "potentially_unused_import",
+        "module": "Optional",
+        "content": "from typing import Dict, List, Any, Optional"
+      },
+      {
+        "file": "service_discovery.py",
+        "line": 7,
+        "type": "potentially_unused_import",
+        "module": "PlainTextResponse",
+        "content": "from fastapi.responses import JSONResponse, PlainTextResponse"
+      },
+      {
+        "file": "service_discovery.py",
+        "line": 9,
+        "type": "potentially_unused_import",
+        "module": "List",
+        "content": "from typing import Dict, Optional, List"
+      },
+      {
+        "file": "enhanced_base_agent.py",
+        "line": 23,
+        "type": "potentially_unused_import",
+        "module": "Tuple",
+        "content": "from typing import Dict, Any, Optional, Callable, List, Set, Tuple"
+      },
+      {
+        "file": "enhanced_base_agent.py",
+        "line": 26,
+        "type": "potentially_unused_import",
+        "module": "timedelta",
+        "content": "from datetime import datetime, timedelta"
+      },
+      {
+        "file": "enhanced_base_agent.py",
+        "line": 29,
+        "type": "potentially_unused_import",
+        "module": "wraps",
+        "content": "from functools import wraps"
+      },
+      {
+        "file": "enhanced_base_agent.py",
+        "line": 31,
+        "type": "potentially_unused_import",
+        "module": "traceback",
+        "content": "import traceback"
+      },
+      {
+        "file": "enhanced_base_agent.py",
+        "line": 36,
+        "type": "potentially_unused_import",
+        "module": "Client",
+        "content": "from nats.aio.client import Client as NATS"
+      },
+      {
+        "file": "enhanced_base_agent.py",
+        "line": 37,
+        "type": "potentially_unused_import",
+        "module": "ConnectionClosedError",
+        "content": "from nats.errors import TimeoutError as NatsTimeoutError, ConnectionClosedError"
+      },
+      {
+        "file": "intelligence_engine.py",
+        "line": 9,
+        "type": "potentially_unused_import",
+        "module": "logging",
+        "content": "import logging"
+      },
+      {
+        "file": "intelligence_engine.py",
+        "line": 10,
+        "type": "potentially_unused_import",
+        "module": "Union",
+        "content": "from typing import Dict, List, Optional, Any, Union, Tuple, Set"
+      },
+      {
+        "file": "intelligence_engine.py",
+        "line": 10,
+        "type": "potentially_unused_import",
+        "module": "Tuple",
+        "content": "from typing import Dict, List, Optional, Any, Union, Tuple, Set"
+      },
+      {
+        "file": "intelligence_engine.py",
+        "line": 10,
+        "type": "potentially_unused_import",
+        "module": "Set",
+        "content": "from typing import Dict, List, Optional, Any, Union, Tuple, Set"
+      },
+      {
+        "file": "intelligence_engine.py",
+        "line": 13,
+        "type": "potentially_unused_import",
+        "module": "numpy",
+        "content": "import numpy as np"
+      },
+      {
+        "file": "intelligence_engine.py",
+        "line": 15,
+        "type": "potentially_unused_import",
+        "module": "hashlib",
+        "content": "import hashlib"
+      },
+      {
+        "file": "intelligence_engine.py",
+        "line": 17,
+        "type": "potentially_unused_import",
+        "module": "threading",
+        "content": "import threading"
+      },
+      {
+        "file": "intelligence_engine.py",
+        "line": 19,
+        "type": "potentially_unused_import",
+        "module": "weakref",
+        "content": "import weakref"
+      },
+      {
+        "file": "intelligence_engine.py",
+        "line": 20,
+        "type": "potentially_unused_import",
+        "module": "timedelta",
+        "content": "from datetime import datetime, timedelta"
+      },
+      {
+        "file": "intelligence_engine.py",
+        "line": 22,
+        "type": "potentially_unused_import",
+        "module": "TaskRequest",
+        "content": "from base_agent import BaseAgent, AgentConfig, TaskRequest, Priority"
+      },
+      {
+        "file": "intelligence_engine.py",
+        "line": 25,
+        "type": "potentially_unused_import",
+        "module": "asyncpg",
+        "content": "import asyncpg"
+      },
+      {
+        "file": "ai_agents_production.py",
+        "line": 20,
+        "type": "potentially_unused_import",
+        "module": "timedelta",
+        "content": "from datetime import datetime, timedelta"
+      },
+      {
+        "file": "ai_agents_production.py",
+        "line": 22,
+        "type": "potentially_unused_import",
+        "module": "field",
+        "content": "from dataclasses import dataclass, asdict, field"
+      },
+      {
+        "file": "ai_agents_production.py",
+        "line": 26,
+        "type": "potentially_unused_import",
+        "module": "deque",
+        "content": "from collections import defaultdict, deque"
+      },
+      {
+        "file": "knowledge_graph.py",
+        "line": 5,
+        "type": "potentially_unused_import",
+        "module": "asyncio",
+        "content": "import asyncio"
+      },
+      {
+        "file": "knowledge_graph.py",
+        "line": 11,
+        "type": "potentially_unused_import",
+        "module": "networkx",
+        "content": "import networkx as nx"
+      },
+      {
+        "file": "knowledge_graph.py",
+        "line": 412,
+        "type": "potentially_unused_import",
+        "module": "community",
+        "content": "import community as community_louvain"
+      },
+      {
+        "file": "enhanced_ai_routes.py",
+        "line": 13,
+        "type": "potentially_unused_import",
+        "module": "asyncio",
+        "content": "import asyncio"
+      },
+      {
+        "file": "production_auth_routes.py",
+        "line": 11,
+        "type": "potentially_unused_import",
+        "module": "asyncio",
+        "content": "import asyncio"
+      },
+      {
+        "file": "production_auth_routes.py",
+        "line": 13,
+        "type": "potentially_unused_import",
+        "module": "logging",
+        "content": "import logging"
+      },
+      {
+        "file": "production_auth_routes.py",
+        "line": 14,
+        "type": "potentially_unused_import",
+        "module": "secrets",
+        "content": "import secrets"
+      },
+      {
+        "file": "production_auth_routes.py",
+        "line": 17,
+        "type": "potentially_unused_import",
+        "module": "List",
+        "content": "from typing import Dict, List, Any, Optional"
+      },
+      {
+        "file": "production_auth_routes.py",
+        "line": 25,
+        "type": "potentially_unused_import",
+        "module": "select",
+        "content": "from sqlalchemy.future import select"
+      },
+      {
+        "file": "production_auth_routes.py",
+        "line": 26,
+        "type": "potentially_unused_import",
+        "module": "IntegrityError",
+        "content": "from sqlalchemy.exc import IntegrityError"
+      },
+      {
+        "file": "agent.py",
+        "line": 4,
+        "type": "potentially_unused_import",
+        "module": "timedelta",
+        "content": "from datetime import datetime, timedelta"
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 17,
+        "type": "potentially_unused_import",
+        "module": "timedelta",
+        "content": "from datetime import datetime, timedelta"
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 18,
+        "type": "potentially_unused_import",
+        "module": "Union",
+        "content": "from typing import Dict, List, Optional, Any, Union"
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 19,
+        "type": "potentially_unused_import",
+        "module": "UUID",
+        "content": "from uuid import UUID, uuid4"
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 20,
+        "type": "potentially_unused_import",
+        "module": "Path",
+        "content": "from pathlib import Path"
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 28,
+        "type": "potentially_unused_import",
+        "module": "JSONResponse",
+        "content": "from fastapi.responses import JSONResponse, StreamingResponse, FileResponse"
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 30,
+        "type": "potentially_unused_import",
+        "module": "validator",
+        "content": "from pydantic import BaseModel, Field, validator"
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 31,
+        "type": "potentially_unused_import",
+        "module": "aiofiles",
+        "content": "import aiofiles"
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 32,
+        "type": "potentially_unused_import",
+        "module": "httpx",
+        "content": "import httpx"
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 51,
+        "type": "potentially_unused_import",
+        "module": "ProjectPhase",
+        "content": "from models.project import Project, ProjectStatus, ProjectPhase"
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 52,
+        "type": "potentially_unused_import",
+        "module": "AgentSubmission",
+        "content": "from models.submission import AgentSubmission, SubmissionStatus, QualityFeedback"
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 52,
+        "type": "potentially_unused_import",
+        "module": "QualityFeedback",
+        "content": "from models.submission import AgentSubmission, SubmissionStatus, QualityFeedback"
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 54,
+        "type": "potentially_unused_import",
+        "module": "FileMetadata",
+        "content": "from models.file import FileMetadata, FileVersion"
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 54,
+        "type": "potentially_unused_import",
+        "module": "FileVersion",
+        "content": "from models.file import FileMetadata, FileVersion"
+      },
+      {
+        "file": "ymera__init__.py",
+        "line": 5,
+        "type": "potentially_unused_import",
+        "module": "List",
+        "content": "from typing import Dict, List, Any, Optional"
+      },
+      {
+        "file": "ymera__init__.py",
+        "line": 5,
+        "type": "potentially_unused_import",
+        "module": "Optional",
+        "content": "from typing import Dict, List, Any, Optional"
+      },
+      {
+        "file": "ymera__init__.py",
+        "line": 9,
+        "type": "potentially_unused_import",
+        "module": "Enum",
+        "content": "from enum import Enum"
+      },
+      {
+        "file": "ymera__init__.py",
+        "line": 10,
+        "type": "potentially_unused_import",
+        "module": "time",
+        "content": "import time"
+      },
+      {
+        "file": "ymera__init__.py",
+        "line": 178,
+        "type": "potentially_unused_import",
+        "module": "pandas",
+        "content": "import pandas as pd"
+      },
+      {
+        "file": "performance_engine.py",
+        "line": 10,
+        "type": "potentially_unused_import",
+        "module": "logging",
+        "content": "import logging"
+      },
+      {
+        "file": "performance_engine.py",
+        "line": 14,
+        "type": "potentially_unused_import",
+        "module": "numpy",
+        "content": "import numpy as np"
+      },
+      {
+        "file": "performance_engine.py",
+        "line": 19,
+        "type": "potentially_unused_import",
+        "module": "Priority",
+        "content": "from base_agent import BaseAgent, AgentConfig, TaskRequest, Priority"
+      },
+      {
+        "file": "performance_engine.py",
+        "line": 20,
+        "type": "potentially_unused_import",
+        "module": "trace",
+        "content": "from opentelemetry import trace"
+      },
+      {
+        "file": "chat_interface.py",
+        "line": 6,
+        "type": "potentially_unused_import",
+        "module": "asyncio",
+        "content": "import asyncio"
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 21,
+        "type": "potentially_unused_import",
+        "module": "traceback",
+        "content": "import traceback"
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 22,
+        "type": "potentially_unused_import",
+        "module": "signal",
+        "content": "import signal"
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 23,
+        "type": "potentially_unused_import",
+        "module": "Union",
+        "content": "from typing import Dict, List, Set, Optional, Any, Union, Tuple"
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 23,
+        "type": "potentially_unused_import",
+        "module": "Tuple",
+        "content": "from typing import Dict, List, Set, Optional, Any, Union, Tuple"
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 26,
+        "type": "potentially_unused_import",
+        "module": "asdict",
+        "content": "from dataclasses import dataclass, field, asdict"
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 35,
+        "type": "potentially_unused_import",
+        "module": "select",
+        "content": "from sqlalchemy import Column, String, DateTime, JSON, Integer, Boolean, Text, ForeignKey, select, func, text, Index"
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 35,
+        "type": "potentially_unused_import",
+        "module": "func",
+        "content": "from sqlalchemy import Column, String, DateTime, JSON, Integer, Boolean, Text, ForeignKey, select, func, text, Index"
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 40,
+        "type": "potentially_unused_import",
+        "module": "Fernet",
+        "content": "from cryptography.fernet import Fernet"
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 41,
+        "type": "potentially_unused_import",
+        "module": "hashes",
+        "content": "from cryptography.hazmat.primitives import hashes"
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 42,
+        "type": "potentially_unused_import",
+        "module": "PBKDF2HMAC",
+        "content": "from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC"
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 43,
+        "type": "potentially_unused_import",
+        "module": "default_backend",
+        "content": "from cryptography.hazmat.backends import default_backend"
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 44,
+        "type": "potentially_unused_import",
+        "module": "base64",
+        "content": "import base64"
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 47,
+        "type": "potentially_unused_import",
+        "module": "Summary",
+        "content": "from prometheus_client import Counter, Gauge, Histogram, Summary, start_http_server"
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 56,
+        "type": "potentially_unused_import",
+        "module": "FastAPI",
+        "content": "from fastapi import FastAPI, Request, HTTPException, WebSocket, WebSocketDisconnect, Depends, BackgroundTasks, Security"
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 56,
+        "type": "potentially_unused_import",
+        "module": "WebSocketDisconnect",
+        "content": "from fastapi import FastAPI, Request, HTTPException, WebSocket, WebSocketDisconnect, Depends, BackgroundTasks, Security"
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 56,
+        "type": "potentially_unused_import",
+        "module": "Depends",
+        "content": "from fastapi import FastAPI, Request, HTTPException, WebSocket, WebSocketDisconnect, Depends, BackgroundTasks, Security"
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 56,
+        "type": "potentially_unused_import",
+        "module": "BackgroundTasks",
+        "content": "from fastapi import FastAPI, Request, HTTPException, WebSocket, WebSocketDisconnect, Depends, BackgroundTasks, Security"
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 57,
+        "type": "potentially_unused_import",
+        "module": "HTTPBearer",
+        "content": "from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials, OAuth2PasswordBearer"
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 57,
+        "type": "potentially_unused_import",
+        "module": "HTTPAuthorizationCredentials",
+        "content": "from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials, OAuth2PasswordBearer"
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 57,
+        "type": "potentially_unused_import",
+        "module": "OAuth2PasswordBearer",
+        "content": "from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials, OAuth2PasswordBearer"
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 58,
+        "type": "potentially_unused_import",
+        "module": "CORSMiddleware",
+        "content": "from fastapi.middleware.cors import CORSMiddleware"
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 59,
+        "type": "potentially_unused_import",
+        "module": "JSONResponse",
+        "content": "from fastapi.responses import JSONResponse"
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 61,
+        "type": "potentially_unused_import",
+        "module": "uvicorn",
+        "content": "import uvicorn"
+      },
+      {
+        "file": "audit_manager.py",
+        "line": 9,
+        "type": "potentially_unused_import",
+        "module": "Any",
+        "content": "from typing import Dict, List, Optional, Any, Set, Union"
+      },
+      {
+        "file": "audit_manager.py",
+        "line": 9,
+        "type": "potentially_unused_import",
+        "module": "Set",
+        "content": "from typing import Dict, List, Optional, Any, Set, Union"
+      },
+      {
+        "file": "audit_manager.py",
+        "line": 9,
+        "type": "potentially_unused_import",
+        "module": "Union",
+        "content": "from typing import Dict, List, Optional, Any, Set, Union"
+      },
+      {
+        "file": "audit_manager.py",
+        "line": 16,
+        "type": "potentially_unused_import",
+        "module": "hashlib",
+        "content": "import hashlib"
+      },
+      {
+        "file": "audit_manager.py",
+        "line": 17,
+        "type": "potentially_unused_import",
+        "module": "hmac",
+        "content": "import hmac"
+      },
+      {
+        "file": "ml_pipeline.py",
+        "line": 2,
+        "type": "potentially_unused_import",
+        "module": "asyncio",
+        "content": "import asyncio"
+      },
+      {
+        "file": "ml_pipeline.py",
+        "line": 3,
+        "type": "potentially_unused_import",
+        "module": "json",
+        "content": "import json"
+      },
+      {
+        "file": "ml_pipeline.py",
+        "line": 5,
+        "type": "potentially_unused_import",
+        "module": "Optional",
+        "content": "from typing import Dict, List, Any, Optional"
+      },
+      {
+        "file": "ml_pipeline.py",
+        "line": 7,
+        "type": "potentially_unused_import",
+        "module": "numpy",
+        "content": "import numpy as np"
+      },
+      {
+        "file": "ml_pipeline.py",
+        "line": 10,
+        "type": "potentially_unused_import",
+        "module": "pickle",
+        "content": "import pickle"
+      },
+      {
+        "file": "ml_pipeline.py",
+        "line": 11,
+        "type": "potentially_unused_import",
+        "module": "os",
+        "content": "import os"
+      }
+    ],
+    "missing_type_hints": [
+      {
+        "file": "metrics.py",
+        "line": 95,
+        "type": "missing_return_type_hint",
+        "function": "increment_counter",
+        "content": "def increment_counter(self, name: str, labels: dict = None):"
+      },
+      {
+        "file": "metrics.py",
+        "line": 106,
+        "type": "missing_return_type_hint",
+        "function": "set_gauge",
+        "content": "def set_gauge(self, name: str, value: float):"
+      },
+      {
+        "file": "metrics.py",
+        "line": 114,
+        "type": "missing_return_type_hint",
+        "function": "observe_histogram",
+        "content": "def observe_histogram(self, name: str, value: float, labels: dict = None):"
+      },
+      {
+        "file": "config_compat.py",
+        "line": 154,
+        "type": "missing_return_type_hint",
+        "function": "reset_settings",
+        "content": "def reset_settings():"
+      },
+      {
+        "file": "config_compat.py",
+        "line": 326,
+        "type": "missing_return_type_hint",
+        "function": "print_configuration_examples",
+        "content": "def print_configuration_examples():"
+      },
+      {
+        "file": "project_integrator.py",
+        "line": 41,
+        "type": "missing_return_type_hint",
+        "function": "initialize",
+        "content": "async def initialize(self):"
+      },
+      {
+        "file": "project_integrator.py",
+        "line": 46,
+        "type": "missing_return_type_hint",
+        "function": "integrate_submission",
+        "content": "async def integrate_submission("
+      },
+      {
+        "file": "project_integrator.py",
+        "line": 314,
+        "type": "missing_return_type_hint",
+        "function": "start_background_integration",
+        "content": "async def start_background_integration(self):"
+      },
+      {
+        "file": "project_integrator.py",
+        "line": 322,
+        "type": "missing_return_type_hint",
+        "function": "shutdown",
+        "content": "async def shutdown(self):"
+      },
+      {
+        "file": "learning_agent_main.py",
+        "line": 246,
+        "type": "missing_return_type_hint",
+        "function": "analyze_agent_performance",
+        "content": "async def analyze_agent_performance("
+      },
+      {
+        "file": "learning_agent_main.py",
+        "line": 426,
+        "type": "missing_return_type_hint",
+        "function": "capture_knowledge",
+        "content": "async def capture_knowledge("
+      },
+      {
+        "file": "learning_agent_main.py",
+        "line": 479,
+        "type": "missing_return_type_hint",
+        "function": "distribute_knowledge",
+        "content": "async def distribute_knowledge("
+      },
+      {
+        "file": "learning_agent_main.py",
+        "line": 547,
+        "type": "missing_return_type_hint",
+        "function": "search_knowledge",
+        "content": "async def search_knowledge("
+      },
+      {
+        "file": "learning_agent_main.py",
+        "line": 596,
+        "type": "missing_return_type_hint",
+        "function": "process_chat_message",
+        "content": "async def process_chat_message("
+      },
+      {
+        "file": "learning_agent_main.py",
+        "line": 1080,
+        "type": "missing_return_type_hint",
+        "function": "main",
+        "content": "async def main():"
+      },
+      {
+        "file": "gateway_routing_fixed.py",
+        "line": 97,
+        "type": "missing_return_type_hint",
+        "function": "call",
+        "content": "async def call(self, func: Callable, *args, **kwargs):"
+      },
+      {
+        "file": "gateway_routing_fixed.py",
+        "line": 131,
+        "type": "missing_return_type_hint",
+        "function": "register_service",
+        "content": "def register_service(self, service_name: str, endpoint: ServiceEndpoint):"
+      },
+      {
+        "file": "gateway_routing_fixed.py",
+        "line": 137,
+        "type": "missing_return_type_hint",
+        "function": "unregister_service",
+        "content": "def unregister_service(self, service_name: str, endpoint_id: str):"
+      },
+      {
+        "file": "gateway_routing_fixed.py",
+        "line": 153,
+        "type": "missing_return_type_hint",
+        "function": "start_health_checks",
+        "content": "async def start_health_checks(self):"
+      },
+      {
+        "file": "gateway_routing_fixed.py",
+        "line": 157,
+        "type": "missing_return_type_hint",
+        "function": "stop_health_checks",
+        "content": "async def stop_health_checks(self):"
+      },
+      {
+        "file": "gateway_routing_fixed.py",
+        "line": 246,
+        "type": "missing_return_type_hint",
+        "function": "avg_response_time",
+        "content": "def avg_response_time(endpoint):"
+      },
+      {
+        "file": "gateway_routing_fixed.py",
+        "line": 262,
+        "type": "missing_return_type_hint",
+        "function": "add_route",
+        "content": "def add_route(self, rule: RoutingRule):"
+      },
+      {
+        "file": "gateway_routing_fixed.py",
+        "line": 367,
+        "type": "missing_return_type_hint",
+        "function": "upload_file",
+        "content": "async def upload_file("
+      },
+      {
+        "file": "gateway_routing_fixed.py",
+        "line": 459,
+        "type": "missing_return_type_hint",
+        "function": "connect",
+        "content": "async def connect(self, websocket: WebSocket, connection_id: str, user_id: str, "
+      },
+      {
+        "file": "gateway_routing_fixed.py",
+        "line": 471,
+        "type": "missing_return_type_hint",
+        "function": "disconnect",
+        "content": "def disconnect(self, connection_id: str, user_id: str, connection_type: str = \"u"
+      },
+      {
+        "file": "gateway_routing_fixed.py",
+        "line": 482,
+        "type": "missing_return_type_hint",
+        "function": "send_to_user",
+        "content": "async def send_to_user(self, user_id: str, message: Dict[str, Any]):"
+      },
+      {
+        "file": "gateway_routing_fixed.py",
+        "line": 487,
+        "type": "missing_return_type_hint",
+        "function": "send_to_agent",
+        "content": "async def send_to_agent(self, agent_id: str, message: Dict[str, Any]):"
+      },
+      {
+        "file": "gateway_routing_fixed.py",
+        "line": 492,
+        "type": "missing_return_type_hint",
+        "function": "broadcast_to_all",
+        "content": "async def broadcast_to_all(self, message: Dict[str, Any]):"
+      },
+      {
+        "file": "gateway_routing_fixed.py",
+        "line": 557,
+        "type": "missing_return_type_hint",
+        "function": "health_check",
+        "content": "async def health_check():"
+      },
+      {
+        "file": "gateway_routing_fixed.py",
+        "line": 562,
+        "type": "missing_return_type_hint",
+        "function": "upload_file",
+        "content": "async def upload_file("
+      },
+      {
+        "file": "gateway_routing_fixed.py",
+        "line": 582,
+        "type": "missing_return_type_hint",
+        "function": "download_file",
+        "content": "async def download_file(file_id: str, request: Request):"
+      },
+      {
+        "file": "gateway_routing_fixed.py",
+        "line": 588,
+        "type": "missing_return_type_hint",
+        "function": "list_files",
+        "content": "async def list_files(project_id: str = None, request: Request = None):"
+      },
+      {
+        "file": "gateway_routing_fixed.py",
+        "line": 595,
+        "type": "missing_return_type_hint",
+        "function": "websocket_endpoint",
+        "content": "async def websocket_endpoint("
+      },
+      {
+        "file": "gateway_routing_fixed.py",
+        "line": 619,
+        "type": "missing_return_type_hint",
+        "function": "route_to_agents",
+        "content": "async def route_to_agents(request: Request):"
+      },
+      {
+        "file": "gateway_routing_fixed.py",
+        "line": 622,
+        "type": "missing_return_type_hint",
+        "function": "register_agent_service",
+        "content": "def register_agent_service(self, agent_name: str, endpoint_url: str):"
+      },
+      {
+        "file": "gateway_routing_fixed.py",
+        "line": 640,
+        "type": "missing_return_type_hint",
+        "function": "start",
+        "content": "async def start(self):"
+      },
+      {
+        "file": "gateway_routing_fixed.py",
+        "line": 645,
+        "type": "missing_return_type_hint",
+        "function": "stop",
+        "content": "async def stop(self):"
+      },
+      {
+        "file": "knowledge_flow_manager.py",
+        "line": 43,
+        "type": "missing_return_type_hint",
+        "function": "start",
+        "content": "async def start(self):"
+      },
+      {
+        "file": "knowledge_flow_manager.py",
+        "line": 58,
+        "type": "missing_return_type_hint",
+        "function": "stop",
+        "content": "async def stop(self):"
+      },
+      {
+        "file": "knowledge_flow_manager.py",
+        "line": 66,
+        "type": "missing_return_type_hint",
+        "function": "create_subscription",
+        "content": "async def create_subscription("
+      },
+      {
+        "file": "knowledge_flow_manager.py",
+        "line": 120,
+        "type": "missing_return_type_hint",
+        "function": "update_subscription",
+        "content": "async def update_subscription("
+      },
+      {
+        "file": "knowledge_flow_manager.py",
+        "line": 211,
+        "type": "missing_return_type_hint",
+        "function": "notify_subscribers",
+        "content": "async def notify_subscribers("
+      },
+      {
+        "file": "knowledge_flow_manager.py",
+        "line": 254,
+        "type": "missing_return_type_hint",
+        "function": "request_knowledge_flow",
+        "content": "async def request_knowledge_flow("
+      },
+      {
+        "file": "knowledge_flow_manager.py",
+        "line": 310,
+        "type": "missing_return_type_hint",
+        "function": "broadcast_knowledge",
+        "content": "async def broadcast_knowledge("
+      },
+      {
+        "file": "tests.utils.test_helpers.py",
+        "line": 48,
+        "type": "missing_return_type_hint",
+        "function": "assert_datetime_recent",
+        "content": "def assert_datetime_recent(dt_string: str, max_minutes: int = 5):"
+      },
+      {
+        "file": "tests.utils.test_helpers.py",
+        "line": 55,
+        "type": "missing_return_type_hint",
+        "function": "assert_response_structure",
+        "content": "def assert_response_structure(response, expected_structure: Dict[str, Any]):"
+      },
+      {
+        "file": "tests.utils.test_helpers.py",
+        "line": 57,
+        "type": "missing_return_type_hint",
+        "function": "check_structure",
+        "content": "def check_structure(actual, expected, path=\"\"):"
+      },
+      {
+        "file": "tests.utils.test_helpers.py",
+        "line": 79,
+        "type": "missing_return_type_hint",
+        "function": "assert_response_time",
+        "content": "def assert_response_time(response, max_time_ms: int):"
+      },
+      {
+        "file": "tests.utils.test_helpers.py",
+        "line": 90,
+        "type": "missing_return_type_hint",
+        "function": "assert_throughput",
+        "content": "def assert_throughput(actual_ops: float, expected_ops: float, tolerance: float ="
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 112,
+        "type": "missing_return_type_hint",
+        "function": "categorize_by_dependency_level",
+        "content": "def categorize_by_dependency_level("
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 231,
+        "type": "missing_return_type_hint",
+        "function": "save_report",
+        "content": "def save_report(self, report: Dict, output_path: Path = None):"
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 248,
+        "type": "missing_return_type_hint",
+        "function": "main",
+        "content": "def main():"
+      },
+      {
+        "file": "logger.py",
+        "line": 15,
+        "type": "missing_return_type_hint",
+        "function": "add_fields",
+        "content": "def add_fields(self, log_record, record, message_dict):"
+      },
+      {
+        "file": "generate_agent_testing_report.py",
+        "line": 12,
+        "type": "missing_return_type_hint",
+        "function": "generate_report",
+        "content": "def generate_report():"
+      },
+      {
+        "file": "extensions.py",
+        "line": 32,
+        "type": "missing_return_type_hint",
+        "function": "websocket_endpoint",
+        "content": "async def websocket_endpoint("
+      },
+      {
+        "file": "extensions.py",
+        "line": 80,
+        "type": "missing_return_type_hint",
+        "function": "handle_task_update",
+        "content": "async def handle_task_update(message: dict, user_id: str):"
+      },
+      {
+        "file": "extensions.py",
+        "line": 106,
+        "type": "missing_return_type_hint",
+        "function": "handle_agent_status",
+        "content": "async def handle_agent_status(message: dict, user_id: str):"
+      },
+      {
+        "file": "extensions.py",
+        "line": 124,
+        "type": "missing_return_type_hint",
+        "function": "create_batch_tasks",
+        "content": "async def create_batch_tasks("
+      },
+      {
+        "file": "extensions.py",
+        "line": 159,
+        "type": "missing_return_type_hint",
+        "function": "get_task_statistics",
+        "content": "async def get_task_statistics("
+      },
+      {
+        "file": "extensions.py",
+        "line": 222,
+        "type": "missing_return_type_hint",
+        "function": "execute_agent_command",
+        "content": "async def execute_agent_command("
+      },
+      {
+        "file": "extensions.py",
+        "line": 259,
+        "type": "missing_return_type_hint",
+        "function": "get_available_agents",
+        "content": "async def get_available_agents("
+      },
+      {
+        "file": "extensions.py",
+        "line": 301,
+        "type": "missing_return_type_hint",
+        "function": "detailed_health_check",
+        "content": "async def detailed_health_check():"
+      },
+      {
+        "file": "extensions.py",
+        "line": 307,
+        "type": "missing_return_type_hint",
+        "function": "get_live_metrics",
+        "content": "async def get_live_metrics():"
+      },
+      {
+        "file": "extensions.py",
+        "line": 362,
+        "type": "missing_return_type_hint",
+        "function": "get_analytics_summary",
+        "content": "async def get_analytics_summary("
+      },
+      {
+        "file": "extensions.py",
+        "line": 408,
+        "type": "missing_return_type_hint",
+        "function": "get_notifications",
+        "content": "async def get_notifications("
+      },
+      {
+        "file": "extensions.py",
+        "line": 419,
+        "type": "missing_return_type_hint",
+        "function": "mark_notification_read",
+        "content": "async def mark_notification_read("
+      },
+      {
+        "file": "extensions.py",
+        "line": 432,
+        "type": "missing_return_type_hint",
+        "function": "export_tasks",
+        "content": "async def export_tasks("
+      },
+      {
+        "file": "extensions.py",
+        "line": 501,
+        "type": "missing_return_type_hint",
+        "function": "get_system_info",
+        "content": "async def get_system_info(current_user: User = Depends(get_current_user)):"
+      },
+      {
+        "file": "extensions.py",
+        "line": 533,
+        "type": "missing_return_type_hint",
+        "function": "rate_limiting_middleware",
+        "content": "async def rate_limiting_middleware(request: Request, call_next):"
+      },
+      {
+        "file": "extensions.py",
+        "line": 560,
+        "type": "missing_return_type_hint",
+        "function": "http_exception_handler",
+        "content": "async def http_exception_handler(request: Request, exc: HTTPException):"
+      },
+      {
+        "file": "extensions.py",
+        "line": 583,
+        "type": "missing_return_type_hint",
+        "function": "general_exception_handler",
+        "content": "async def general_exception_handler(request: Request, exc: Exception):"
+      },
+      {
+        "file": "scaling.auto_scaler.py",
+        "line": 43,
+        "type": "missing_return_type_hint",
+        "function": "scale_based_on_metrics",
+        "content": "async def scale_based_on_metrics(self, deployment_name: str, namespace: str = \"y"
+      },
+      {
+        "file": "scaling.auto_scaler.py",
+        "line": 348,
+        "type": "missing_return_type_hint",
+        "function": "start_scaling_loop",
+        "content": "async def start_scaling_loop(self):"
+      },
+      {
+        "file": "connection_pool.py",
+        "line": 37,
+        "type": "missing_return_type_hint",
+        "function": "initialize",
+        "content": "async def initialize(self):"
+      },
+      {
+        "file": "connection_pool.py",
+        "line": 91,
+        "type": "missing_return_type_hint",
+        "function": "close",
+        "content": "async def close(self):"
+      },
+      {
+        "file": "activate_agents.py",
+        "line": 64,
+        "type": "missing_return_type_hint",
+        "function": "log_compliance_check",
+        "content": "async def log_compliance_check(self, agent_name: str, result: bool):"
+      },
+      {
+        "file": "activate_agents.py",
+        "line": 100,
+        "type": "missing_return_type_hint",
+        "function": "initialize",
+        "content": "async def initialize(self):"
+      },
+      {
+        "file": "activate_agents.py",
+        "line": 295,
+        "type": "missing_return_type_hint",
+        "function": "run_activation_tests",
+        "content": "async def run_activation_tests(self):"
+      },
+      {
+        "file": "activate_agents.py",
+        "line": 336,
+        "type": "missing_return_type_hint",
+        "function": "generate_activation_report",
+        "content": "async def generate_activation_report(self):"
+      },
+      {
+        "file": "activate_agents.py",
+        "line": 373,
+        "type": "missing_return_type_hint",
+        "function": "run",
+        "content": "async def run(self):"
+      },
+      {
+        "file": "activate_agents.py",
+        "line": 392,
+        "type": "missing_return_type_hint",
+        "function": "main",
+        "content": "async def main():"
+      },
+      {
+        "file": "api_gateway.py",
+        "line": 123,
+        "type": "missing_return_type_hint",
+        "function": "start",
+        "content": "async def start(self):"
+      },
+      {
+        "file": "api_gateway.py",
+        "line": 166,
+        "type": "missing_return_type_hint",
+        "function": "middleware_handler",
+        "content": "async def middleware_handler(request):"
+      },
+      {
+        "file": "api_gateway.py",
+        "line": 209,
+        "type": "missing_return_type_hint",
+        "function": "middleware_handler",
+        "content": "async def middleware_handler(request):"
+      },
+      {
+        "file": "api_gateway.py",
+        "line": 326,
+        "type": "missing_return_type_hint",
+        "function": "stop",
+        "content": "async def stop(self):"
+      },
+      {
+        "file": "metrics_agent.py",
+        "line": 31,
+        "type": "missing_return_type_hint",
+        "function": "start",
+        "content": "async def start(self):"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 33,
+        "type": "missing_return_type_hint",
+        "function": "remove_duplicates",
+        "content": "def remove_duplicates(self):"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 152,
+        "type": "missing_return_type_hint",
+        "function": "main",
+        "content": "def main():"
+      },
+      {
+        "file": "generator_engine_prod.py",
+        "line": 358,
+        "type": "missing_return_type_hint",
+        "function": "setup_method",
+        "content": "def setup_method(self):"
+      },
+      {
+        "file": "generator_engine_prod.py",
+        "line": 362,
+        "type": "missing_return_type_hint",
+        "function": "teardown_method",
+        "content": "def teardown_method(self):"
+      },
+      {
+        "file": "generator_engine_prod.py",
+        "line": 474,
+        "type": "missing_return_type_hint",
+        "function": "generate",
+        "content": "async def generate("
+      },
+      {
+        "file": "resource_allocator.py",
+        "line": 140,
+        "type": "missing_return_type_hint",
+        "function": "start",
+        "content": "async def start(self):"
+      },
+      {
+        "file": "resource_allocator.py",
+        "line": 146,
+        "type": "missing_return_type_hint",
+        "function": "stop",
+        "content": "async def stop(self):"
+      },
+      {
+        "file": "resource_allocator.py",
+        "line": 164,
+        "type": "missing_return_type_hint",
+        "function": "register_agent_resources",
+        "content": "async def register_agent_resources("
+      },
+      {
+        "file": "resource_allocator.py",
+        "line": 183,
+        "type": "missing_return_type_hint",
+        "function": "update_agent_resources",
+        "content": "async def update_agent_resources("
+      },
+      {
+        "file": "resource_allocator.py",
+        "line": 196,
+        "type": "missing_return_type_hint",
+        "function": "deregister_agent_resources",
+        "content": "async def deregister_agent_resources(self, agent_id: str):"
+      },
+      {
+        "file": "resource_allocator.py",
+        "line": 215,
+        "type": "missing_return_type_hint",
+        "function": "allocate_resources",
+        "content": "async def allocate_resources("
+      },
+      {
+        "file": "resource_allocator.py",
+        "line": 341,
+        "type": "missing_return_type_hint",
+        "function": "reserve_resources",
+        "content": "async def reserve_resources("
+      },
+      {
+        "file": "resource_allocator.py",
+        "line": 395,
+        "type": "missing_return_type_hint",
+        "function": "set_tenant_quota",
+        "content": "async def set_tenant_quota(self, tenant_id: str, quota: ResourceQuota):"
+      },
+      {
+        "file": "PerformanceMonitor.py",
+        "line": 4,
+        "type": "missing_return_type_hint",
+        "function": "track_response_time",
+        "content": "async def track_response_time(request: Request, call_next):"
+      },
+      {
+        "file": "PerformanceMonitor.py",
+        "line": 29,
+        "type": "missing_return_type_hint",
+        "function": "record_security_event",
+        "content": "async def record_security_event(event_type: str, severity: str, details: Dict[st"
+      },
+      {
+        "file": "PerformanceMonitor.py",
+        "line": 51,
+        "type": "missing_return_type_hint",
+        "function": "record_user_activity",
+        "content": "async def record_user_activity(user_id: str, action: str, resource_type: str):"
+      },
+      {
+        "file": "PerformanceMonitor.py",
+        "line": 63,
+        "type": "missing_return_type_hint",
+        "function": "calculate_user_satisfaction",
+        "content": "async def calculate_user_satisfaction():"
+      },
+      {
+        "file": "PerformanceMonitor.py",
+        "line": 70,
+        "type": "missing_return_type_hint",
+        "function": "detailed_health_check",
+        "content": "async def detailed_health_check():"
+      },
+      {
+        "file": "PerformanceMonitor.py",
+        "line": 94,
+        "type": "missing_return_type_hint",
+        "function": "metrics_middleware",
+        "content": "async def metrics_middleware(request: Request, call_next):"
+      },
+      {
+        "file": "data_pipeline.etl_processor.py",
+        "line": 111,
+        "type": "missing_return_type_hint",
+        "function": "stream_data_to_kafka",
+        "content": "async def stream_data_to_kafka(self, topic: str, data: Dict[str, Any], key: str "
+      },
+      {
+        "file": "data_pipeline.etl_processor.py",
+        "line": 143,
+        "type": "missing_return_type_hint",
+        "function": "process_kafka_messages",
+        "content": "async def process_kafka_messages(self, topics: List[str]):"
+      },
+      {
+        "file": "data_pipeline.etl_processor.py",
+        "line": 284,
+        "type": "missing_return_type_hint",
+        "function": "batch_processing_pipeline",
+        "content": "async def batch_processing_pipeline(self):"
+      },
+      {
+        "file": "data_pipeline.etl_processor.py",
+        "line": 365,
+        "type": "missing_return_type_hint",
+        "function": "train_models",
+        "content": "async def train_models(self, model_types: List[str] = None):"
+      },
+      {
+        "file": "data_pipeline.etl_processor.py",
+        "line": 407,
+        "type": "missing_return_type_hint",
+        "function": "train_models",
+        "content": "async def train_models(self, model_types: List[str] = None):"
+      },
+      {
+        "file": "data_pipeline.etl_processor.py",
+        "line": 555,
+        "type": "missing_return_type_hint",
+        "function": "get_project_insights",
+        "content": "async def get_project_insights("
+      },
+      {
+        "file": "data_pipeline.etl_processor.py",
+        "line": 565,
+        "type": "missing_return_type_hint",
+        "function": "predict_project_risk",
+        "content": "async def predict_project_risk("
+      },
+      {
+        "file": "data_pipeline.etl_processor.py",
+        "line": 575,
+        "type": "missing_return_type_hint",
+        "function": "get_analytics_dashboard",
+        "content": "async def get_analytics_dashboard("
+      },
+      {
+        "file": "data_pipeline.etl_processor.py",
+        "line": 585,
+        "type": "missing_return_type_hint",
+        "function": "train_ml_models",
+        "content": "async def train_ml_models("
+      },
+      {
+        "file": "data_pipeline.etl_processor.py",
+        "line": 595,
+        "type": "missing_return_type_hint",
+        "function": "ml_prediction",
+        "content": "async def ml_prediction("
+      },
+      {
+        "file": "data_pipeline.etl_processor.py",
+        "line": 607,
+        "type": "missing_return_type_hint",
+        "function": "stream_data",
+        "content": "async def stream_data("
+      },
+      {
+        "file": "data_pipeline.etl_processor.py",
+        "line": 619,
+        "type": "missing_return_type_hint",
+        "function": "process_batch_data",
+        "content": "async def process_batch_data("
+      },
+      {
+        "file": "tests.conftest.py",
+        "line": 25,
+        "type": "missing_return_type_hint",
+        "function": "event_loop",
+        "content": "def event_loop():"
+      },
+      {
+        "file": "tests.conftest.py",
+        "line": 76,
+        "type": "missing_return_type_hint",
+        "function": "override_get_db",
+        "content": "def override_get_db():"
+      },
+      {
+        "file": "tests.conftest.py",
+        "line": 92,
+        "type": "missing_return_type_hint",
+        "function": "create_user",
+        "content": "async def create_user():"
+      },
+      {
+        "file": "tests.conftest.py",
+        "line": 109,
+        "type": "missing_return_type_hint",
+        "function": "create_headers",
+        "content": "async def create_headers(user=None):"
+      },
+      {
+        "file": "tests.conftest.py",
+        "line": 124,
+        "type": "missing_return_type_hint",
+        "function": "mock_redis",
+        "content": "def mock_redis():"
+      },
+      {
+        "file": "tests.conftest.py",
+        "line": 134,
+        "type": "missing_return_type_hint",
+        "function": "mock_kafka",
+        "content": "def mock_kafka():"
+      },
+      {
+        "file": "tests.conftest.py",
+        "line": 141,
+        "type": "missing_return_type_hint",
+        "function": "mock_elasticsearch",
+        "content": "def mock_elasticsearch():"
+      },
+      {
+        "file": "agent_tester.py",
+        "line": 367,
+        "type": "missing_return_type_hint",
+        "function": "main",
+        "content": "async def main():"
+      },
+      {
+        "file": "prod_config_manager.py",
+        "line": 320,
+        "type": "missing_return_type_hint",
+        "function": "start",
+        "content": "async def start(self):"
+      },
+      {
+        "file": "service_discovery.py",
+        "line": 162,
+        "type": "missing_return_type_hint",
+        "function": "health_check",
+        "content": "async def health_check():"
+      },
+      {
+        "file": "service_discovery.py",
+        "line": 214,
+        "type": "missing_return_type_hint",
+        "function": "readiness_check",
+        "content": "async def readiness_check():"
+      },
+      {
+        "file": "service_discovery.py",
+        "line": 249,
+        "type": "missing_return_type_hint",
+        "function": "liveness_check",
+        "content": "async def liveness_check():"
+      },
+      {
+        "file": "service_discovery.py",
+        "line": 267,
+        "type": "missing_return_type_hint",
+        "function": "version_info",
+        "content": "async def version_info():"
+      },
+      {
+        "file": "service_discovery.py",
+        "line": 286,
+        "type": "missing_return_type_hint",
+        "function": "service_info",
+        "content": "async def service_info():"
+      },
+      {
+        "file": "enhanced_base_agent.py",
+        "line": 254,
+        "type": "missing_return_type_hint",
+        "function": "call",
+        "content": "async def call(self, func: Callable, *args, **kwargs):"
+      },
+      {
+        "file": "enhanced_base_agent.py",
+        "line": 304,
+        "type": "missing_return_type_hint",
+        "function": "reset",
+        "content": "async def reset(self):"
+      },
+      {
+        "file": "enhanced_base_agent.py",
+        "line": 434,
+        "type": "missing_return_type_hint",
+        "function": "filter",
+        "content": "def filter(self, record):"
+      },
+      {
+        "file": "enhanced_base_agent.py",
+        "line": 443,
+        "type": "missing_return_type_hint",
+        "function": "signal_handler",
+        "content": "def signal_handler(signum, frame):"
+      },
+      {
+        "file": "enhanced_base_agent.py",
+        "line": 1212,
+        "type": "missing_return_type_hint",
+        "function": "stop",
+        "content": "async def stop(self):"
+      },
+      {
+        "file": "enhanced_base_agent.py",
+        "line": 1252,
+        "type": "missing_return_type_hint",
+        "function": "close_nats",
+        "content": "async def close_nats():"
+      },
+      {
+        "file": "enhanced_base_agent.py",
+        "line": 1268,
+        "type": "missing_return_type_hint",
+        "function": "close_postgres",
+        "content": "async def close_postgres():"
+      },
+      {
+        "file": "enhanced_base_agent.py",
+        "line": 1280,
+        "type": "missing_return_type_hint",
+        "function": "close_redis",
+        "content": "async def close_redis():"
+      },
+      {
+        "file": "enhanced_base_agent.py",
+        "line": 1294,
+        "type": "missing_return_type_hint",
+        "function": "run_forever",
+        "content": "async def run_forever(self):"
+      },
+      {
+        "file": "enhanced_base_agent.py",
+        "line": 1307,
+        "type": "missing_return_type_hint",
+        "function": "run_agent",
+        "content": "async def run_agent(agent: BaseAgent):"
+      },
+      {
+        "file": "plugin_architecture.py",
+        "line": 11,
+        "type": "missing_return_type_hint",
+        "function": "register_plugin",
+        "content": "def register_plugin(self, plugin_name, plugin_class):"
+      },
+      {
+        "file": "plugin_architecture.py",
+        "line": 15,
+        "type": "missing_return_type_hint",
+        "function": "add_hook",
+        "content": "def add_hook(self, hook_name, callback):"
+      },
+      {
+        "file": "plugin_architecture.py",
+        "line": 18,
+        "type": "missing_return_type_hint",
+        "function": "execute_hook",
+        "content": "def execute_hook(self, hook_name, *args, **kwargs):"
+      },
+      {
+        "file": "plugin_architecture.py",
+        "line": 29,
+        "type": "missing_return_type_hint",
+        "function": "initialize",
+        "content": "async def initialize(self):"
+      },
+      {
+        "file": "plugin_architecture.py",
+        "line": 32,
+        "type": "missing_return_type_hint",
+        "function": "execute",
+        "content": "async def execute(self, context):"
+      },
+      {
+        "file": "intelligence_engine.py",
+        "line": 136,
+        "type": "missing_return_type_hint",
+        "function": "start",
+        "content": "async def start(self):"
+      },
+      {
+        "file": "intelligence_engine.py",
+        "line": 1135,
+        "type": "missing_return_type_hint",
+        "function": "main",
+        "content": "async def main():"
+      },
+      {
+        "file": "ai_agents_production.py",
+        "line": 107,
+        "type": "missing_return_type_hint",
+        "function": "initialize",
+        "content": "async def initialize(self):"
+      },
+      {
+        "file": "ai_agents_production.py",
+        "line": 175,
+        "type": "missing_return_type_hint",
+        "function": "record_pattern",
+        "content": "async def record_pattern("
+      },
+      {
+        "file": "ai_agents_production.py",
+        "line": 250,
+        "type": "missing_return_type_hint",
+        "function": "get_relevant_patterns",
+        "content": "async def get_relevant_patterns("
+      },
+      {
+        "file": "ai_agents_production.py",
+        "line": 333,
+        "type": "missing_return_type_hint",
+        "function": "update_performance",
+        "content": "async def update_performance("
+      },
+      {
+        "file": "ai_agents_production.py",
+        "line": 553,
+        "type": "missing_return_type_hint",
+        "function": "analyze",
+        "content": "async def analyze("
+      },
+      {
+        "file": "ai_agents_production.py",
+        "line": 807,
+        "type": "missing_return_type_hint",
+        "function": "initialize",
+        "content": "async def initialize(self):"
+      },
+      {
+        "file": "ai_agents_production.py",
+        "line": 832,
+        "type": "missing_return_type_hint",
+        "function": "analyze_with_best_agent",
+        "content": "async def analyze_with_best_agent("
+      },
+      {
+        "file": "ai_agents_production.py",
+        "line": 870,
+        "type": "missing_return_type_hint",
+        "function": "collaborative_analysis",
+        "content": "async def collaborative_analysis("
+      },
+      {
+        "file": "ai_agents_production.py",
+        "line": 914,
+        "type": "missing_return_type_hint",
+        "function": "cleanup",
+        "content": "async def cleanup(self):"
+      },
+      {
+        "file": "ai_agents_production.py",
+        "line": 974,
+        "type": "missing_return_type_hint",
+        "function": "example_usage",
+        "content": "async def example_usage():"
+      },
+      {
+        "file": "pattern_recognizer.py",
+        "line": 32,
+        "type": "missing_return_type_hint",
+        "function": "detect",
+        "content": "async def detect("
+      },
+      {
+        "file": "pattern_recognizer.py",
+        "line": 73,
+        "type": "missing_return_type_hint",
+        "function": "extract_patterns",
+        "content": "async def extract_patterns("
+      },
+      {
+        "file": "pattern_recognizer.py",
+        "line": 107,
+        "type": "missing_return_type_hint",
+        "function": "analyze_interaction",
+        "content": "async def analyze_interaction("
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 20,
+        "type": "missing_return_type_hint",
+        "function": "print_fix_priority_list",
+        "content": "def print_fix_priority_list(report: Dict):"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 89,
+        "type": "missing_return_type_hint",
+        "function": "show_dependency_chain",
+        "content": "def show_dependency_chain(report: Dict):"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 108,
+        "type": "missing_return_type_hint",
+        "function": "estimate_fix_effort",
+        "content": "def estimate_fix_effort(report: Dict):"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 133,
+        "type": "missing_return_type_hint",
+        "function": "show_summary_stats",
+        "content": "def show_summary_stats(report: Dict):"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 158,
+        "type": "missing_return_type_hint",
+        "function": "main",
+        "content": "def main():"
+      },
+      {
+        "file": "knowledge_graph.py",
+        "line": 119,
+        "type": "missing_return_type_hint",
+        "function": "add_entity",
+        "content": "async def add_entity(self,"
+      },
+      {
+        "file": "knowledge_graph.py",
+        "line": 168,
+        "type": "missing_return_type_hint",
+        "function": "add_relationship",
+        "content": "async def add_relationship(self,"
+      },
+      {
+        "file": "knowledge_graph.py",
+        "line": 240,
+        "type": "missing_return_type_hint",
+        "function": "get_related_entities",
+        "content": "async def get_related_entities(self,"
+      },
+      {
+        "file": "knowledge_graph.py",
+        "line": 286,
+        "type": "missing_return_type_hint",
+        "function": "find_path",
+        "content": "async def find_path(self,"
+      },
+      {
+        "file": "knowledge_graph.py",
+        "line": 318,
+        "type": "missing_return_type_hint",
+        "function": "find_all_paths",
+        "content": "async def find_all_paths(self,"
+      },
+      {
+        "file": "knowledge_graph.py",
+        "line": 344,
+        "type": "missing_return_type_hint",
+        "function": "get_neighbors",
+        "content": "async def get_neighbors(self,"
+      },
+      {
+        "file": "knowledge_graph.py",
+        "line": 378,
+        "type": "missing_return_type_hint",
+        "function": "compute_centrality",
+        "content": "async def compute_centrality(self,"
+      },
+      {
+        "file": "knowledge_graph.py",
+        "line": 499,
+        "type": "missing_return_type_hint",
+        "function": "get_subgraph",
+        "content": "async def get_subgraph(self,"
+      },
+      {
+        "file": "knowledge_graph.py",
+        "line": 550,
+        "type": "missing_return_type_hint",
+        "function": "export_to_json",
+        "content": "async def export_to_json(self, filepath: str):"
+      },
+      {
+        "file": "enhanced_ai_routes.py",
+        "line": 52,
+        "type": "missing_return_type_hint",
+        "function": "validate_context",
+        "content": "def validate_context(cls, v):"
+      },
+      {
+        "file": "enhanced_ai_routes.py",
+        "line": 117,
+        "type": "missing_return_type_hint",
+        "function": "chat_completion",
+        "content": "async def chat_completion("
+      },
+      {
+        "file": "enhanced_ai_routes.py",
+        "line": 222,
+        "type": "missing_return_type_hint",
+        "function": "generate_embeddings",
+        "content": "async def generate_embeddings("
+      },
+      {
+        "file": "enhanced_ai_routes.py",
+        "line": 269,
+        "type": "missing_return_type_hint",
+        "function": "list_providers",
+        "content": "async def list_providers("
+      },
+      {
+        "file": "enhanced_ai_routes.py",
+        "line": 294,
+        "type": "missing_return_type_hint",
+        "function": "get_ai_usage",
+        "content": "async def get_ai_usage("
+      },
+      {
+        "file": "enhanced_ai_routes.py",
+        "line": 347,
+        "type": "missing_return_type_hint",
+        "function": "validate_params",
+        "content": "def validate_params(cls, v, info):"
+      },
+      {
+        "file": "enhanced_ai_routes.py",
+        "line": 400,
+        "type": "missing_return_type_hint",
+        "function": "create_alert",
+        "content": "async def create_alert("
+      },
+      {
+        "file": "enhanced_ai_routes.py",
+        "line": 453,
+        "type": "missing_return_type_hint",
+        "function": "list_alerts",
+        "content": "async def list_alerts("
+      },
+      {
+        "file": "enhanced_ai_routes.py",
+        "line": 481,
+        "type": "missing_return_type_hint",
+        "function": "update_alert",
+        "content": "async def update_alert("
+      },
+      {
+        "file": "enhanced_ai_routes.py",
+        "line": 520,
+        "type": "missing_return_type_hint",
+        "function": "delete_alert",
+        "content": "async def delete_alert("
+      },
+      {
+        "file": "enhanced_ai_routes.py",
+        "line": 547,
+        "type": "missing_return_type_hint",
+        "function": "create_dashboard",
+        "content": "async def create_dashboard("
+      },
+      {
+        "file": "enhanced_ai_routes.py",
+        "line": 597,
+        "type": "missing_return_type_hint",
+        "function": "get_dashboard",
+        "content": "async def get_dashboard("
+      },
+      {
+        "file": "enhanced_ai_routes.py",
+        "line": 630,
+        "type": "missing_return_type_hint",
+        "function": "kibana_health",
+        "content": "async def kibana_health("
+      },
+      {
+        "file": "enhanced_ai_routes.py",
+        "line": 666,
+        "type": "missing_return_type_hint",
+        "function": "system_health",
+        "content": "async def system_health("
+      },
+      {
+        "file": "enhanced_ai_routes.py",
+        "line": 719,
+        "type": "missing_return_type_hint",
+        "function": "get_metrics",
+        "content": "async def get_metrics("
+      },
+      {
+        "file": "enhanced_ai_routes.py",
+        "line": 751,
+        "type": "missing_return_type_hint",
+        "function": "get_logs",
+        "content": "async def get_logs("
+      },
+      {
+        "file": "enhanced_ai_routes.py",
+        "line": 793,
+        "type": "missing_return_type_hint",
+        "function": "get_all_routers",
+        "content": "def get_all_routers():"
+      },
+      {
+        "file": "production_auth_routes.py",
+        "line": 47,
+        "type": "missing_return_type_hint",
+        "function": "get_settings",
+        "content": "def get_settings():"
+      },
+      {
+        "file": "production_auth_routes.py",
+        "line": 85,
+        "type": "missing_return_type_hint",
+        "function": "validate_password",
+        "content": "def validate_password(cls, v):"
+      },
+      {
+        "file": "production_auth_routes.py",
+        "line": 186,
+        "type": "missing_return_type_hint",
+        "function": "get_current_user",
+        "content": "async def get_current_user("
+      },
+      {
+        "file": "production_auth_routes.py",
+        "line": 217,
+        "type": "missing_return_type_hint",
+        "function": "register_user",
+        "content": "async def register_user("
+      },
+      {
+        "file": "production_auth_routes.py",
+        "line": 243,
+        "type": "missing_return_type_hint",
+        "function": "login_user",
+        "content": "async def login_user("
+      },
+      {
+        "file": "production_auth_routes.py",
+        "line": 292,
+        "type": "missing_return_type_hint",
+        "function": "refresh_access_token",
+        "content": "async def refresh_access_token("
+      },
+      {
+        "file": "production_auth_routes.py",
+        "line": 329,
+        "type": "missing_return_type_hint",
+        "function": "logout_user",
+        "content": "async def logout_user("
+      },
+      {
+        "file": "production_auth_routes.py",
+        "line": 347,
+        "type": "missing_return_type_hint",
+        "function": "get_user_profile",
+        "content": "async def get_user_profile("
+      },
+      {
+        "file": "agent.py",
+        "line": 41,
+        "type": "missing_return_type_hint",
+        "function": "initialize",
+        "content": "async def initialize(self):"
+      },
+      {
+        "file": "agent.py",
+        "line": 61,
+        "type": "missing_return_type_hint",
+        "function": "process_message",
+        "content": "async def process_message(self, user_id: UUID, message: str,"
+      },
+      {
+        "file": "agent.py",
+        "line": 113,
+        "type": "missing_return_type_hint",
+        "function": "provide_feedback",
+        "content": "async def provide_feedback(self, experience_id: UUID, score: int,"
+      },
+      {
+        "file": "agent.py",
+        "line": 282,
+        "type": "missing_return_type_hint",
+        "function": "shutdown",
+        "content": "async def shutdown(self):"
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 129,
+        "type": "missing_return_type_hint",
+        "function": "lifespan",
+        "content": "async def lifespan(app: FastAPI):"
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 258,
+        "type": "missing_return_type_hint",
+        "function": "get_current_user",
+        "content": "async def get_current_user("
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 291,
+        "type": "missing_return_type_hint",
+        "function": "health_check",
+        "content": "async def health_check():"
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 304,
+        "type": "missing_return_type_hint",
+        "function": "detailed_health_check",
+        "content": "async def detailed_health_check(user: User = Depends(require_admin)):"
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 345,
+        "type": "missing_return_type_hint",
+        "function": "get_prometheus_metrics",
+        "content": "async def get_prometheus_metrics():"
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 356,
+        "type": "missing_return_type_hint",
+        "function": "login",
+        "content": "async def login(email: str, password: str):"
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 378,
+        "type": "missing_return_type_hint",
+        "function": "logout",
+        "content": "async def logout("
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 391,
+        "type": "missing_return_type_hint",
+        "function": "submit_agent_output",
+        "content": "async def submit_agent_output("
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 448,
+        "type": "missing_return_type_hint",
+        "function": "get_submission_status",
+        "content": "async def get_submission_status("
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 487,
+        "type": "missing_return_type_hint",
+        "function": "get_detailed_feedback",
+        "content": "async def get_detailed_feedback("
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 517,
+        "type": "missing_return_type_hint",
+        "function": "get_project_status",
+        "content": "async def get_project_status("
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 563,
+        "type": "missing_return_type_hint",
+        "function": "list_projects",
+        "content": "async def list_projects("
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 593,
+        "type": "missing_return_type_hint",
+        "function": "trigger_integration",
+        "content": "async def trigger_integration("
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 643,
+        "type": "missing_return_type_hint",
+        "function": "upload_file",
+        "content": "async def upload_file("
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 686,
+        "type": "missing_return_type_hint",
+        "function": "download_file",
+        "content": "async def download_file("
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 727,
+        "type": "missing_return_type_hint",
+        "function": "list_file_versions",
+        "content": "async def list_file_versions("
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 758,
+        "type": "missing_return_type_hint",
+        "function": "connect",
+        "content": "async def connect(self, user_id: str, websocket: WebSocket):"
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 763,
+        "type": "missing_return_type_hint",
+        "function": "disconnect",
+        "content": "def disconnect(self, user_id: str):"
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 768,
+        "type": "missing_return_type_hint",
+        "function": "send_personal_message",
+        "content": "async def send_personal_message(self, user_id: str, message: dict):"
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 773,
+        "type": "missing_return_type_hint",
+        "function": "broadcast",
+        "content": "async def broadcast(self, message: dict):"
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 778,
+        "type": "missing_return_type_hint",
+        "function": "websocket_chat_endpoint",
+        "content": "async def websocket_chat_endpoint(websocket: WebSocket, user_id: str):"
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 819,
+        "type": "missing_return_type_hint",
+        "function": "generate_project_report",
+        "content": "async def generate_project_report("
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 857,
+        "type": "missing_return_type_hint",
+        "function": "get_quality_trends",
+        "content": "async def get_quality_trends("
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 888,
+        "type": "missing_return_type_hint",
+        "function": "list_registered_agents",
+        "content": "async def list_registered_agents(user: User = Depends(require_admin)):"
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 905,
+        "type": "missing_return_type_hint",
+        "function": "get_agent_health",
+        "content": "async def get_agent_health("
+      },
+      {
+        "file": "ymera__init__.py",
+        "line": 54,
+        "type": "missing_return_type_hint",
+        "function": "initialize",
+        "content": "async def initialize(self):"
+      },
+      {
+        "file": "ymera__init__.py",
+        "line": 128,
+        "type": "missing_return_type_hint",
+        "function": "shutdown",
+        "content": "async def shutdown(self):"
+      },
+      {
+        "file": "ymera__init__.py",
+        "line": 137,
+        "type": "missing_return_type_hint",
+        "function": "main",
+        "content": "async def main():"
+      },
+      {
+        "file": "recommendation_engine.py",
+        "line": 42,
+        "type": "missing_return_type_hint",
+        "function": "get_recommendations",
+        "content": "async def get_recommendations("
+      },
+      {
+        "file": "recommendation_engine.py",
+        "line": 98,
+        "type": "missing_return_type_hint",
+        "function": "recommend_knowledge",
+        "content": "async def recommend_knowledge("
+      },
+      {
+        "file": "recommendation_engine.py",
+        "line": 138,
+        "type": "missing_return_type_hint",
+        "function": "recommend_collaborators",
+        "content": "async def recommend_collaborators("
+      },
+      {
+        "file": "recommendation_engine.py",
+        "line": 180,
+        "type": "missing_return_type_hint",
+        "function": "recommend_learning_path",
+        "content": "async def recommend_learning_path("
+      },
+      {
+        "file": "recommendation_engine.py",
+        "line": 229,
+        "type": "missing_return_type_hint",
+        "function": "update_from_feedback",
+        "content": "async def update_from_feedback("
+      },
+      {
+        "file": "performance_engine.py",
+        "line": 99,
+        "type": "missing_return_type_hint",
+        "function": "start",
+        "content": "async def start(self):"
+      },
+      {
+        "file": "performance_engine.py",
+        "line": 137,
+        "type": "missing_return_type_hint",
+        "function": "stop",
+        "content": "async def stop(self):"
+      },
+      {
+        "file": "performance_engine.py",
+        "line": 167,
+        "type": "missing_return_type_hint",
+        "function": "initialize",
+        "content": "async def initialize(self):"
+      },
+      {
+        "file": "ProductionConfig (2).py",
+        "line": 48,
+        "type": "missing_return_type_hint",
+        "function": "validate",
+        "content": "def validate(cls):"
+      },
+      {
+        "file": "ProductionConfig (2).py",
+        "line": 73,
+        "type": "missing_return_type_hint",
+        "function": "init_config",
+        "content": "def init_config():"
+      },
+      {
+        "file": "ProductionConfig (2).py",
+        "line": 86,
+        "type": "missing_return_type_hint",
+        "function": "create_app",
+        "content": "def create_app():"
+      },
+      {
+        "file": "ProductionConfig (2).py",
+        "line": 130,
+        "type": "missing_return_type_hint",
+        "function": "startup",
+        "content": "async def startup():"
+      },
+      {
+        "file": "ProductionConfig (2).py",
+        "line": 135,
+        "type": "missing_return_type_hint",
+        "function": "shutdown",
+        "content": "async def shutdown():"
+      },
+      {
+        "file": "ProductionConfig (2).py",
+        "line": 141,
+        "type": "missing_return_type_hint",
+        "function": "init_services",
+        "content": "async def init_services(services: Dict[str, MicroService]):"
+      },
+      {
+        "file": "ProductionConfig (2).py",
+        "line": 154,
+        "type": "missing_return_type_hint",
+        "function": "shutdown_services",
+        "content": "async def shutdown_services(services: Dict[str, MicroService]):"
+      },
+      {
+        "file": "chat_interface.py",
+        "line": 46,
+        "type": "missing_return_type_hint",
+        "function": "initialize",
+        "content": "async def initialize(self):"
+      },
+      {
+        "file": "chat_interface.py",
+        "line": 51,
+        "type": "missing_return_type_hint",
+        "function": "process_message",
+        "content": "async def process_message("
+      },
+      {
+        "file": "chat_interface.py",
+        "line": 249,
+        "type": "missing_return_type_hint",
+        "function": "shutdown",
+        "content": "async def shutdown(self):"
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 630,
+        "type": "missing_return_type_hint",
+        "function": "get",
+        "content": "async def get(self, key: str, default=None):"
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 651,
+        "type": "missing_return_type_hint",
+        "function": "set",
+        "content": "async def set(self, key: str, value: Any, ttl: int = 300):"
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 670,
+        "type": "missing_return_type_hint",
+        "function": "delete",
+        "content": "async def delete(self, key: str):"
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 681,
+        "type": "missing_return_type_hint",
+        "function": "flush",
+        "content": "async def flush(self):"
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 824,
+        "type": "missing_return_type_hint",
+        "function": "startup",
+        "content": "async def startup(self):"
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 883,
+        "type": "missing_return_type_hint",
+        "function": "shutdown",
+        "content": "async def shutdown(self):"
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 904,
+        "type": "missing_return_type_hint",
+        "function": "init_metrics",
+        "content": "def init_metrics(self):"
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 1231,
+        "type": "missing_return_type_hint",
+        "function": "request_agent_action",
+        "content": "async def request_agent_action("
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 1297,
+        "type": "missing_return_type_hint",
+        "function": "process_approval",
+        "content": "async def process_approval("
+      },
+      {
+        "file": "audit_manager.py",
+        "line": 145,
+        "type": "missing_return_type_hint",
+        "function": "initiate_audit",
+        "content": "async def initiate_audit(self, audit_type: AuditType,"
+      },
+      {
+        "file": "ml_pipeline.py",
+        "line": 47,
+        "type": "missing_return_type_hint",
+        "function": "initialize",
+        "content": "async def initialize(self):"
+      },
+      {
+        "file": "ml_pipeline.py",
+        "line": 68,
+        "type": "missing_return_type_hint",
+        "function": "generate_response",
+        "content": "async def generate_response(self, message: str, context: List[Dict] = None,"
+      },
+      {
+        "file": "ml_pipeline.py",
+        "line": 208,
+        "type": "missing_return_type_hint",
+        "function": "batch_process_experiences",
+        "content": "async def batch_process_experiences(self, experiences: List[Dict]):"
+      },
+      {
+        "file": "ml_pipeline.py",
+        "line": 247,
+        "type": "missing_return_type_hint",
+        "function": "shutdown",
+        "content": "async def shutdown(self):"
+      }
+    ],
+    "print_statements": [
+      {
+        "file": "config_compat.py",
+        "line": 320,
+        "type": "print_statement",
+        "content": "print(f\"Configuration template exported to {filepath}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "config_compat.py",
+        "line": 337,
+        "type": "print_statement",
+        "content": "print(settings.DATABASE_URL)",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "config_compat.py",
+        "line": 356,
+        "type": "print_statement",
+        "content": "print(\"Configuration errors:\", errors)",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "config_compat.py",
+        "line": 365,
+        "type": "print_statement",
+        "content": "print(examples)",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "config_compat.py",
+        "line": 399,
+        "type": "print_statement",
+        "content": "print(\"Configuration Settings Module Test\\n\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "config_compat.py",
+        "line": 402,
+        "type": "print_statement",
+        "content": "print(\"1. Testing get_settings()...\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "config_compat.py",
+        "line": 404,
+        "type": "print_statement",
+        "content": "print(f\"   \u2713 Environment: {s.ENVIRONMENT}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "config_compat.py",
+        "line": 405,
+        "type": "print_statement",
+        "content": "print(f\"   \u2713 Database URL: {s.DATABASE_URL}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "config_compat.py",
+        "line": 406,
+        "type": "print_statement",
+        "content": "print(f\"   \u2713 Redis URL: {s.REDIS_URL}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "config_compat.py",
+        "line": 409,
+        "type": "print_statement",
+        "content": "print(\"\\n2. Testing validation...\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "config_compat.py",
+        "line": 411,
+        "type": "print_statement",
+        "content": "print(f\"   \u2713 Valid: {is_valid}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "config_compat.py",
+        "line": 414,
+        "type": "print_statement",
+        "content": "print(f\"   \u26a0 {error}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "config_compat.py",
+        "line": 417,
+        "type": "print_statement",
+        "content": "print(\"\\n3. Testing temporary settings...\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "config_compat.py",
+        "line": 418,
+        "type": "print_statement",
+        "content": "print(f\"   Original DEBUG: {s.DEBUG}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "config_compat.py",
+        "line": 420,
+        "type": "print_statement",
+        "content": "print(f\"   Temporary DEBUG: {s.DEBUG}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "config_compat.py",
+        "line": 421,
+        "type": "print_statement",
+        "content": "print(f\"   Restored DEBUG: {s.DEBUG}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "config_compat.py",
+        "line": 424,
+        "type": "print_statement",
+        "content": "print(\"\\n4. Testing export template...\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "config_compat.py",
+        "line": 427,
+        "type": "print_statement",
+        "content": "print(\"   \u2713 Template exported successfully\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "config_compat.py",
+        "line": 429,
+        "type": "print_statement",
+        "content": "print(f\"   \u2717 Export failed: {e}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "config_compat.py",
+        "line": 432,
+        "type": "print_statement",
+        "content": "print(\"\\n5. Testing configuration dict...\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "config_compat.py",
+        "line": 434,
+        "type": "print_statement",
+        "content": "print(f\"   \u2713 Configuration has {len(config_dict)} settings\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "config_compat.py",
+        "line": 436,
+        "type": "print_statement",
+        "content": "print(\"\\n\u2713 All tests completed!\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "config_compat.py",
+        "line": 437,
+        "type": "print_statement",
+        "content": "print(\"\\nFor usage examples, run:\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "config_compat.py",
+        "line": 438,
+        "type": "print_statement",
+        "content": "print(\"  from config_settings import print_configuration_examples\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "config_compat.py",
+        "line": 439,
+        "type": "print_statement",
+        "content": "print(\"  print_configuration_examples()\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "learning_agent_main.py",
+        "line": 1121,
+        "type": "print_statement",
+        "content": "print(f\"Knowledge distributed to {distribution_result['successful']} agents\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "learning_agent_main.py",
+        "line": 1125,
+        "type": "print_statement",
+        "content": "print(f\"Agent performance: {analysis['performance_metrics']}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "learning_agent_main.py",
+        "line": 1137,
+        "type": "print_statement",
+        "content": "print(f\"Chat response: {response}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "learning_agent_main.py",
+        "line": 1141,
+        "type": "print_statement",
+        "content": "print(f\"System status: {status}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 88,
+        "type": "print_statement",
+        "content": "print(f\"Warning: Could not parse {file_path}: {e}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 150,
+        "type": "print_statement",
+        "content": "print(\"=\" * 70)",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 151,
+        "type": "print_statement",
+        "content": "print(\"AGENT DEPENDENCY ANALYSIS\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 152,
+        "type": "print_statement",
+        "content": "print(\"=\" * 70)",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 156,
+        "type": "print_statement",
+        "content": "print(f\"\\nFound {len(agent_files)} agent files\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 159,
+        "type": "print_statement",
+        "content": "print(\"Warning: No agent files found!\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 211,
+        "type": "print_statement",
+        "content": "print(f\"\\nTotal Agents: {report['summary']['total_agents']}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 212,
+        "type": "print_statement",
+        "content": "print(f\"Level 0 (Independent): {report['summary']['level_0_independent']}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 213,
+        "type": "print_statement",
+        "content": "print(f\"Level 1 (Minimal deps): {report['summary']['level_1_minimal']}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 214,
+        "type": "print_statement",
+        "content": "print(f\"Level 2 (Moderate deps): {report['summary']['level_2_moderate']}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 215,
+        "type": "print_statement",
+        "content": "print(f\"Level 3 (Complex deps): {report['summary']['level_3_complex']}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 216,
+        "type": "print_statement",
+        "content": "print(\"=\" * 70)",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 219,
+        "type": "print_statement",
+        "content": "print(\"\\nLevel 0 Agents (Fix These First):\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 221,
+        "type": "print_statement",
+        "content": "print(f\"  - {agent}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 224,
+        "type": "print_statement",
+        "content": "print(\"\\nLevel 1 Agents (Minimal Dependencies):\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 227,
+        "type": "print_statement",
+        "content": "print(f\"  - {agent} (deps: {len(deps)})\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 245,
+        "type": "print_statement",
+        "content": "print(f\"\\nDetailed report saved to: {output_path}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 255,
+        "type": "print_statement",
+        "content": "print(\"\\n\" + \"=\" * 70)",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 256,
+        "type": "print_statement",
+        "content": "print(\"NEXT STEPS\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 257,
+        "type": "print_statement",
+        "content": "print(\"=\" * 70)",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 258,
+        "type": "print_statement",
+        "content": "print(\"\\n1. Review the generated 'agent_dependency_analysis.json' file\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 259,
+        "type": "print_statement",
+        "content": "print(\"2. Start fixing Level 0 agents (no internal dependencies)\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 260,
+        "type": "print_statement",
+        "content": "print(\"3. Once Level 0 agents pass, move to Level 1 agents\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 261,
+        "type": "print_statement",
+        "content": "print(\"4. Continue progressing through levels\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 262,
+        "type": "print_statement",
+        "content": "print(\"\\nRecommended workflow:\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 263,
+        "type": "print_statement",
+        "content": "print(\"  - Fix ModuleNotFoundError issues first\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 264,
+        "type": "print_statement",
+        "content": "print(\"  - Update import statements to use correct paths\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 265,
+        "type": "print_statement",
+        "content": "print(\"  - Add missing __init__.py files if needed\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 266,
+        "type": "print_statement",
+        "content": "print(\"  - Test each agent individually after fixing\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 267,
+        "type": "print_statement",
+        "content": "print()",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "agent_classifier.py",
+        "line": 173,
+        "type": "print_statement",
+        "content": "print(\"=\" * 60)",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "agent_classifier.py",
+        "line": 174,
+        "type": "print_statement",
+        "content": "print(\"AGENT CLASSIFICATION ANALYZER\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "agent_classifier.py",
+        "line": 175,
+        "type": "print_statement",
+        "content": "print(\"=\" * 60)",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "agent_classifier.py",
+        "line": 176,
+        "type": "print_statement",
+        "content": "print()",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "agent_classifier.py",
+        "line": 185,
+        "type": "print_statement",
+        "content": "print(\"Classification Summary:\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "agent_classifier.py",
+        "line": 186,
+        "type": "print_statement",
+        "content": "print(\"-\" * 60)",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "agent_classifier.py",
+        "line": 187,
+        "type": "print_statement",
+        "content": "print(f\"Total agents: {result['summary']['total_agents']}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "agent_classifier.py",
+        "line": 188,
+        "type": "print_statement",
+        "content": "print()",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "agent_classifier.py",
+        "line": 190,
+        "type": "print_statement",
+        "content": "print(\"By Type:\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "agent_classifier.py",
+        "line": 193,
+        "type": "print_statement",
+        "content": "print(f\"  {agent_type:20s}: {count:3d} ({count/result['summary']['total_agents']",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "agent_classifier.py",
+        "line": 194,
+        "type": "print_statement",
+        "content": "print()",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "agent_classifier.py",
+        "line": 196,
+        "type": "print_statement",
+        "content": "print(\"By Status:\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "agent_classifier.py",
+        "line": 198,
+        "type": "print_statement",
+        "content": "print(f\"  {status:20s}: {count:3d} ({count/result['summary']['total_agents']*100",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "agent_classifier.py",
+        "line": 199,
+        "type": "print_statement",
+        "content": "print()",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "agent_classifier.py",
+        "line": 201,
+        "type": "print_statement",
+        "content": "print(\"By Capabilities:\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "agent_classifier.py",
+        "line": 203,
+        "type": "print_statement",
+        "content": "print(f\"  {capability:20s}: {count:3d} ({count/result['summary']['total_agents']",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "agent_classifier.py",
+        "line": 204,
+        "type": "print_statement",
+        "content": "print()",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "agent_classifier.py",
+        "line": 206,
+        "type": "print_statement",
+        "content": "print(\"Key Metrics:\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "agent_classifier.py",
+        "line": 207,
+        "type": "print_statement",
+        "content": "print(f\"  Completion Rate:      {result['summary']['completion_rate']}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "agent_classifier.py",
+        "line": 208,
+        "type": "print_statement",
+        "content": "print(f\"  Async Adoption:       {result['summary']['async_adoption']}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "agent_classifier.py",
+        "line": 209,
+        "type": "print_statement",
+        "content": "print(f\"  BaseAgent Compliance: {result['summary']['base_agent_compliance']}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "agent_classifier.py",
+        "line": 210,
+        "type": "print_statement",
+        "content": "print()",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "agent_classifier.py",
+        "line": 211,
+        "type": "print_statement",
+        "content": "print(f\"Classification saved to: {output_file}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "agent_classifier.py",
+        "line": 212,
+        "type": "print_statement",
+        "content": "print(\"=\" * 60)",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 35,
+        "type": "print_statement",
+        "content": "print(\"=\" * 80)",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 36,
+        "type": "print_statement",
+        "content": "print(\"YMERA PHASE 2: REMOVE DUPLICATES\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 37,
+        "type": "print_statement",
+        "content": "print(\"=\" * 80)",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 38,
+        "type": "print_statement",
+        "content": "print(f\"\\nMode: {'DRY RUN (no files will be deleted)' if self.dry_run else 'LIVE",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 39,
+        "type": "print_statement",
+        "content": "print()",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 70,
+        "type": "print_statement",
+        "content": "print(\"\\n\" + \"=\" * 80)",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 71,
+        "type": "print_statement",
+        "content": "print(f\"\u2705 Phase 2 {'Simulation' if self.dry_run else 'Execution'} Complete!\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 72,
+        "type": "print_statement",
+        "content": "print(\"=\" * 80)",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 73,
+        "type": "print_statement",
+        "content": "print(f\"\\nFiles {'would be' if self.dry_run else ''} removed: {len(self.removed_",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 76,
+        "type": "print_statement",
+        "content": "print(\"\\nRemoved files:\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 78,
+        "type": "print_statement",
+        "content": "print(f\"  - {f}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 81,
+        "type": "print_statement",
+        "content": "print(f\"\\nBackups saved to: {self.backup_dir}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 85,
+        "type": "print_statement",
+        "content": "print(\"\\n\u26a0\ufe0f  This was a DRY RUN. No files were actually deleted.\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 86,
+        "type": "print_statement",
+        "content": "print(\"To execute for real, run: python3 cleanup/02_remove_duplicates.py --execu",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 92,
+        "type": "print_statement",
+        "content": "print(f\"\\n{'[DRY RUN] ' if self.dry_run else ''}Processing: {duplicate_info['fil",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 93,
+        "type": "print_statement",
+        "content": "print(f\"  Reason: {duplicate_info['reason']}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 95,
+        "type": "print_statement",
+        "content": "print(f\"  Keeping: {duplicate_info['keep']}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 99,
+        "type": "print_statement",
+        "content": "print(f\"  \u26a0\ufe0f  File not found, skipping\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 104,
+        "type": "print_statement",
+        "content": "print(f\"  \u26a0\ufe0f  Not a file, skipping\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 109,
+        "type": "print_statement",
+        "content": "print(f\"  Size: {size} bytes\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 112,
+        "type": "print_statement",
+        "content": "print(f\"  \u2705 Would remove this file\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 121,
+        "type": "print_statement",
+        "content": "print(f\"  \u2705 Removed successfully\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 124,
+        "type": "print_statement",
+        "content": "print(f\"  \u274c Error removing file: {e}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 133,
+        "type": "print_statement",
+        "content": "print(f\"  \ud83d\udcbe Backed up to: cleanup/backups/...\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 135,
+        "type": "print_statement",
+        "content": "print(f\"  \u26a0\ufe0f  Backup failed: {e}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 149,
+        "type": "print_statement",
+        "content": "print(f\"\\nManifest saved: {manifest_path}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 160,
+        "type": "print_statement",
+        "content": "print(\"\\n\u26a0\ufe0f  Running in DRY RUN mode (simulation only)\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 161,
+        "type": "print_statement",
+        "content": "print(\"To execute for real, add --execute flag\\n\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 163,
+        "type": "print_statement",
+        "content": "print(\"\\n\u26a0\ufe0f  Running in EXECUTE mode (files will be deleted)\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 166,
+        "type": "print_statement",
+        "content": "print(\"Cancelled.\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 168,
+        "type": "print_statement",
+        "content": "print()",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 174,
+        "type": "print_statement",
+        "content": "print(\"\\n\ud83d\udcdd Next steps:\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 175,
+        "type": "print_statement",
+        "content": "print(\"1. Review the files that would be removed above\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 176,
+        "type": "print_statement",
+        "content": "print(\"2. Run with --execute flag to actually remove them\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 177,
+        "type": "print_statement",
+        "content": "print(\"3. Run tests: pytest\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 178,
+        "type": "print_statement",
+        "content": "print(\"4. Commit changes: git add -u && git commit -m 'Remove duplicate files'\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 180,
+        "type": "print_statement",
+        "content": "print(\"\\n\ud83d\udcdd Next steps:\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 181,
+        "type": "print_statement",
+        "content": "print(\"1. Run tests: pytest\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 182,
+        "type": "print_statement",
+        "content": "print(\"2. Verify nothing broke\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 183,
+        "type": "print_statement",
+        "content": "print(\"3. Commit changes: git add -u && git commit -m 'Remove duplicate files'\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "generator_engine_prod.py",
+        "line": 1179,
+        "type": "print_statement",
+        "content": "print(\"Generated Code:\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "generator_engine_prod.py",
+        "line": 1180,
+        "type": "print_statement",
+        "content": "print(artifact.code)",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "generator_engine_prod.py",
+        "line": 1181,
+        "type": "print_statement",
+        "content": "print(f\"\\nQuality Score: {artifact.quality_score}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "generator_engine_prod.py",
+        "line": 1182,
+        "type": "print_statement",
+        "content": "print(f\"Complexity: {artifact.complexity_estimate}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "generator_engine_prod.py",
+        "line": 1183,
+        "type": "print_statement",
+        "content": "print(f\"Best Practices: {', '.join(artifact.best_practices_applied)}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "generator_engine_prod.py",
+        "line": 1184,
+        "type": "print_statement",
+        "content": "print(f\"\\nMetrics: {generator.get_metrics()}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "plugin_architecture.py",
+        "line": 13,
+        "type": "print_statement",
+        "content": "print(f\"\u2705 Plugin registered: {plugin_name}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "intelligence_engine.py",
+        "line": 1160,
+        "type": "print_statement",
+        "content": "print(\"Intelligence Engine stopped.\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "ai_agents_production.py",
+        "line": 994,
+        "type": "print_statement",
+        "content": "print(\"=== Automatic Agent Selection ===\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "ai_agents_production.py",
+        "line": 1003,
+        "type": "print_statement",
+        "content": "print(f\"Agent: {response.agent_id}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "ai_agents_production.py",
+        "line": 1004,
+        "type": "print_statement",
+        "content": "print(f\"Confidence: {response.confidence_level}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "ai_agents_production.py",
+        "line": 1005,
+        "type": "print_statement",
+        "content": "print(f\"Summary: {response.executive_summary}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "ai_agents_production.py",
+        "line": 1006,
+        "type": "print_statement",
+        "content": "print(f\"Processing time: {response.processing_time:.2f}s\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "ai_agents_production.py",
+        "line": 1007,
+        "type": "print_statement",
+        "content": "print()",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "ai_agents_production.py",
+        "line": 1010,
+        "type": "print_statement",
+        "content": "print(\"=== Specific Agent Usage ===\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "ai_agents_production.py",
+        "line": 1017,
+        "type": "print_statement",
+        "content": "print(f\"Summary: {code_response.executive_summary}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "ai_agents_production.py",
+        "line": 1018,
+        "type": "print_statement",
+        "content": "print(f\"Recommendations: {len(code_response.recommendations)}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "ai_agents_production.py",
+        "line": 1019,
+        "type": "print_statement",
+        "content": "print()",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "ai_agents_production.py",
+        "line": 1022,
+        "type": "print_statement",
+        "content": "print(\"=== Collaborative Analysis ===\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "ai_agents_production.py",
+        "line": 1033,
+        "type": "print_statement",
+        "content": "print(f\"{agent_type.value}: {response.confidence_level} confidence\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "ai_agents_production.py",
+        "line": 1034,
+        "type": "print_statement",
+        "content": "print()",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "ai_agents_production.py",
+        "line": 1037,
+        "type": "print_statement",
+        "content": "print(\"=== System Metrics ===\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "ai_agents_production.py",
+        "line": 1039,
+        "type": "print_statement",
+        "content": "print(f\"Total requests: {metrics['orchestrator']['total_requests']}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "ai_agents_production.py",
+        "line": 1040,
+        "type": "print_statement",
+        "content": "print(f\"Agents active: {metrics['total_agents']}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "ai_agents_production.py",
+        "line": 1054,
+        "type": "print_statement",
+        "content": "print(\"\\nShutdown by user\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "ai_agents_production.py",
+        "line": 1056,
+        "type": "print_statement",
+        "content": "print(f\"Error: {e}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 22,
+        "type": "print_statement",
+        "content": "print(\"\\n\" + \"=\" * 70)",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 23,
+        "type": "print_statement",
+        "content": "print(\"AGENT FIX PRIORITY LIST\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 24,
+        "type": "print_statement",
+        "content": "print(\"=\" * 70)",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 27,
+        "type": "print_statement",
+        "content": "print(\"\\n\ud83d\udccc PHASE 1: Independent Agents (Fix First)\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 28,
+        "type": "print_statement",
+        "content": "print(\"-\" * 70)",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 32,
+        "type": "print_statement",
+        "content": "print(f\"{i}. {agent}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 33,
+        "type": "print_statement",
+        "content": "print(f\"   - Internal dependencies: {deps['internal_count']}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 34,
+        "type": "print_statement",
+        "content": "print(f\"   - External dependencies: {deps['external_count']}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 37,
+        "type": "print_statement",
+        "content": "print(f\"   - Key external libs: {', '.join(ext_deps)}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 39,
+        "type": "print_statement",
+        "content": "print(\"   \u2705 No Level 0 agents - all agents have dependencies!\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 42,
+        "type": "print_statement",
+        "content": "print(\"\\n\ud83d\udccc PHASE 2: Minimal Dependencies (Fix After Level 0)\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 43,
+        "type": "print_statement",
+        "content": "print(\"-\" * 70)",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 47,
+        "type": "print_statement",
+        "content": "print(f\"{i}. {agent}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 48,
+        "type": "print_statement",
+        "content": "print(f\"   - Internal dependencies: {', '.join(deps['internal_dependencies'])}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 50,
+        "type": "print_statement",
+        "content": "print(\"   No Level 1 agents\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 53,
+        "type": "print_statement",
+        "content": "print(\"\\n\ud83d\udccc PHASE 3: Moderate Dependencies\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 54,
+        "type": "print_statement",
+        "content": "print(\"-\" * 70)",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 58,
+        "type": "print_statement",
+        "content": "print(f\"{i}. {agent}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 59,
+        "type": "print_statement",
+        "content": "print(f\"   - Internal dependencies: {', '.join(deps['internal_dependencies'])}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 61,
+        "type": "print_statement",
+        "content": "print(\"   No Level 2 agents\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 64,
+        "type": "print_statement",
+        "content": "print(\"\\n\ud83d\udccc PHASE 4: Complex Dependencies (Fix Last)\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 65,
+        "type": "print_statement",
+        "content": "print(\"-\" * 70)",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 69,
+        "type": "print_statement",
+        "content": "print(f\"{i}. {agent}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 70,
+        "type": "print_statement",
+        "content": "print(f\"   - Internal dependencies ({len(deps['internal_dependencies'])}): {', '",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 72,
+        "type": "print_statement",
+        "content": "print(\"   \u2705 No Level 3 agents - no complex dependencies!\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 91,
+        "type": "print_statement",
+        "content": "print(\"\\n\" + \"=\" * 70)",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 92,
+        "type": "print_statement",
+        "content": "print(\"DEPENDENCY CHAINS\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 93,
+        "type": "print_statement",
+        "content": "print(\"=\" * 70)",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 101,
+        "type": "print_statement",
+        "content": "print(f\"\\n\ud83d\udce6 Agents depending on '{module}': {len(dependent)}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 103,
+        "type": "print_statement",
+        "content": "print(f\"   - {agent}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 105,
+        "type": "print_statement",
+        "content": "print(f\"   ... and {len(dependent) - 5} more\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 110,
+        "type": "print_statement",
+        "content": "print(\"\\n\" + \"=\" * 70)",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 111,
+        "type": "print_statement",
+        "content": "print(\"FIX EFFORT ESTIMATION\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 112,
+        "type": "print_statement",
+        "content": "print(\"=\" * 70)",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 124,
+        "type": "print_statement",
+        "content": "print(f\"\\nEstimated effort (assuming no major blockers):\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 125,
+        "type": "print_statement",
+        "content": "print(f\"  - Level 0 ({summary['level_0_independent']} agents): ~{level_0_hours} ",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 126,
+        "type": "print_statement",
+        "content": "print(f\"  - Level 1 ({summary['level_1_minimal']} agents): ~{level_1_hours} hour",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 127,
+        "type": "print_statement",
+        "content": "print(f\"  - Level 2 ({summary['level_2_moderate']} agents): ~{level_2_hours} hou",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 128,
+        "type": "print_statement",
+        "content": "print(f\"  - Level 3 ({summary['level_3_complex']} agents): ~{level_3_hours} hour",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 129,
+        "type": "print_statement",
+        "content": "print(f\"\\n  TOTAL: ~{total_hours} hours (~{total_hours / 8:.1f} working days)\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 130,
+        "type": "print_statement",
+        "content": "print(f\"\\n  At 2-3 agents per day: ~{summary['total_agents'] / 2.5:.0f} days\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 135,
+        "type": "print_statement",
+        "content": "print(\"\\n\" + \"=\" * 70)",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 136,
+        "type": "print_statement",
+        "content": "print(\"SUMMARY STATISTICS\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 137,
+        "type": "print_statement",
+        "content": "print(\"=\" * 70)",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 141,
+        "type": "print_statement",
+        "content": "print(f\"\\nTotal Agents: {summary['total_agents']}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 142,
+        "type": "print_statement",
+        "content": "print(f\"\\nBy Complexity Level:\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 143,
+        "type": "print_statement",
+        "content": "print(f\"  - Level 0 (Independent):  {summary['level_0_independent']:3d} ({summar",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 144,
+        "type": "print_statement",
+        "content": "print(f\"  - Level 1 (Minimal):      {summary['level_1_minimal']:3d} ({summary['l",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 145,
+        "type": "print_statement",
+        "content": "print(f\"  - Level 2 (Moderate):     {summary['level_2_moderate']:3d} ({summary['",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 146,
+        "type": "print_statement",
+        "content": "print(f\"  - Level 3 (Complex):      {summary['level_3_complex']:3d} ({summary['l",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 155,
+        "type": "print_statement",
+        "content": "print(f\"\\nAverage internal dependencies per agent: {avg_deps:.2f}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 160,
+        "type": "print_statement",
+        "content": "print(\"=\" * 70)",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 161,
+        "type": "print_statement",
+        "content": "print(\"AGENT DEPENDENCY ANALYSIS - USAGE EXAMPLE\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 162,
+        "type": "print_statement",
+        "content": "print(\"=\" * 70)",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 167,
+        "type": "print_statement",
+        "content": "print(f\"\\n\u274c Error: Report file not found: {report_path}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 168,
+        "type": "print_statement",
+        "content": "print(\"\\nPlease run the analysis first:\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 169,
+        "type": "print_statement",
+        "content": "print(\"  python3 analyze_agent_dependencies.py\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 173,
+        "type": "print_statement",
+        "content": "print(f\"\\n\u2705 Loading report from: {report_path}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 183,
+        "type": "print_statement",
+        "content": "print(\"\\n\" + \"=\" * 70)",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 184,
+        "type": "print_statement",
+        "content": "print(\"RECOMMENDED NEXT STEPS\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 185,
+        "type": "print_statement",
+        "content": "print(\"=\" * 70)",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 186,
+        "type": "print_statement",
+        "content": "print(\"\"\"",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "ymera__init__.py",
+        "line": 143,
+        "type": "print_statement",
+        "content": "print(\"YMERA Enterprise AI System Demo\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "ymera__init__.py",
+        "line": 144,
+        "type": "print_statement",
+        "content": "print(\"=\" * 50)",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "ymera__init__.py",
+        "line": 148,
+        "type": "print_statement",
+        "content": "print(\"System Status:\", json.dumps(status, indent=2))",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "ymera__init__.py",
+        "line": 151,
+        "type": "print_statement",
+        "content": "print(\"\\n1. Multimodal Fusion Demo\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "ymera__init__.py",
+        "line": 161,
+        "type": "print_statement",
+        "content": "print(\"Fusion completed successfully\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "ymera__init__.py",
+        "line": 163,
+        "type": "print_statement",
+        "content": "print(f\"Fusion demo error: {str(e)}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "ymera__init__.py",
+        "line": 166,
+        "type": "print_statement",
+        "content": "print(\"\\n2. Text Generation Demo\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "ymera__init__.py",
+        "line": 171,
+        "type": "print_statement",
+        "content": "print(\"Generated text:\", text_result[:100] + \"...\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "ymera__init__.py",
+        "line": 173,
+        "type": "print_statement",
+        "content": "print(f\"Text generation error: {str(e)}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "ymera__init__.py",
+        "line": 176,
+        "type": "print_statement",
+        "content": "print(\"\\n3. Time Series Forecasting Demo\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "ymera__init__.py",
+        "line": 187,
+        "type": "print_statement",
+        "content": "print(\"Forecast completed. Horizon:\", forecast_result['horizon'])",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "ymera__init__.py",
+        "line": 189,
+        "type": "print_statement",
+        "content": "print(f\"Forecasting error: {str(e)}\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      },
+      {
+        "file": "ymera__init__.py",
+        "line": 191,
+        "type": "print_statement",
+        "content": "print(\"\\nDemo completed successfully!\")",
+        "suggestion": "Replace with logging.info/debug/warning"
+      }
+    ],
+    "bare_except": [
+      {
+        "file": "extensions.py",
+        "line": 330,
+        "type": "bare_except",
+        "content": "except:",
+        "suggestion": "Specify exception type: except Exception:"
+      },
+      {
+        "file": "knowledge_graph.py",
+        "line": 537,
+        "type": "bare_except",
+        "content": "except:",
+        "suggestion": "Specify exception type: except Exception:"
+      },
+      {
+        "file": "audit_manager.py",
+        "line": 385,
+        "type": "bare_except",
+        "content": "except:",
+        "suggestion": "Specify exception type: except Exception:"
+      }
+    ],
+    "long_functions": [
+      {
+        "file": "metrics.py",
+        "line": 25,
+        "type": "long_function",
+        "function": "_initialize_metrics",
+        "lines": 70,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "config_compat.py",
+        "line": 27,
+        "type": "long_function",
+        "function": "get_int_env",
+        "lines": 97,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "project_integrator.py",
+        "line": 46,
+        "type": "long_function",
+        "function": "integrate_submission",
+        "lines": 78,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "learning_agent_main.py",
+        "line": 246,
+        "type": "long_function",
+        "function": "analyze_agent_performance",
+        "lines": 82,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "learning_agent_main.py",
+        "line": 426,
+        "type": "long_function",
+        "function": "capture_knowledge",
+        "lines": 53,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "learning_agent_main.py",
+        "line": 479,
+        "type": "long_function",
+        "function": "distribute_knowledge",
+        "lines": 68,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "knowledge_flow_manager.py",
+        "line": 66,
+        "type": "long_function",
+        "function": "create_subscription",
+        "lines": 54,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "knowledge_flow_manager.py",
+        "line": 120,
+        "type": "long_function",
+        "function": "update_subscription",
+        "lines": 54,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "knowledge_flow_manager.py",
+        "line": 254,
+        "type": "long_function",
+        "function": "request_knowledge_flow",
+        "lines": 56,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 40,
+        "type": "long_function",
+        "function": "analyze_imports",
+        "lines": 51,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "analyze_agent_dependencies.py",
+        "line": 144,
+        "type": "long_function",
+        "function": "analyze",
+        "lines": 87,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "extensions.py",
+        "line": 159,
+        "type": "long_function",
+        "function": "get_task_statistics",
+        "lines": 63,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "extensions.py",
+        "line": 432,
+        "type": "long_function",
+        "function": "export_tasks",
+        "lines": 69,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "scaling.auto_scaler.py",
+        "line": 60,
+        "type": "long_function",
+        "function": "_collect_metrics",
+        "lines": 51,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "api_gateway.py",
+        "line": 252,
+        "type": "long_function",
+        "function": "_handle_agent_task",
+        "lines": 55,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "02_remove_duplicates.py",
+        "line": 33,
+        "type": "long_function",
+        "function": "remove_duplicates",
+        "lines": 55,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "generator_engine_prod.py",
+        "line": 101,
+        "type": "long_function",
+        "function": "to_dict",
+        "lines": 74,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "generator_engine_prod.py",
+        "line": 175,
+        "type": "long_function",
+        "function": "__init__",
+        "lines": 53,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "generator_engine_prod.py",
+        "line": 474,
+        "type": "long_function",
+        "function": "generate",
+        "lines": 129,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "resource_allocator.py",
+        "line": 215,
+        "type": "long_function",
+        "function": "allocate_resources",
+        "lines": 68,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "agent_tester.py",
+        "line": 49,
+        "type": "long_function",
+        "function": "test_agent_methods",
+        "lines": 57,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "agent_tester.py",
+        "line": 135,
+        "type": "long_function",
+        "function": "test_agent_file",
+        "lines": 87,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "agent_tester.py",
+        "line": 292,
+        "type": "long_function",
+        "function": "test_specific_agent",
+        "lines": 75,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "prod_config_manager.py",
+        "line": 118,
+        "type": "long_function",
+        "function": "_initialize_default_configs",
+        "lines": 136,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "prod_config_manager.py",
+        "line": 320,
+        "type": "long_function",
+        "function": "start",
+        "lines": 65,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "prod_config_manager.py",
+        "line": 385,
+        "type": "long_function",
+        "function": "_execute_task_impl",
+        "lines": 51,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "prod_config_manager.py",
+        "line": 436,
+        "type": "long_function",
+        "function": "_get_config_task",
+        "lines": 52,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "prod_config_manager.py",
+        "line": 551,
+        "type": "long_function",
+        "function": "_rollback_config_task",
+        "lines": 52,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "service_discovery.py",
+        "line": 162,
+        "type": "long_function",
+        "function": "health_check",
+        "lines": 52,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "enhanced_base_agent.py",
+        "line": 323,
+        "type": "long_function",
+        "function": "__init__",
+        "lines": 68,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "enhanced_base_agent.py",
+        "line": 452,
+        "type": "long_function",
+        "function": "start",
+        "lines": 64,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "enhanced_base_agent.py",
+        "line": 984,
+        "type": "long_function",
+        "function": "_process_task",
+        "lines": 55,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "intelligence_engine.py",
+        "line": 268,
+        "type": "long_function",
+        "function": "_handle_agent_registration",
+        "lines": 55,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "intelligence_engine.py",
+        "line": 595,
+        "type": "long_function",
+        "function": "_extract_routing_features",
+        "lines": 59,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "ai_agents_production.py",
+        "line": 122,
+        "type": "long_function",
+        "function": "_create_tables",
+        "lines": 53,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "ai_agents_production.py",
+        "line": 175,
+        "type": "long_function",
+        "function": "record_pattern",
+        "lines": 75,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "ai_agents_production.py",
+        "line": 333,
+        "type": "long_function",
+        "function": "update_performance",
+        "lines": 143,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "ai_agents_production.py",
+        "line": 553,
+        "type": "long_function",
+        "function": "analyze",
+        "lines": 141,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "ai_agents_production.py",
+        "line": 914,
+        "type": "long_function",
+        "function": "cleanup",
+        "lines": 60,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "pattern_recognizer.py",
+        "line": 107,
+        "type": "long_function",
+        "function": "analyze_interaction",
+        "lines": 51,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "pattern_recognizer.py",
+        "line": 217,
+        "type": "long_function",
+        "function": "_detect_knowledge_patterns",
+        "lines": 56,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "example_dependency_analysis_usage.py",
+        "line": 20,
+        "type": "long_function",
+        "function": "print_fix_priority_list",
+        "lines": 55,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "knowledge_graph.py",
+        "line": 168,
+        "type": "long_function",
+        "function": "add_relationship",
+        "lines": 58,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "enhanced_ai_routes.py",
+        "line": 117,
+        "type": "long_function",
+        "function": "chat_completion",
+        "lines": 75,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "enhanced_ai_routes.py",
+        "line": 294,
+        "type": "long_function",
+        "function": "get_ai_usage",
+        "lines": 53,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "enhanced_ai_routes.py",
+        "line": 400,
+        "type": "long_function",
+        "function": "create_alert",
+        "lines": 53,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "enhanced_ai_routes.py",
+        "line": 666,
+        "type": "long_function",
+        "function": "system_health",
+        "lines": 53,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "agent.py",
+        "line": 61,
+        "type": "long_function",
+        "function": "process_message",
+        "lines": 52,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 129,
+        "type": "long_function",
+        "function": "lifespan",
+        "lines": 129,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "main_project_agent_reference.py",
+        "line": 391,
+        "type": "long_function",
+        "function": "submit_agent_output",
+        "lines": 57,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "recommendation_engine.py",
+        "line": 42,
+        "type": "long_function",
+        "function": "get_recommendations",
+        "lines": 56,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "performance_engine.py",
+        "line": 316,
+        "type": "long_function",
+        "function": "_performance_aggregator_loop",
+        "lines": 52,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "performance_engine.py",
+        "line": 389,
+        "type": "long_function",
+        "function": "_check_for_performance_issues",
+        "lines": 69,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "performance_engine.py",
+        "line": 493,
+        "type": "long_function",
+        "function": "_bottleneck_detector_loop",
+        "lines": 51,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 824,
+        "type": "long_function",
+        "function": "startup",
+        "lines": 59,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 993,
+        "type": "long_function",
+        "function": "handle_agent_report",
+        "lines": 68,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 1082,
+        "type": "long_function",
+        "function": "handle_task_result",
+        "lines": 66,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 1148,
+        "type": "long_function",
+        "function": "create_task",
+        "lines": 83,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 1231,
+        "type": "long_function",
+        "function": "request_agent_action",
+        "lines": 66,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "enterprise_agent_manager.py",
+        "line": 1297,
+        "type": "long_function",
+        "function": "process_approval",
+        "lines": 74,
+        "suggestion": "Consider breaking into smaller functions"
+      },
+      {
+        "file": "audit_manager.py",
+        "line": 184,
+        "type": "long_function",
+        "function": "_conduct_audit",
+        "lines": 87,
+        "suggestion": "Consider breaking into smaller functions"
+      }
+    ]
+  },
+  "fixes": [
+    {
+      "file": "audit_manager.py",
+      "fix": "Replaced bare except with except Exception"
+    },
+    {
+      "file": "extensions.py",
+      "fix": "Replaced bare except with except Exception"
+    },
+    {
+      "file": "knowledge_graph.py",
+      "fix": "Replaced bare except with except Exception"
+    }
+  ],
+  "summary": {
+    "total_issues": 704,
+    "fixes_applied": 3
+  }
+}

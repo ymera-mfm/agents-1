@@ -1,0 +1,174 @@
+{
+  "test_timestamp": "2025-10-20T22:49:47.171201",
+  "agents_tested": 2,
+  "agents_passed": 2,
+  "agents_failed": 0,
+  "agents_skipped": 0,
+  "test_details": [
+    {
+      "file": "agents/calculator_agent.py",
+      "name": "calculator_agent",
+      "import_status": {
+        "status": "PASS",
+        "message": "Module imported successfully"
+      },
+      "initialization": {
+        "status": "PASS",
+        "message": "Agent initialized successfully"
+      },
+      "methods": [
+        {
+          "method": "get_info",
+          "status": "PASS",
+          "async": false,
+          "result": "{'agent_id': None, 'name': 'CalculatorAgent', 'description': 'Performs mathematical calculations', '"
+        },
+        {
+          "method": "get_supported_task_types",
+          "status": "PASS",
+          "async": false,
+          "result": "['add', 'subtract', 'multiply', 'divide', 'power', 'sqrt', 'modulo']"
+        },
+        {
+          "method": "health_check",
+          "status": "PASS",
+          "async": false,
+          "result": "{'agent_id': None, 'name': 'CalculatorAgent', 'status': 'healthy', 'capabilities': ['basic_arithmeti"
+        },
+        {
+          "method": "process_task",
+          "status": "SKIP",
+          "message": "Method requires arguments",
+          "async": false
+        },
+        {
+          "method": "reset_stats",
+          "status": "PASS",
+          "async": false,
+          "result": null
+        }
+      ],
+      "attributes": {
+        "name": {
+          "present": true,
+          "type": "str",
+          "value": "CalculatorAgent"
+        },
+        "version": {
+          "present": false
+        },
+        "config": {
+          "present": true,
+          "type": "AgentConfig",
+          "value": "AgentConfig(agent_id=None, name='CalculatorAgent', description='Performs mathematical calculations',"
+        },
+        "logger": {
+          "present": true,
+          "type": "Logger",
+          "value": "<Logger Agent.CalculatorAgent (INFO)>"
+        },
+        "state": {
+          "present": false
+        },
+        "capabilities": {
+          "present": true,
+          "type": "list",
+          "value": "[<agents.agent_base.AgentCapability object at 0x7f7aa3df3440>, <agents.agent_base.AgentCapability ob"
+        },
+        "agent_type": {
+          "present": false
+        },
+        "status": {
+          "present": false
+        }
+      },
+      "overall_status": "PASS"
+    },
+    {
+      "file": "agents/data_processor_agent.py",
+      "name": "data_processor_agent",
+      "import_status": {
+        "status": "PASS",
+        "message": "Module imported successfully"
+      },
+      "initialization": {
+        "status": "PASS",
+        "message": "Agent initialized successfully"
+      },
+      "methods": [
+        {
+          "method": "get_info",
+          "status": "PASS",
+          "async": false,
+          "result": "{'agent_id': None, 'name': 'DataProcessorAgent', 'description': 'Processes and transforms data', 'ca"
+        },
+        {
+          "method": "get_supported_task_types",
+          "status": "PASS",
+          "async": false,
+          "result": "['transform', 'filter', 'aggregate', 'count']"
+        },
+        {
+          "method": "health_check",
+          "status": "PASS",
+          "async": false,
+          "result": "{'agent_id': None, 'name': 'DataProcessorAgent', 'status': 'healthy', 'capabilities': ['data_transfo"
+        },
+        {
+          "method": "process_task",
+          "status": "SKIP",
+          "message": "Method requires arguments",
+          "async": false
+        },
+        {
+          "method": "reset_stats",
+          "status": "PASS",
+          "async": false,
+          "result": null
+        }
+      ],
+      "attributes": {
+        "name": {
+          "present": true,
+          "type": "str",
+          "value": "DataProcessorAgent"
+        },
+        "version": {
+          "present": false
+        },
+        "config": {
+          "present": true,
+          "type": "AgentConfig",
+          "value": "AgentConfig(agent_id=None, name='DataProcessorAgent', description='Processes and transforms data', c"
+        },
+        "logger": {
+          "present": true,
+          "type": "Logger",
+          "value": "<Logger Agent.DataProcessorAgent (INFO)>"
+        },
+        "state": {
+          "present": false
+        },
+        "capabilities": {
+          "present": true,
+          "type": "list",
+          "value": "[<agents.agent_base.AgentCapability object at 0x7f7aa3c57800>, <agents.agent_base.AgentCapability ob"
+        },
+        "agent_type": {
+          "present": false
+        },
+        "status": {
+          "present": false
+        }
+      },
+      "overall_status": "PASS"
+    }
+  ],
+  "summary": {
+    "total_agents": 2,
+    "passed": 2,
+    "failed": 0,
+    "skipped": 0,
+    "pass_rate": "100.0%"
+  }
+}

@@ -1,0 +1,715 @@
+# ============================================================================
+# Grafana Dashboard JSON - System Overview
+# ============================================================================
+# monitoring/grafana/dashboards/system-overview.json
+
+{
+  "dashboard": {
+    "title": "Agent Platform - System Overview",
+    "timezone": "browser",
+    "refresh": "30s",
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    },
+    "panels": [
+      {
+        "id": 1,
+        "title": "System Health Status",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "up{job=~\".*-engine\"}"
+          }
+        ],
+        "gridPos": {"x": 0, "y": 0, "w": 6, "h": 4}
+      },
+      {
+        "id": 2,
+        "title": "CPU Usage",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "optimizing_engine_system_cpu_percent"
+          },
+          {
+            "expr": "performance_engine_cpu_percent"
+          }
+        ],
+        "gridPos": {"x": 6, "y": 0, "w": 9, "h": 8}
+      },
+      {
+        "id": 3,
+        "title": "Memory Usage",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "optimizing_engine_system_memory_percent"
+          },
+          {
+            "expr": "performance_engine_memory_percent"
+          }
+        ],
+        "gridPos": {"x": 15, "y": 0, "w": 9, "h": 8}
+      },
+      {
+        "id": 4,
+        "title": "Active Alerts",
+        "type": "table",
+        "targets": [
+          {
+            "expr": "ALERTS{alertstate=\"firing\"}"
+          }
+        ],
+        "gridPos": {"x": 0, "y": 8, "w": 12, "h": 6}
+      },
+      {
+        "id": 5,
+        "title": "Optimizations Applied (Last Hour)",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "sum(increase(optimizing_engine_optimizations_total[1h]))"
+          }
+        ],
+        "gridPos": {"x": 12, "y": 8, "w": 6, "h": 6}
+      },
+      {
+        "id": 6,
+        "title": "Analysis Throughput",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(analyzer_engine_analyses_total[5m])"
+          }
+        ],
+        "gridPos": {"x": 0, "y": 14, "w": 12, "h": 6}
+      }
+    ]
+  }
+}
+
+# ============================================================================
+# Prometheus Alert Rules
+# ============================================================================
+# monitoring/prometheus/alerts/engines.yml
+
+groups:
+  - name: engine_health
+    interval: 30s
+    rules:
+      # Critical Alerts
+      - alert: EngineDown
+        expr: up{job=~".*-engine"} == 0
+        for: 2m
+        labels:
+          severity: critical
+          team: platform
+        annotations:
+          summary: "Engine {{ $labels.job }} is down"
+          description: "{{ $labels.job }} has been down for more than 2 minutes"
+          runbook: "https://docs.agent-platform.io/runbooks/engine-down"
+      
+      - alert: HighCPUUsage
+        expr: |
+          (
+            optimizing_engine_system_cpu_percent > 90
+            or performance_engine_cpu_percent > 90
+          )
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Critical CPU usage on {{ $labels.instance }}"
+          description: "CPU usage is {{ $value }}%"
+      
+      - alert: HighMemoryUsage
+        expr: |
+          (
+            optimizing_engine_system_memory_percent > 95
+            or performance_engine_memory_percent > 95
+          )
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Critical memory usage on {{ $labels.instance }}"
+          description: "Memory usage is {{ $value }}%"
+      
+      - alert: DatabaseConnectionPoolExhaustion
+        expr: |
+          rate(database_connection_errors_total[5m]) > 0.1
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Database connection pool exhausted"
+          description: "High rate of connection errors: {{ $value }}/s"
+      
+      # High Priority Alerts
+      - alert: HighErrorRate
+        expr: |
+          rate(performance_engine_errors_total[5m]) > 0.05
+        for: 5m
+        labels:
+          severity: high
+        annotations:
+          summary: "High error rate detected"
+          description: "Error rate is {{ $value }}/s"
+      
+      - alert: SlowResponseTime
+        expr: |
+          histogram_quantile(0.95, 
+            rate(performance_engine_response_time_ms_bucket[5m])
+          ) > 2000
+        for: 5m
+        labels:
+          severity: high
+        annotations:
+          summary: "Slow response time (P95)"
+          description: "P95 response time is {{ $value }}ms"
+      
+      - alert: AnomalyDetected
+        expr: |
+          increase(performance_engine_anomalies_total[5m]) > 5
+        for: 1m
+        labels:
+          severity: high
+        annotations:
+          summary: "Multiple anomalies detected"
+          description: "{{ $value }} anomalies in last 5 minutes"
+      
+      # Medium Priority Alerts
+      - alert: OptimizationFailureRate
+        expr: |
+          (
+            sum(rate(optimizing_engine_optimizations_total{status="failure"}[10m]))
+            /
+            sum(rate(optimizing_engine_optimizations_total[10m]))
+          ) > 0.2
+        for: 10m
+        labels:
+          severity: medium
+        annotations:
+          summary: "High optimization failure rate"
+          description: "{{ $value | humanizePercentage }} of optimizations failing"
+      
+      - alert: CacheLowHitRate
+        expr: |
+          optimizing_engine_cache_hit_rate < 70
+        for: 15m
+        labels:
+          severity: medium
+        annotations:
+          summary: "Low cache hit rate"
+          description: "Cache hit rate is {{ $value }}%"
+      
+      - alert: HighQueueDepth
+        expr: |
+          performance_engine_queue_depth > 1000
+        for: 10m
+        labels:
+          severity: medium
+        annotations:
+          summary: "High task queue depth"
+          description: "Queue depth is {{ $value }}"
+      
+      # Warning Alerts
+      - alert: ModerateMemoryPressure
+        expr: |
+          (
+            optimizing_engine_system_memory_percent > 80
+            or performance_engine_memory_percent > 80
+          )
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Moderate memory pressure on {{ $labels.instance }}"
+          description: "Memory usage is {{ $value }}%"
+      
+      - alert: SlowDatabaseQueries
+        expr: |
+          histogram_quantile(0.95,
+            rate(database_query_duration_seconds_bucket[5m])
+          ) > 0.5
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Slow database queries detected"
+          description: "P95 query time is {{ $value }}s"
+
+  - name: business_metrics
+    interval: 1m
+    rules:
+      - alert: LowAnalysisThroughput
+        expr: |
+          rate(analyzer_engine_analyses_total[5m]) < 1
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Low code analysis throughput"
+          description: "Only {{ $value }} analyses per second"
+      
+      - alert: HighTechnicalDebt
+        expr: |
+          avg(analyzer_engine_technical_debt_hours) > 100
+        for: 1h
+        labels:
+          severity: info
+        annotations:
+          summary: "High technical debt detected"
+          description: "Average technical debt: {{ $value }} hours"
+      
+      - alert: QualityGateFailures
+        expr: |
+          increase(analyzer_engine_quality_gate_failures_total[1h]) > 10
+        for: 5m
+        labels:
+          severity: medium
+        annotations:
+          summary: "Multiple quality gate failures"
+          description: "{{ $value }} quality gates failed in last hour"
+
+# ============================================================================
+# AlertManager Configuration
+# ============================================================================
+# monitoring/alertmanager/config.yml
+
+global:
+  resolve_timeout: 5m
+  slack_api_url: 'https://hooks.slack.com/services/YOUR/WEBHOOK/URL'
+
+route:
+  group_by: ['alertname', 'cluster', 'service']
+  group_wait: 10s
+  group_interval: 10s
+  repeat_interval: 12h
+  receiver: 'default'
+  routes:
+    - match:
+        severity: critical
+      receiver: 'critical-alerts'
+      continue: true
+    
+    - match:
+        severity: high
+      receiver: 'high-priority'
+      continue: true
+    
+    - match:
+        severity: medium
+      receiver: 'medium-priority'
+    
+    - match:
+        severity: warning
+      receiver: 'warnings'
+
+receivers:
+  - name: 'default'
+    email_configs:
+      - to: 'team@example.com'
+        headers:
+          Subject: '[Agent Platform] Alert'
+  
+  - name: 'critical-alerts'
+    email_configs:
+      - to: 'oncall@example.com'
+        headers:
+          Subject: '[CRITICAL] Agent Platform Alert'
+    slack_configs:
+      - channel: '#critical-alerts'
+        title: 'Critical Alert'
+        text: '{{ range .Alerts }}{{ .Annotations.summary }}{{ end }}'
+        color: 'danger'
+    pagerduty_configs:
+      - service_key: 'YOUR_PAGERDUTY_KEY'
+  
+  - name: 'high-priority'
+    email_configs:
+      - to: 'team@example.com'
+    slack_configs:
+      - channel: '#platform-alerts'
+        title: 'High Priority Alert'
+        text: '{{ range .Alerts }}{{ .Annotations.summary }}{{ end }}'
+        color: 'warning'
+  
+  - name: 'medium-priority'
+    slack_configs:
+      - channel: '#platform-alerts'
+        title: 'Alert'
+        text: '{{ range .Alerts }}{{ .Annotations.summary }}{{ end }}'
+  
+  - name: 'warnings'
+    slack_configs:
+      - channel: '#platform-monitoring'
+        title: 'Warning'
+        text: '{{ range .Alerts }}{{ .Annotations.summary }}{{ end }}'
+        color: 'good'
+
+inhibit_rules:
+  - source_match:
+      severity: 'critical'
+    target_match:
+      severity: 'warning'
+    equal: ['alertname', 'instance']
+  
+  - source_match:
+      alertname: 'EngineDown'
+    target_match_re:
+      alertname: '.*'
+    equal: ['instance']
+
+# ============================================================================
+# Loki Configuration for Log Aggregation
+# ============================================================================
+# monitoring/loki/config.yml
+
+auth_enabled: false
+
+server:
+  http_listen_port: 3100
+  grpc_listen_port: 9096
+
+ingester:
+  lifecycler:
+    address: 127.0.0.1
+    ring:
+      kvstore:
+        store: inmemory
+      replication_factor: 1
+    final_sleep: 0s
+  chunk_idle_period: 5m
+  chunk_retain_period: 30s
+  max_transfer_retries: 0
+
+schema_config:
+  configs:
+    - from: 2024-01-01
+      store: boltdb
+      object_store: filesystem
+      schema: v11
+      index:
+        prefix: index_
+        period: 24h
+
+storage_config:
+  boltdb:
+    directory: /loki/index
+  filesystem:
+    directory: /loki/chunks
+
+limits_config:
+  enforce_metric_name: false
+  reject_old_samples: true
+  reject_old_samples_max_age: 168h
+
+chunk_store_config:
+  max_look_back_period: 0s
+
+table_manager:
+  retention_deletes_enabled: true
+  retention_period: 720h  # 30 days
+
+# ============================================================================
+# Promtail Configuration for Log Collection
+# ============================================================================
+# monitoring/promtail/config.yml
+
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml
+
+clients:
+  - url: http://loki:3100/loki/api/v1/push
+
+scrape_configs:
+  - job_name: engines
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: engine-logs
+          __path__: /app/logs/*.log
+    
+    pipeline_stages:
+      - json:
+          expressions:
+            timestamp: timestamp
+            level: level
+            logger: logger
+            message: message
+            agent_id: agent_id
+      
+      - timestamp:
+          source: timestamp
+          format: RFC3339
+      
+      - labels:
+          level:
+          logger:
+          agent_id:
+      
+      - output:
+          source: message
+
+# ============================================================================
+# Jaeger Configuration for Distributed Tracing
+# ============================================================================
+# monitoring/jaeger/config.yml
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jaeger-config
+  namespace: agent-platform
+data:
+  collector.yaml: |
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+          http:
+    
+    exporters:
+      elasticsearch:
+        endpoints: [http://elasticsearch:9200]
+        index: jaeger
+      
+      logging:
+        loglevel: debug
+    
+    service:
+      pipelines:
+        traces:
+          receivers: [otlp]
+          exporters: [elasticsearch, logging]
+
+# ============================================================================
+# OpenTelemetry Collector Configuration
+# ============================================================================
+# monitoring/otel/config.yml
+
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+  
+  prometheus:
+    config:
+      scrape_configs:
+        - job_name: 'otel-collector'
+          scrape_interval: 10s
+          static_configs:
+            - targets: ['optimizing-engine:9091']
+            - targets: ['performance-engine:9092']
+            - targets: ['analyzer-engine:9093']
+
+processors:
+  batch:
+    timeout: 10s
+    send_batch_size: 1024
+  
+  memory_limiter:
+    check_interval: 1s
+    limit_mib: 512
+  
+  resource:
+    attributes:
+      - key: environment
+        value: production
+        action: insert
+
+exporters:
+  prometheus:
+    endpoint: "0.0.0.0:8889"
+  
+  jaeger:
+    endpoint: jaeger-collector:14250
+    tls:
+      insecure: true
+  
+  logging:
+    loglevel: info
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [memory_limiter, batch, resource]
+      exporters: [jaeger, logging]
+    
+    metrics:
+      receivers: [otlp, prometheus]
+      processors: [memory_limiter, batch, resource]
+      exporters: [prometheus, logging]
+
+# ============================================================================
+# Service Level Objectives (SLO) Configuration
+# ============================================================================
+# monitoring/slo/config.yml
+
+slos:
+  - name: optimizing_engine_availability
+    objective: 99.9
+    description: "Optimizing Engine should be available 99.9% of the time"
+    sli:
+      metric: up{job="optimizing-engine"}
+      threshold: 0.999
+    
+  - name: performance_engine_response_time
+    objective: 95
+    description: "95% of requests should complete within 500ms"
+    sli:
+      metric: |
+        histogram_quantile(0.95,
+          rate(performance_engine_response_time_ms_bucket[5m])
+        )
+      threshold: 500
+  
+  - name: analyzer_engine_success_rate
+    objective: 99
+    description: "99% of analyses should complete successfully"
+    sli:
+      metric: |
+        (
+          sum(rate(analyzer_engine_analyses_total{status="success"}[5m]))
+          /
+          sum(rate(analyzer_engine_analyses_total[5m]))
+        ) * 100
+      threshold: 99
+
+error_budgets:
+  - slo: optimizing_engine_availability
+    window: 30d
+    budget_remaining_alert_threshold: 10  # Alert when <10% budget remains
+  
+  - slo: performance_engine_response_time
+    window: 7d
+    budget_remaining_alert_threshold: 20
+  
+  - slo: analyzer_engine_success_rate
+    window: 30d
+    budget_remaining_alert_threshold: 15
+
+# ============================================================================
+# Uptime Monitoring Configuration
+# ============================================================================
+# monitoring/uptime/config.yml
+
+monitors:
+  - name: "Optimizing Engine Health"
+    url: "http://optimizing-engine:9091/health"
+    interval: 30s
+    timeout: 10s
+    expected_status: 200
+    alerts:
+      - type: email
+        recipients: ["oncall@example.com"]
+      - type: slack
+        webhook: "https://hooks.slack.com/..."
+  
+  - name: "Performance Engine Health"
+    url: "http://performance-engine:9092/health"
+    interval: 30s
+    timeout: 10s
+    expected_status: 200
+  
+  - name: "Analyzer Engine Health"
+    url: "http://analyzer-engine:9093/health"
+    interval: 30s
+    timeout: 10s
+    expected_status: 200
+  
+  - name: "NATS Connectivity"
+    url: "http://nats:8222/healthz"
+    interval: 15s
+    timeout: 5s
+    expected_status: 200
+  
+  - name: "PostgreSQL Connectivity"
+    type: tcp
+    host: "postgres"
+    port: 5432
+    interval: 30s
+    timeout: 5s
+  
+  - name: "Redis Connectivity"
+    type: tcp
+    host: "redis"
+    port: 6379
+    interval: 30s
+    timeout: 5s
+
+# ============================================================================
+# Custom Metrics Exporter Configuration
+# ============================================================================
+# monitoring/exporters/custom-metrics.py
+
+#!/usr/bin/env python3
+"""
+Custom metrics exporter for business-specific metrics
+"""
+
+from prometheus_client import start_http_server, Gauge, Counter, Histogram
+import asyncio
+import asyncpg
+import time
+
+# Define custom metrics
+technical_debt_gauge = Gauge('business_technical_debt_hours', 'Total technical debt in hours')
+quality_score_gauge = Gauge('business_quality_score', 'Average code quality score')
+optimization_savings_counter = Counter('business_optimization_savings_total', 'Total optimization savings', ['type'])
+analysis_duration_histogram = Histogram('business_analysis_duration_seconds', 'Code analysis duration')
+
+async def collect_metrics():
+    """Collect custom business metrics"""
+    conn = await asyncpg.connect('postgresql://user:pass@postgres:5432/agentdb')
+    
+    try:
+        # Technical debt
+        debt = await conn.fetchval(
+            "SELECT SUM(technical_debt_hours) FROM analysis_results WHERE analyzed_at > NOW() - INTERVAL '1 day'"
+        )
+        technical_debt_gauge.set(debt or 0)
+        
+        # Quality score
+        quality = await conn.fetchval(
+            "SELECT AVG(quality_score) FROM analysis_results WHERE analyzed_at > NOW() - INTERVAL '1 day'"
+        )
+        quality_score_gauge.set(quality or 0)
+        
+        # Optimization savings
+        savings = await conn.fetch(
+            "SELECT optimization_type, SUM(savings) as total FROM optimization_results WHERE applied_at > NOW() - INTERVAL '1 hour' GROUP BY optimization_type"
+        )
+        for row in savings:
+            optimization_savings_counter.labels(type=row['optimization_type']).inc(row['total'])
+    
+    finally:
+        await conn.close()
+
+async def main():
+    # Start metrics server
+    start_http_server(9094)
+    print("Custom metrics exporter started on port 9094")
+    
+    # Collect metrics every 60 seconds
+    while True:
+        try:
+            await collect_metrics()
+            await asyncio.sleep(60)
+        except Exception as e:
+            print(f"Error collecting metrics: {e}")
+            await asyncio.sleep(60)
+
+if __name__ == "__main__":
+    asyncio.run(main())

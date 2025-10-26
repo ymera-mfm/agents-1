@@ -1,0 +1,590 @@
+# Production Monitoring & Observability Setup
+# Complete Prometheus, Grafana, and alerting configuration
+
+---
+# Prometheus Configuration
+# prometheus.yml
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-config
+  namespace: agents
+data:
+  prometheus.yml: |
+    global:
+      scrape_interval: 15s
+      evaluation_interval: 15s
+      external_labels:
+        cluster: 'production'
+        environment: 'prod'
+
+    # Alert manager configuration
+    alerting:
+      alertmanagers:
+        - static_configs:
+            - targets:
+                - alertmanager:9093
+
+    # Load rules once and periodically evaluate them
+    rule_files:
+      - '/etc/prometheus/alert-rules.yml'
+      - '/etc/prometheus/recording-rules.yml'
+
+    scrape_configs:
+      # Prometheus self-monitoring
+      - job_name: 'prometheus'
+        static_configs:
+          - targets: ['localhost:9090']
+
+      # Agent engines metrics
+      - job_name: 'agent-engines'
+        kubernetes_sd_configs:
+          - role: pod
+            namespaces:
+              names:
+                - agents
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_pod_label_app]
+            action: keep
+            regex: '.*-engine'
+          - source_labels: [__meta_kubernetes_pod_name]
+            action: replace
+            target_label: pod
+          - source_labels: [__meta_kubernetes_namespace]
+            action: replace
+            target_label: namespace
+          - action: labelmap
+            regex: __meta_kubernetes_pod_label_(.+)
+
+      # PostgreSQL metrics
+      - job_name: 'postgres'
+        static_configs:
+          - targets: ['postgres-exporter:9187']
+        relabel_configs:
+          - source_labels: [__address__]
+            target_label: instance
+
+      # NATS metrics
+      - job_name: 'nats'
+        static_configs:
+          - targets: ['nats:8222']
+        metrics_path: '/metrics'
+
+      # Redis metrics
+      - job_name: 'redis'
+        static_configs:
+          - targets: ['redis-exporter:9121']
+
+---
+# Alert Rules
+# alert-rules.yml
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: alert-rules
+  namespace: agents
+data:
+  alert-rules.yml: |
+    groups:
+      - name: agent_engines
+        interval: 30s
+        rules:
+          # Agent down
+          - alert: AgentDown
+            expr: up{job="agent-engines"} == 0
+            for: 5m
+            labels:
+              severity: critical
+              team: platform
+            annotations:
+              summary: "Agent {{ $labels.pod }} is down"
+              description: "Agent {{ $labels.pod }} has been unavailable for more than 5 minutes"
+              runbook_url: "https://wiki.internal/runbooks/agent-down"
+
+          # High task queue depth
+          - alert: HighTaskQueueDepth
+            expr: agent_queue_size > 1000
+            for: 5m
+            labels:
+              severity: warning
+              team: platform
+            annotations:
+              summary: "High task queue on {{ $labels.pod }}"
+              description: "Task queue depth is {{ $value }} on {{ $labels.pod }}"
+
+          # Task failure rate
+          - alert: HighTaskFailureRate
+            expr: rate(agent_tasks_total{status="failed"}[5m]) > 0.05
+            for: 10m
+            labels:
+              severity: critical
+              team: platform
+            annotations:
+              summary: "High task failure rate on {{ $labels.pod }}"
+              description: "Failure rate is {{ $value | humanizePercentage }} on {{ $labels.pod }}"
+
+          # Agent CPU high
+          - alert: AgentHighCPU
+            expr: process_cpu_percent{job="agent-engines"} > 80
+            for: 5m
+            labels:
+              severity: warning
+            annotations:
+              summary: "High CPU on {{ $labels.pod }}"
+              description: "CPU usage is {{ $value }}% on {{ $labels.pod }}"
+
+          # Agent memory high
+          - alert: AgentHighMemory
+            expr: process_resident_memory_bytes{job="agent-engines"} / (1024*1024) > 2000
+            for: 5m
+            labels:
+              severity: warning
+            annotations:
+              summary: "High memory on {{ $labels.pod }}"
+              description: "Memory usage is {{ $value | humanize }}MB on {{ $labels.pod }}"
+
+          # Validation engine
+          - alert: HighValidationErrorRate
+            expr: rate(validation_validations_total{status="failed"}[5m]) > 0.1
+            for: 5m
+            labels:
+              severity: warning
+            annotations:
+              summary: "High validation error rate"
+              description: "Validation failure rate is {{ $value | humanizePercentage }}"
+
+          # Transformation engine
+          - alert: TransformationSlowExecution
+            expr: histogram_quantile(0.95, transformation_execution_time_ms) > 5000
+            for: 10m
+            labels:
+              severity: warning
+            annotations:
+              summary: "Slow transformation execution"
+              description: "p95 execution time is {{ $value }}ms"
+
+          # Intelligence engine routing
+          - alert: HighRoutingLatency
+            expr: histogram_quantile(0.95, routing_decision_time_ms) > 1000
+            for: 5m
+            labels:
+              severity: warning
+            annotations:
+              summary: "High routing latency"
+              description: "p95 routing time is {{ $value }}ms"
+
+      # Database alerts
+      - name: database
+        interval: 30s
+        rules:
+          - alert: PostgreSQLDown
+            expr: up{job="postgres"} == 0
+            for: 1m
+            labels:
+              severity: critical
+              team: infrastructure
+            annotations:
+              summary: "PostgreSQL is down"
+
+          - alert: PostgreSQLConnectionPoolExhausted
+            expr: pg_stat_activity_count > 18
+            for: 5m
+            labels:
+              severity: critical
+            annotations:
+              summary: "PostgreSQL connection pool near capacity"
+              description: "Active connections: {{ $value }}"
+
+          - alert: PostgreSQLHighCacheHitMiss
+            expr: rate(pg_stat_database_heap_blks_read[5m]) / rate(pg_stat_database_heap_blks_hit[5m] + pg_stat_database_heap_blks_read[5m]) > 0.1
+            for: 10m
+            labels:
+              severity: warning
+            annotations:
+              summary: "PostgreSQL cache hit ratio low"
+
+          - alert: PostgreSQLReplicationLag
+            expr: pg_replication_lag_seconds > 10
+            for: 5m
+            labels:
+              severity: warning
+            annotations:
+              summary: "PostgreSQL replication lag high"
+              description: "Lag is {{ $value }}s"
+
+      # NATS alerts
+      - name: nats
+        interval: 30s
+        rules:
+          - alert: NATSDown
+            expr: up{job="nats"} == 0
+            for: 1m
+            labels:
+              severity: critical
+            annotations:
+              summary: "NATS cluster member down"
+
+          - alert: NATSHighMemory
+            expr: nats_mem_bytes / (1024*1024*1024) > 4
+            for: 5m
+            labels:
+              severity: warning
+            annotations:
+              summary: "NATS high memory usage"
+              description: "Memory usage: {{ $value }}GB"
+
+      # Redis alerts
+      - name: redis
+        interval: 30s
+        rules:
+          - alert: RedisDown
+            expr: up{job="redis"} == 0
+            for: 1m
+            labels:
+              severity: critical
+            annotations:
+              summary: "Redis is down"
+
+          - alert: RedisEvictions
+            expr: rate(redis_evicted_keys_total[5m]) > 0
+            for: 5m
+            labels:
+              severity: warning
+            annotations:
+              summary: "Redis is evicting keys"
+              description: "Evictions rate: {{ $value }}/s"
+
+---
+# Recording Rules
+# recording-rules.yml
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: recording-rules
+  namespace: agents
+data:
+  recording-rules.yml: |
+    groups:
+      - name: agent_metrics
+        interval: 30s
+        rules:
+          # Success rate per agent
+          - record: agent:success_rate:5m
+            expr: rate(agent_tasks_total{status="success"}[5m]) / rate(agent_tasks_total[5m])
+
+          # Average response time per agent
+          - record: agent:response_time:avg:5m
+            expr: avg(agent_task_duration_seconds) by (agent_name)
+
+          # Queue depth trend
+          - record: agent:queue_depth:trend:5m
+            expr: rate(agent_queue_size[5m])
+
+          # System health score
+          - record: system:health_score
+            expr: avg(up{job="agent-engines"}) by (namespace)
+
+      - name: database_metrics
+        interval: 30s
+        rules:
+          # Query latency percentiles
+          - record: postgres:query_duration:p95:5m
+            expr: histogram_quantile(0.95, rate(pg_stat_statements_mean_exec_time[5m]))
+
+          # Connection utilization
+          - record: postgres:connections:utilization
+            expr: pg_stat_activity_count / pg_settings_max_connections
+
+---
+# Alert Manager Configuration
+# alertmanager.yml
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: alertmanager-config
+  namespace: agents
+data:
+  config.yml: |
+    global:
+      resolve_timeout: 5m
+      slack_api_url: '${SLACK_WEBHOOK_URL}'
+      pagerduty_url: 'https://events.pagerduty.com/v2/enqueue'
+
+    templates:
+      - '/etc/alertmanager/templates/*.tmpl'
+
+    route:
+      receiver: 'default'
+      group_by: ['alertname', 'cluster', 'service']
+      group_wait: 10s
+      group_interval: 10s
+      repeat_interval: 12h
+
+      routes:
+        # Critical alerts - PagerDuty + Slack
+        - match:
+            severity: critical
+          receiver: 'pagerduty-critical'
+          group_wait: 0s
+          repeat_interval: 1h
+
+        # Warnings - Slack only
+        - match:
+            severity: warning
+          receiver: 'slack-warnings'
+          group_wait: 30s
+          repeat_interval: 4h
+
+    receivers:
+      - name: 'default'
+        slack_configs:
+          - channel: '#alerts'
+            title: 'Alert: {{ .GroupLabels.alertname }}'
+            text: '{{ range .Alerts }}{{ .Annotations.description }}{{ end }}'
+
+      - name: 'pagerduty-critical'
+        pagerduty_configs:
+          - service_key: '${PAGERDUTY_KEY}'
+            description: '{{ .GroupLabels.alertname }}'
+            details:
+              firing: '{{ template "pagerduty.default.instances" .Alerts.Firing }}'
+        slack_configs:
+          - channel: '#critical-alerts'
+            title: 'CRITICAL: {{ .GroupLabels.alertname }}'
+            text: '{{ range .Alerts }}{{ .Annotations.description }}{{ end }}'
+            color: 'danger'
+
+      - name: 'slack-warnings'
+        slack_configs:
+          - channel: '#warnings'
+            title: 'WARNING: {{ .GroupLabels.alertname }}'
+            text: '{{ range .Alerts }}{{ .Annotations.description }}{{ end }}'
+            color: 'warning'
+
+---
+# Grafana Dashboard ConfigMap
+# Dashboard saved as JSON
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboards
+  namespace: agents
+data:
+  agent-engines-dashboard.json: |
+    {
+      "dashboard": {
+        "title": "Agent Engines Overview",
+        "panels": [
+          {
+            "title": "Agent Health Status",
+            "targets": [
+              {
+                "expr": "up{job=\"agent-engines\"}"
+              }
+            ],
+            "type": "stat"
+          },
+          {
+            "title": "Task Success Rate",
+            "targets": [
+              {
+                "expr": "rate(agent_tasks_total{status=\"success\"}[5m]) / rate(agent_tasks_total[5m])"
+              }
+            ],
+            "type": "graph"
+          },
+          {
+            "title": "Task Queue Depth",
+            "targets": [
+              {
+                "expr": "agent_queue_size"
+              }
+            ],
+            "type": "graph"
+          },
+          {
+            "title": "Routing Decision Latency",
+            "targets": [
+              {
+                "expr": "histogram_quantile(0.95, routing_decision_time_ms)"
+              }
+            ],
+            "type": "graph"
+          },
+          {
+            "title": "Validation Performance",
+            "targets": [
+              {
+                "expr": "rate(validation_validations_total[5m])"
+              }
+            ],
+            "type": "graph"
+          },
+          {
+            "title": "Transformation Execution Time",
+            "targets": [
+              {
+                "expr": "histogram_quantile(0.95, transformation_execution_time_ms)"
+              }
+            ],
+            "type": "graph"
+          }
+        ]
+      }
+    }
+
+---
+# Prometheus Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus
+  namespace: agents
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus
+  template:
+    metadata:
+      labels:
+        app: prometheus
+    spec:
+      serviceAccountName: prometheus
+      containers:
+      - name: prometheus
+        image: prom/prometheus:latest
+        ports:
+        - containerPort: 9090
+        args:
+          - '--config.file=/etc/prometheus/prometheus.yml'
+          - '--storage.tsdb.path=/prometheus'
+          - '--storage.tsdb.retention.time=30d'
+        volumeMounts:
+        - name: config
+          mountPath: /etc/prometheus
+        - name: rules
+          mountPath: /etc/prometheus/rules
+        - name: storage
+          mountPath: /prometheus
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "500m"
+          limits:
+            memory: "4Gi"
+            cpu: "2000m"
+      volumes:
+      - name: config
+        configMap:
+          name: prometheus-config
+      - name: rules
+        configMap:
+          name: alert-rules
+      - name: storage
+        emptyDir: {}
+
+---
+# Alert Manager Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alertmanager
+  namespace: agents
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: alertmanager
+  template:
+    metadata:
+      labels:
+        app: alertmanager
+    spec:
+      containers:
+      - name: alertmanager
+        image: prom/alertmanager:latest
+        ports:
+        - containerPort: 9093
+        args:
+          - '--config.file=/etc/alertmanager/config.yml'
+          - '--storage.path=/alertmanager'
+        env:
+        - name: SLACK_WEBHOOK_URL
+          valueFrom:
+            secretKeyRef:
+              name: alertmanager-secrets
+              key: slack-webhook
+        - name: PAGERDUTY_KEY
+          valueFrom:
+            secretKeyRef:
+              name: alertmanager-secrets
+              key: pagerduty-key
+        volumeMounts:
+        - name: config
+          mountPath: /etc/alertmanager
+        - name: storage
+          mountPath: /alertmanager
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+      volumes:
+      - name: config
+        configMap:
+          name: alertmanager-config
+      - name: storage
+        emptyDir: {}
+
+---
+# Services
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus
+  namespace: agents
+spec:
+  selector:
+    app: prometheus
+  ports:
+  - port: 9090
+    targetPort: 9090
+  type: ClusterIP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: alertmanager
+  namespace: agents
+spec:
+  selector:
+    app: alertmanager
+  ports:
+  - port: 9093
+    targetPort: 9093
+  type: ClusterIP
+
+---
+# ServiceMonitor for Prometheus Operator (if using)
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: agent-engines
+  namespace: agents
+spec:
+  selector:
+    matchLabels:
+      app: agent-engines
+  endpoints:
+  - port: metrics
+    interval: 30s
+    path: /metrics

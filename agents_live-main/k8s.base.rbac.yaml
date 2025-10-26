@@ -1,0 +1,24 @@
+# k8s/base/rbac.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: ymera-role
+rules:
+- apiGroups: [""]
+  resources: ["pods", "services", "endpoints", "configmaps", "secrets"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["apps"]
+  resources: ["deployments", "replicasets"]
+  verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ymera-role-binding
+subjects:
+- kind: ServiceAccount
+  name: ymera-service-account
+roleRef:
+  kind: Role
+  name: ymera-role
+  apiGroup: rbac.authorization.k8s.io
