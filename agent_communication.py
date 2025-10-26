@@ -31,6 +31,15 @@ class CommunicationAgent(BaseAgent):
     - Dead letter queue for failed messages
     """
     
+    # NATS connection constants
+    MAX_RECONNECT_ATTEMPTS = 2
+    RECONNECT_TIME_WAIT = 1  # seconds
+    CONNECTION_TIMEOUT = 3.0  # seconds
+    
+    # JetStream defaults
+    DEFAULT_MAX_MESSAGES = 100000
+    DEFAULT_MAX_AGE = 86400  # 24 hours
+    
     def __init__(self, agent_id: str = "communication_agent", config: Optional[Dict[str, Any]] = None):
         super().__init__(agent_id, config)
         self.message_broker: Dict[str, asyncio.Queue] = {}
@@ -39,9 +48,16 @@ class CommunicationAgent(BaseAgent):
         # NATS JetStream configuration
         self.nats_client = None
         self.jetstream: Optional[JetStreamContext] = None
-        self.nats_servers = config.get("nats_servers", ["nats://localhost:4222"]) if config else ["nats://localhost:4222"]
-        self.stream_name = config.get("stream_name", "AGENT_MESSAGES") if config else "AGENT_MESSAGES"
-        self.use_jetstream = config.get("use_jetstream", NATS_AVAILABLE) if config else NATS_AVAILABLE
+        self.nats_servers = (config or {}).get("nats_servers", ["nats://localhost:4222"])
+        self.stream_name = (config or {}).get("stream_name", "AGENT_MESSAGES")
+        self.use_jetstream = (config or {}).get("use_jetstream", NATS_AVAILABLE)
+        
+        # Configurable JetStream settings
+        self.max_messages = (config or {}).get("max_messages", self.DEFAULT_MAX_MESSAGES)
+        self.max_age = (config or {}).get("max_age", self.DEFAULT_MAX_AGE)
+        self.connection_timeout = (config or {}).get("connection_timeout", self.CONNECTION_TIMEOUT)
+        self.max_reconnect_attempts = (config or {}).get("max_reconnect_attempts", self.MAX_RECONNECT_ATTEMPTS)
+        self.reconnect_time_wait = (config or {}).get("reconnect_time_wait", self.RECONNECT_TIME_WAIT)
         
         # Message tracking
         self.pending_acks: Dict[str, Dict[str, Any]] = {}
@@ -73,10 +89,10 @@ class CommunicationAgent(BaseAgent):
             self.nats_client = await asyncio.wait_for(
                 nats.connect(
                     servers=self.nats_servers,
-                    max_reconnect_attempts=2,
-                    reconnect_time_wait=1
+                    max_reconnect_attempts=self.max_reconnect_attempts,
+                    reconnect_time_wait=self.reconnect_time_wait
                 ),
-                timeout=3.0  # 3 second timeout
+                timeout=self.connection_timeout
             )
             
             # Get JetStream context
@@ -88,9 +104,9 @@ class CommunicationAgent(BaseAgent):
                     name=self.stream_name,
                     subjects=[f"{self.stream_name}.>"],
                     retention="limits",  # Retain based on limits
-                    max_msgs=100000,     # Max messages
-                    max_age=86400,       # 24 hours retention
-                    storage="file"       # Persistent storage
+                    max_msgs=self.max_messages,
+                    max_age=self.max_age,
+                    storage="file"  # Persistent storage
                 )
                 self.logger.info(f"JetStream stream '{self.stream_name}' created/verified")
             except Exception as e:
