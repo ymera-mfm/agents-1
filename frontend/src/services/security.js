@@ -16,19 +16,22 @@ export class SecurityService {
       return;
     }
 
+    // Build CSP directives based on environment
+    const isProduction = config.isProduction;
+    
     const cspDirectives = {
       'default-src': ["'self'"],
       'script-src': [
         "'self'",
-        "'unsafe-inline'", // Required for React development
-        "'unsafe-eval'", // Required for development tools
+        // Only allow unsafe-inline and unsafe-eval in development
+        ...(isProduction ? [] : ["'unsafe-inline'", "'unsafe-eval'"]),
         'https://cdn.jsdelivr.net',
         'https://unpkg.com',
       ],
       'style-src': [
         "'self'",
-        "'unsafe-inline'", // Required for styled-components and CSS-in-JS
-        'https://fonts.googleapis.com',
+        // Only allow unsafe-inline in development
+        ...(isProduction ? ['https://fonts.googleapis.com'] : ["'unsafe-inline'", 'https://fonts.googleapis.com']),
       ],
       'font-src': ["'self'", 'https://fonts.gstatic.com', 'data:'],
       'img-src': ["'self'", 'data:', 'blob:', 'https:'],
@@ -46,6 +49,11 @@ export class SecurityService {
       'frame-ancestors': ["'none'"],
       'upgrade-insecure-requests': [],
     };
+    
+    // Log CSP configuration in development
+    if (!isProduction) {
+      console.warn('CSP: Running in development mode with relaxed security policies');
+    }
 
     // Build CSP string
     const cspString = Object.entries(cspDirectives)
