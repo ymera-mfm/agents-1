@@ -3,7 +3,7 @@ Monitoring Agent - System health and metrics tracking
 """
 from typing import Any, Dict, Optional
 import asyncio
-from datetime import datetime
+from datetime import datetime, timezone
 import psutil
 
 from base_agent import BaseAgent
@@ -26,7 +26,7 @@ class MonitoringAgent(BaseAgent):
         try:
             self.logger.info("Initializing Monitoring Agent")
             self.metrics = {
-                "start_time": datetime.utcnow(),
+                "start_time": datetime.now(timezone.utc),
                 "total_checks": 0,
                 "alerts": []
             }
@@ -60,7 +60,7 @@ class MonitoringAgent(BaseAgent):
             disk = psutil.disk_usage('/')
             
             metrics = {
-                "timestamp": datetime.utcnow().isoformat(),
+                "timestamp": datetime.now(timezone.utc).isoformat(),
                 "cpu_percent": cpu_percent,
                 "memory_percent": memory.percent,
                 "memory_available_mb": memory.available / (1024 * 1024),
@@ -88,7 +88,7 @@ class MonitoringAgent(BaseAgent):
         alert = {
             "type": alert_type,
             "message": message,
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(timezone.utc).isoformat()
         }
         self.metrics.setdefault("alerts", []).append(alert)
         self.logger.warning(f"Alert: {alert_type} - {message}")
