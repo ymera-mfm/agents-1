@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  # Development frontend with hot reload
+  agentflow-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: agentflow-dev
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+      - REACT_APP_API_URL=http://localhost:3001
+      - REACT_APP_WS_URL=ws://localhost:3001
+    volumes:
+      - .:/app
+      - /app/node_modules
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    networks:
+      - agentflow-dev-network
+
+  # Mock API server for development
+  mock-api:
+    image: node:18-alpine
+    container_name: agentflow-mock-api
+    ports:
+      - "3001:3001"
+    working_dir: /app
+    volumes:
+      - ./mock-api:/app
+    command: sh -c "npm install && npm start"
+    environment:
+      - NODE_ENV=development
+    restart: unless-stopped
+    networks:
+      - agentflow-dev-network
+
+  # Redis for development
+  redis-dev:
+    image: redis:7-alpine
+    container_name: agentflow-redis-dev
+    ports:
+      - "6380:6379"
+    restart: unless-stopped
+    networks:
+      - agentflow-dev-network
+
+networks:
+  agentflow-dev-network:
+    driver: bridge

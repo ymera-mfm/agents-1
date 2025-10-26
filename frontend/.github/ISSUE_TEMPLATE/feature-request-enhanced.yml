@@ -1,0 +1,430 @@
+name: "✨ Feature Request (Enhanced)"
+description: Propose new features or enhancements with Copilot-ready specifications
+title: "[FEATURE]: "
+labels: ["enhancement", "feature-request", "needs-discussion", "copilot-task"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## ✨ Feature Request for Copilot Implementation
+        Provide detailed specifications to help Copilot understand and implement the feature effectively.
+
+  - type: textarea
+    id: feature-summary
+    attributes:
+      label: "Feature Summary"
+      description: "Clear, concise description of the proposed feature"
+      placeholder: "Add real-time notification system for user activity updates..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: user-story
+    attributes:
+      label: "📖 User Story"
+      description: "Describe the feature from a user's perspective"
+      placeholder: |
+        **As a** registered user
+        **I want to** receive real-time notifications about comments on my posts
+        **So that** I can respond quickly and stay engaged with my community
+        
+        **User Flow:**
+        1. User creates a post
+        2. Other users comment on the post
+        3. Original poster receives instant notification
+        4. User clicks notification and is taken to the comment
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-behavior
+    attributes:
+      label: "🔄 Current Behavior"
+      description: "How does the system currently work?"
+      placeholder: |
+        Currently:
+        - Users must manually refresh the page to see new comments
+        - No notification system exists
+        - Email notifications sent every 24 hours (batch)
+        - Users miss time-sensitive interactions
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-behavior
+    attributes:
+      label: "✅ Proposed Behavior"
+      description: "How should the system work after this feature?"
+      placeholder: |
+        After implementation:
+        - Real-time WebSocket connection for instant notifications
+        - In-app notification badge with unread count
+        - Toast notifications for new activities
+        - Notification center with all activities
+        - Mark as read/unread functionality
+        - Configurable notification preferences
+    validations:
+      required: true
+
+  - type: textarea
+    id: technical-requirements
+    attributes:
+      label: "🔧 Technical Requirements"
+      description: "Specific technical implementation details"
+      value: |
+        **Architecture:**
+        - [ ] WebSocket server implementation
+        - [ ] Real-time event broadcasting system
+        - [ ] Notification storage (database schema)
+        - [ ] Client-side WebSocket handler
+        - [ ] Notification UI components
+        - [ ] Push notification service integration
+        
+        **Technology Stack:**
+        - Backend: Socket.io for WebSocket connections
+        - Database: PostgreSQL for notification storage
+        - Frontend: React with Context API for notification state
+        - Caching: Redis for notification queue
+        
+        **Files to Create:**
+        - `src/services/notification-service.js`
+        - `src/websocket/notification-handler.js`
+        - `src/models/notification.js`
+        - `src/components/NotificationCenter.jsx`
+        - `src/hooks/useNotifications.js`
+        - `database/migrations/XXX-create-notifications-table.sql`
+        
+        **Files to Modify:**
+        - `src/server.js` (add WebSocket server)
+        - `src/services/comment-service.js` (emit notification events)
+        - `src/components/Header.jsx` (add notification bell)
+    validations:
+      required: true
+
+  - type: textarea
+    id: api-specifications
+    attributes:
+      label: "🔌 API Specifications"
+      description: "Define API endpoints, WebSocket events, or data structures"
+      placeholder: |
+        **REST Endpoints:**
+        ```
+        GET    /api/notifications          - Fetch user notifications
+        POST   /api/notifications/:id/read - Mark notification as read
+        DELETE /api/notifications/:id      - Delete notification
+        PATCH  /api/notifications/read-all - Mark all as read
+        ```
+        
+        **WebSocket Events:**
+        ```
+        // Client → Server
+        connect         - Establish connection
+        authenticate    - Send auth token
+        
+        // Server → Client
+        notification    - New notification
+        read_status     - Notification read status changed
+        disconnect      - Connection closed
+        ```
+        
+        **Data Structures:**
+        ```typescript
+        interface Notification {
+          id: string;
+          userId: string;
+          type: 'comment' | 'like' | 'mention';
+          title: string;
+          message: string;
+          link: string;
+          isRead: boolean;
+          createdAt: Date;
+          metadata: {
+            postId?: string;
+            commentId?: string;
+            actorId: string;
+            actorName: string;
+          };
+        }
+        ```
+    validations:
+      required: true
+
+  - type: textarea
+    id: ui-ux-specifications
+    attributes:
+      label: "🎨 UI/UX Specifications"
+      description: "Describe the user interface and experience"
+      placeholder: |
+        **Notification Bell Icon:**
+        - Location: Top-right header, next to user avatar
+        - Badge: Show unread count (red circle)
+        - Interaction: Click to open notification dropdown
+        
+        **Notification Dropdown:**
+        - Position: Below bell icon, right-aligned
+        - Size: 360px width, max 480px height
+        - Content: List of last 10 notifications
+        - Actions: "Mark all as read", "View all" link
+        
+        **Notification Item:**
+        - Avatar of the actor (user who triggered notification)
+        - Title (bold) and message
+        - Timestamp (relative: "2 minutes ago")
+        - Unread indicator (blue dot)
+        - Click: Navigate to related content
+        
+        **Toast Notification:**
+        - Position: Top-right corner
+        - Duration: 5 seconds auto-dismiss
+        - Style: Slide in animation
+        - Actions: "View" or "Dismiss" buttons
+        
+        **Notification Center Page:**
+        - Full list with pagination
+        - Filters: All / Unread / By Type
+        - Bulk actions: Select multiple, mark as read, delete
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: "✅ Acceptance Criteria"
+      description: "Define when this feature is considered complete"
+      value: |
+        - [ ] WebSocket server is running and handling connections
+        - [ ] Users receive notifications within 1 second of trigger
+        - [ ] Notification badge shows accurate unread count
+        - [ ] Toast notifications appear for new activities
+        - [ ] Clicking notification navigates to correct content
+        - [ ] Mark as read/unread works correctly
+        - [ ] Notification preferences can be configured
+        - [ ] System handles 1000+ concurrent WebSocket connections
+        - [ ] Notifications persist across browser sessions
+        - [ ] Mobile-responsive notification UI
+        - [ ] All notification types implemented (comment, like, mention)
+        - [ ] Comprehensive test coverage (>85%)
+        - [ ] Performance: No impact on page load time
+        - [ ] Accessibility: Keyboard navigation and screen reader support
+        - [ ] Documentation: API docs and user guide updated
+    validations:
+      required: true
+
+  - type: textarea
+    id: test-scenarios
+    attributes:
+      label: "🧪 Test Scenarios"
+      description: "Specific test cases for this feature"
+      value: |
+        **Functional Tests:**
+        - [ ] User receives notification when post is commented on
+        - [ ] User receives notification when post is liked
+        - [ ] User receives notification when mentioned
+        - [ ] Notification badge updates in real-time
+        - [ ] Click notification navigates to correct page
+        - [ ] Mark as read removes badge count
+        - [ ] Mark all as read clears all notifications
+        - [ ] Delete notification removes it from list
+        
+        **Integration Tests:**
+        - [ ] WebSocket connection establishes on login
+        - [ ] Notification persists after page refresh
+        - [ ] Multiple browser tabs receive same notifications
+        - [ ] Reconnection after network interruption
+        
+        **Performance Tests:**
+        - [ ] 1000 concurrent WebSocket connections
+        - [ ] Notification delivery under 1 second
+        - [ ] Database query performance (<50ms)
+        - [ ] Memory usage stable over 24 hours
+        
+        **Edge Cases:**
+        - [ ] User offline when notification sent (queued for delivery)
+        - [ ] Very long notification message (truncation)
+        - [ ] Rapid succession of notifications (no spam)
+        - [ ] Invalid notification data (error handling)
+    validations:
+      required: true
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: "📦 Dependencies & Prerequisites"
+      description: "What needs to be in place before implementing?"
+      placeholder: |
+        **Required Before Starting:**
+        - [ ] User authentication system working
+        - [ ] Database schema finalized
+        - [ ] Redis server configured
+        - [ ] Socket.io library installed
+        
+        **Dependent Issues:**
+        - Blocks: #789 (User Activity Feed)
+        - Depends on: #456 (WebSocket Infrastructure)
+        - Related to: #123 (Email Notifications)
+        
+        **Third-party Services:**
+        - Firebase Cloud Messaging (for push notifications)
+        - WebSocket hosting infrastructure
+    validations:
+      required: false
+
+  - type: textarea
+    id: security-considerations
+    attributes:
+      label: "🔒 Security Considerations"
+      description: "Security requirements and concerns"
+      value: |
+        - [ ] Authenticate WebSocket connections (JWT tokens)
+        - [ ] Validate notification data before storage
+        - [ ] Prevent XSS in notification messages (sanitize HTML)
+        - [ ] Rate limiting on notification API endpoints
+        - [ ] User can only access their own notifications
+        - [ ] Prevent notification spam/abuse
+        - [ ] Secure WebSocket connection (WSS protocol)
+        - [ ] Input validation on all notification data
+        - [ ] CSRF protection on API endpoints
+    validations:
+      required: true
+
+  - type: textarea
+    id: performance-requirements
+    attributes:
+      label: "⚡ Performance Requirements"
+      description: "Performance targets for this feature"
+      placeholder: |
+        **Response Time:**
+        - WebSocket connection: <500ms
+        - Notification delivery: <1s from trigger
+        - API endpoints: <100ms (P95)
+        
+        **Scalability:**
+        - Support 10,000+ concurrent WebSocket connections
+        - Handle 1,000 notifications per second
+        - Database queries optimized with indexes
+        
+        **Resource Usage:**
+        - WebSocket server memory: <1GB per 1000 connections
+        - CPU usage: <30% under normal load
+        - Database storage: Efficient notification cleanup (30-day retention)
+    validations:
+      required: true
+
+  - type: textarea
+    id: coding-standards
+    attributes:
+      label: "📝 Coding Standards & Patterns"
+      description: "Development guidelines for this feature"
+      placeholder: |
+        **Architecture Patterns:**
+        - Event-driven architecture for notifications
+        - Repository pattern for data access
+        - Service layer for business logic
+        - React hooks for state management
+        
+        **Code Style:**
+        - TypeScript with strict mode
+        - Async/await for asynchronous operations
+        - Functional components in React
+        - JSDoc documentation for all public functions
+        
+        **Testing:**
+        - Jest for unit tests
+        - React Testing Library for component tests
+        - Socket.io-client for WebSocket tests
+        - Minimum 85% code coverage
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: "Priority"
+      options:
+        - "🔴 Critical - Core functionality"
+        - "🟠 High - Important for user experience"
+        - "🟡 Medium - Nice to have"
+        - "🟢 Low - Future enhancement"
+      default: 1
+    validations:
+      required: true
+
+  - type: textarea
+    id: implementation-phases
+    attributes:
+      label: "🗓️ Implementation Phases"
+      description: "Break down implementation into phases if needed"
+      placeholder: |
+        **Phase 1: Backend Foundation (Week 1-2)**
+        - Set up WebSocket server
+        - Create notification service
+        - Database schema and migrations
+        - Basic API endpoints
+        
+        **Phase 2: Real-time Delivery (Week 3)**
+        - WebSocket event handlers
+        - Notification broadcasting
+        - Connection management
+        - Redis integration for scaling
+        
+        **Phase 3: Frontend UI (Week 4)**
+        - Notification bell component
+        - Dropdown/center interface
+        - Toast notifications
+        - Client-side WebSocket connection
+        
+        **Phase 4: Polish & Testing (Week 5)**
+        - Comprehensive testing
+        - Performance optimization
+        - Documentation
+        - User preferences
+    validations:
+      required: false
+
+  - type: textarea
+    id: mockups-examples
+    attributes:
+      label: "🎨 Mockups / Examples"
+      description: "Links to design mockups, wireframes, or reference examples"
+      placeholder: |
+        **Design Mockups:**
+        - Figma: https://figma.com/file/...
+        - Notification Bell: [screenshot URL]
+        - Dropdown Design: [screenshot URL]
+        
+        **Reference Examples:**
+        - GitHub notifications (similar style desired)
+        - Slack notification system (real-time inspiration)
+        - Twitter notifications (interaction patterns)
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: "📚 Additional Context"
+      description: "Any other information for Copilot"
+      placeholder: |
+        - User research indicates 78% want real-time notifications
+        - Currently losing users due to missed interactions
+        - Competitor analysis attached in #discussion-thread
+        - Marketing wants this for Q1 2026 launch
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: feature-checklist
+    attributes:
+      label: "🎯 Pre-implementation Checklist"
+      description: "Verify these before starting implementation"
+      options:
+        - label: "Feature approved by stakeholders"
+        - label: "Technical design reviewed by team"
+        - label: "Dependencies identified and ready"
+        - label: "Acceptance criteria defined"
+        - label: "Test scenarios documented"
+        - label: "Security considerations addressed"
+        - label: "Performance requirements clear"
+        - label: "Timeline and phases agreed upon"

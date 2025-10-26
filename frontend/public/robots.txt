@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /api/
+Disallow: /admin/
+Allow: /
+
+# Sitemap
+Sitemap: https://agentflow.com/sitemap.xml

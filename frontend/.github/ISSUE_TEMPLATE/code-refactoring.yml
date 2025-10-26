@@ -1,0 +1,440 @@
+name: "♻️ Code Refactoring"
+description: Systematic code refactoring with quality improvements
+title: "[REFACTOR]: "
+labels: ["refactoring", "technical-debt", "code-quality", "copilot-task"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## ♻️ Code Refactoring Request
+        Define clear refactoring goals to help Copilot improve code quality while maintaining functionality.
+
+  - type: textarea
+    id: refactoring-target
+    attributes:
+      label: "Refactoring Target"
+      description: "What code needs refactoring?"
+      placeholder: "Refactor user authentication module to improve maintainability and testability..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-code-issues
+    attributes:
+      label: "🔴 Current Code Issues"
+      description: "What problems exist in the current code?"
+      placeholder: |
+        **Code Smells Identified:**
+        1. **God Object** - UserService.js has 2,500 lines with 45 methods
+           - Location: `src/services/user-service.js`
+           - Cyclomatic complexity: 67 (target: <15)
+        
+        2. **Duplicate Code** - JWT validation logic repeated in 4 places
+           - Files: auth-middleware.js, oauth-handler.js, token-service.js, api-gateway.js
+           - Lines: ~80 lines duplicated per file
+        
+        3. **Tight Coupling** - Direct database calls in controllers
+           - Files: user-controller.js, profile-controller.js
+           - Makes testing difficult, requires database for unit tests
+        
+        4. **Magic Numbers** - Hard-coded values throughout
+           - Token expiry: 3600 (no constant defined)
+           - Retry attempts: 5 (scattered in multiple places)
+        
+        5. **Callback Hell** - Nested callbacks 6 levels deep
+           - File: `src/services/legacy-auth.js` (lines 120-250)
+    validations:
+      required: true
+
+  - type: textarea
+    id: affected-files
+    attributes:
+      label: "📁 Files Requiring Refactoring"
+      description: "List all files that need changes"
+      placeholder: |
+        **Primary Files:**
+        - `src/services/user-service.js` (2,500 lines → split into modules)
+        - `src/middleware/auth-middleware.js` (duplicate code removal)
+        - `src/services/token-service.js` (extract common logic)
+        - `src/controllers/user-controller.js` (remove direct DB calls)
+        
+        **Supporting Files:**
+        - `src/repositories/user-repository.js` (create new)
+        - `src/utils/jwt-utils.js` (create new)
+        - `src/constants/auth-constants.js` (create new)
+        - `tests/services/user-service.test.js` (update tests)
+    validations:
+      required: true
+
+  - type: textarea
+    id: refactoring-goals
+    attributes:
+      label: "🎯 Refactoring Goals"
+      description: "What are the specific improvement objectives?"
+      value: |
+        **Code Quality Metrics:**
+        - [ ] Reduce cyclomatic complexity from 67 to <15
+        - [ ] Decrease file length from 2,500 to <300 lines per file
+        - [ ] Eliminate all code duplication (DRY principle)
+        - [ ] Increase test coverage from 45% to >85%
+        - [ ] Improve code maintainability index to >70
+        
+        **Architectural Goals:**
+        - [ ] Implement dependency injection
+        - [ ] Separate concerns (SRP - Single Responsibility)
+        - [ ] Remove tight coupling between layers
+        - [ ] Apply repository pattern for data access
+        - [ ] Use composition over inheritance
+        
+        **Technical Debt Reduction:**
+        - [ ] Replace callbacks with async/await
+        - [ ] Extract magic numbers to constants
+        - [ ] Add comprehensive JSDoc documentation
+        - [ ] Implement proper error handling
+        - [ ] Remove commented-out code
+    validations:
+      required: true
+
+  - type: textarea
+    id: refactoring-strategy
+    attributes:
+      label: "♻️ Refactoring Strategy"
+      description: "How should the refactoring be approached?"
+      value: |
+        **Approach:**
+        - [ ] Start with characterization tests (capture current behavior)
+        - [ ] Refactor in small, incremental steps
+        - [ ] Run tests after each change
+        - [ ] Keep functional behavior identical
+        - [ ] Commit frequently with clear messages
+        
+        **Pattern Applications:**
+        - [ ] **Repository Pattern** for data access layer
+        - [ ] **Strategy Pattern** for authentication methods
+        - [ ] **Factory Pattern** for object creation
+        - [ ] **Dependency Injection** for loose coupling
+        - [ ] **Service Layer** for business logic
+        
+        **Decomposition Plan:**
+        1. Extract utility functions (week 1)
+        2. Split large service into smaller services (week 2)
+        3. Implement repository pattern (week 3)
+        4. Refactor controllers to use new services (week 4)
+        5. Update tests and documentation (week 5)
+    validations:
+      required: true
+
+  - type: textarea
+    id: before-after-examples
+    attributes:
+      label: "📊 Before/After Code Examples"
+      description: "Show current code vs. desired code structure"
+      placeholder: |
+        **BEFORE (Current):**
+        ```javascript
+        // user-service.js - God object with 45 methods
+        class UserService {
+          async authenticateUser(username, password) {
+            const user = await db.query('SELECT * FROM users WHERE username = ?', [username]);
+            if (!user) throw new Error('User not found');
+            
+            const isValid = await bcrypt.compare(password, user.password);
+            if (!isValid) throw new Error('Invalid password');
+            
+            const token = jwt.sign({ id: user.id }, 'secret_key', { expiresIn: 3600 });
+            await db.query('INSERT INTO sessions VALUES (?, ?)', [user.id, token]);
+            
+            return { user, token };
+          }
+          
+          // ... 44 more methods
+        }
+        ```
+        
+        **AFTER (Refactored):**
+        ```javascript
+        // services/authentication-service.js - Focused service
+        class AuthenticationService {
+          constructor(userRepository, tokenService, sessionRepository) {
+            this.userRepository = userRepository;
+            this.tokenService = tokenService;
+            this.sessionRepository = sessionRepository;
+          }
+          
+          async authenticateUser(username, password) {
+            const user = await this.userRepository.findByUsername(username);
+            if (!user) throw new UserNotFoundError(username);
+            
+            if (!user.validatePassword(password)) {
+              throw new InvalidCredentialsError();
+            }
+            
+            const token = this.tokenService.generateToken(user);
+            await this.sessionRepository.create(user.id, token);
+            
+            return { user, token };
+          }
+        }
+        
+        // repositories/user-repository.js - Data access
+        class UserRepository {
+          async findByUsername(username) {
+            return await this.db.query(
+              'SELECT * FROM users WHERE username = ?',
+              [username]
+            );
+          }
+        }
+        
+        // services/token-service.js - Token management
+        class TokenService {
+          generateToken(user) {
+            return jwt.sign(
+              { id: user.id },
+              config.JWT_SECRET,
+              { expiresIn: config.TOKEN_EXPIRY }
+            );
+          }
+        }
+        ```
+    validations:
+      required: true
+
+  - type: textarea
+    id: breaking-changes
+    attributes:
+      label: "⚠️ Breaking Changes Analysis"
+      description: "Will this refactoring introduce breaking changes?"
+      value: |
+        **API Changes:**
+        - [ ] No breaking changes to public API
+        - [ ] Internal implementation only
+        - [ ] Backward compatibility maintained
+        
+        **If Breaking Changes Exist:**
+        - List affected APIs/interfaces
+        - Document migration path
+        - Provide deprecation warnings
+        - Update API version if necessary
+        - Create migration guide for consumers
+    validations:
+      required: true
+
+  - type: textarea
+    id: test-strategy
+    attributes:
+      label: "🧪 Testing Strategy"
+      description: "How to ensure refactoring doesn't break functionality?"
+      value: |
+        **Pre-Refactoring:**
+        - [ ] Create characterization tests for current behavior
+        - [ ] Document all edge cases and quirks
+        - [ ] Achieve baseline test coverage (>80%)
+        - [ ] Run full test suite (all passing)
+        
+        **During Refactoring:**
+        - [ ] Run tests after every small change
+        - [ ] Add tests for newly exposed functionality
+        - [ ] Maintain or improve code coverage
+        - [ ] Test edge cases explicitly
+        
+        **Post-Refactoring:**
+        - [ ] Full regression test suite passes
+        - [ ] Performance benchmarks show no degradation
+        - [ ] Integration tests validate system behavior
+        - [ ] Load testing confirms scalability
+        
+        **Test Types:**
+        - Unit tests: Test isolated components
+        - Integration tests: Test component interactions
+        - End-to-end tests: Test complete workflows
+        - Performance tests: Ensure no regression
+    validations:
+      required: true
+
+  - type: textarea
+    id: code-metrics
+    attributes:
+      label: "📈 Code Quality Metrics"
+      description: "Target metrics for improved code quality"
+      placeholder: |
+        **Current Metrics:**
+        - Cyclomatic Complexity: 67 (very high)
+        - Lines per file: 2,500 (excessive)
+        - Code duplication: 28% (high)
+        - Test coverage: 45% (low)
+        - Maintainability index: 35 (low)
+        - Technical debt ratio: 42% (high)
+        
+        **Target Metrics:**
+        - Cyclomatic Complexity: <15 (low - excellent)
+        - Lines per file: <300 (manageable)
+        - Code duplication: <3% (minimal)
+        - Test coverage: >85% (very good)
+        - Maintainability index: >70 (good)
+        - Technical debt ratio: <10% (low)
+        
+        **Measurement Tools:**
+        - ESLint for complexity
+        - SonarQube for code quality
+        - Jest for coverage
+        - CodeClimate for maintainability
+    validations:
+      required: true
+
+  - type: textarea
+    id: refactoring-steps
+    attributes:
+      label: "📝 Detailed Refactoring Steps"
+      description: "Break down refactoring into specific actionable steps"
+      placeholder: |
+        **Step 1: Prepare**
+        - [ ] Create feature branch: `refactor/user-service`
+        - [ ] Run and document all current tests
+        - [ ] Create characterization tests
+        - [ ] Backup current implementation
+        
+        **Step 2: Extract Constants**
+        - [ ] Create `src/constants/auth-constants.js`
+        - [ ] Move all magic numbers and strings
+        - [ ] Update all references
+        - [ ] Run tests
+        
+        **Step 3: Extract Utilities**
+        - [ ] Create `src/utils/jwt-utils.js`
+        - [ ] Extract JWT-related functions
+        - [ ] Create `src/utils/password-utils.js`
+        - [ ] Extract password hashing functions
+        - [ ] Run tests
+        
+        **Step 4: Create Repositories**
+        - [ ] Create `src/repositories/user-repository.js`
+        - [ ] Move data access logic from service
+        - [ ] Create `src/repositories/session-repository.js`
+        - [ ] Add repository tests
+        - [ ] Run tests
+        
+        **Step 5: Split Service**
+        - [ ] Create `src/services/authentication-service.js`
+        - [ ] Move auth-related methods
+        - [ ] Create `src/services/user-profile-service.js`
+        - [ ] Move profile-related methods
+        - [ ] Update dependencies
+        - [ ] Run tests
+        
+        **Step 6: Implement DI**
+        - [ ] Add dependency injection container
+        - [ ] Refactor constructors to accept dependencies
+        - [ ] Update service initialization
+        - [ ] Run tests
+        
+        **Step 7: Update Controllers**
+        - [ ] Inject new services into controllers
+        - [ ] Remove direct repository access
+        - [ ] Update error handling
+        - [ ] Run tests
+        
+        **Step 8: Finalize**
+        - [ ] Remove old unused code
+        - [ ] Update documentation
+        - [ ] Run full test suite
+        - [ ] Performance benchmarks
+        - [ ] Code review
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: "✅ Acceptance Criteria"
+      description: "When is refactoring considered complete?"
+      value: |
+        - [ ] All code quality metrics meet targets
+        - [ ] Zero code duplication remains
+        - [ ] Test coverage >85%
+        - [ ] All tests passing (100%)
+        - [ ] No breaking changes to public API
+        - [ ] Performance benchmarks show no regression
+        - [ ] Documentation updated
+        - [ ] Code review approved by 2+ team members
+        - [ ] No new technical debt introduced
+        - [ ] ESLint and SonarQube checks pass
+        - [ ] Characterization tests validate identical behavior
+        - [ ] Deployment successful to staging environment
+    validations:
+      required: true
+
+  - type: dropdown
+    id: refactoring-size
+    attributes:
+      label: "Refactoring Size"
+      options:
+        - "🟢 Small - Single file or function"
+        - "🟡 Medium - Multiple files or module"
+        - "🟠 Large - Multiple modules or services"
+        - "🔴 Massive - Architecture-level changes"
+      default: 2
+    validations:
+      required: true
+
+  - type: textarea
+    id: rollback-plan
+    attributes:
+      label: "↩️ Rollback Plan"
+      description: "How to revert if issues arise?"
+      value: |
+        - [ ] Tag stable version before refactoring
+        - [ ] Keep refactoring in feature branch
+        - [ ] Use feature flags for gradual rollout
+        - [ ] Maintain old code temporarily (mark deprecated)
+        - [ ] Document rollback procedure
+        - [ ] Test rollback process
+        - [ ] Have database migration rollback scripts ready
+    validations:
+      required: true
+
+  - type: textarea
+    id: coding-standards
+    attributes:
+      label: "📝 Coding Standards to Apply"
+      description: "Standards the refactored code should follow"
+      placeholder: |
+        **Code Style:**
+        - Follow ESLint configuration
+        - Use Prettier for formatting
+        - TypeScript strict mode enabled
+        
+        **Naming Conventions:**
+        - camelCase for variables and functions
+        - PascalCase for classes
+        - UPPER_SNAKE_CASE for constants
+        - Descriptive names (no abbreviations)
+        
+        **Documentation:**
+        - JSDoc for all public methods
+        - Inline comments for complex logic
+        - README for each major module
+        - Architecture decision records (ADRs)
+        
+        **Patterns:**
+        - SOLID principles
+        - DRY (Don't Repeat Yourself)
+        - KISS (Keep It Simple)
+        - YAGNI (You Aren't Gonna Need It)
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: "📚 Additional Context"
+      description: "Any other information about this refactoring"
+      placeholder: |
+        - Part of Q1 2026 technical debt initiative
+        - Related to architectural improvement roadmap
+        - Enables future feature: #456
+        - Team decision from architecture review on 2025-10-15
+    validations:
+      required: false

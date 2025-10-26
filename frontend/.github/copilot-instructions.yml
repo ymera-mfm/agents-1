@@ -1,0 +1,31 @@
+version: 1.0
+agent_mode: "systematic_consolidation"
+
+design_system:
+  mandatory_features:
+    - react_logo: true
+    - dark_theme: "bg-gray-900 text-white"
+    - glass_effect: "bg-white/5 backdrop-blur-xl border-white/10"
+    - 3d_visuals: true (where applicable)
+    - responsive: "mobile-first with md/lg breakpoints"
+
+quality_gates:
+  min_quality_score: 8
+  min_completeness: 85
+  min_test_coverage: 85
+  lighthouse_score: 90
+
+consolidation_rules:
+  prefer:
+    - most_features: 0.4
+    - highest_quality: 0.3
+    - best_design_compliance: 0.2
+    - most_complete: 0.1
+  
+validation:
+  run_after_each: true
+  block_on_failure: true
+  auto_rollback: true
+```
+
+---

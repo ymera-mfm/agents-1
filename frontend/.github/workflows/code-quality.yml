@@ -1,0 +1,100 @@
+name: Code Quality
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+permissions:
+  contents: read
+
+jobs:
+  code-quality:
+    name: Code Quality Analysis
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Run ESLint with report
+        run: |
+          npm run lint > eslint-report.txt || true
+          cat eslint-report.txt
+        continue-on-error: true
+        
+      - name: Check code formatting
+        run: npm run format:check
+        continue-on-error: true
+        
+      - name: Analyze bundle size
+        if: github.event_name == 'pull_request'
+        run: |
+          npm run build
+          npm run analyze
+        continue-on-error: true
+        
+      - name: Check for TODO/FIXME comments
+        run: |
+          echo "## TODO/FIXME Analysis" > todo-report.md
+          grep -rn "TODO\|FIXME" src/ >> todo-report.md || echo "No TODO/FIXME found" >> todo-report.md
+          cat todo-report.md
+        continue-on-error: true
+        
+      - name: Upload quality reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: code-quality-reports
+          path: |
+            eslint-report.txt
+            todo-report.md
+          retention-days: 7
+
+  complexity-analysis:
+    name: Code Complexity Check
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          
+      - name: Check file structure
+        run: |
+          echo "## Project Structure" > structure-report.md
+          tree -I 'node_modules|build|dist' -L 3 >> structure-report.md || find . -type d -not -path '*/node_modules/*' -not -path '*/build/*' -not -path '*/dist/*' -not -path '*/.git/*' >> structure-report.md
+          cat structure-report.md
+        continue-on-error: true
+        
+      - name: Count lines of code
+        run: |
+          echo "## Lines of Code" > loc-report.md
+          find src -name "*.js" -o -name "*.jsx" | xargs wc -l >> loc-report.md
+          cat loc-report.md
+        
+      - name: Upload analysis reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: complexity-reports
+          path: |
+            structure-report.md
+            loc-report.md
+          retention-days: 7

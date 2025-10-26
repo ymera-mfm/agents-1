@@ -1,0 +1,178 @@
+{
+  "name": "agentflow",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@headlessui/react": "^1.7.17",
+    "@heroicons/react": "^2.0.18",
+    "@react-three/drei": "^9.56.24",
+    "@react-three/fiber": "^8.13.4",
+    "@reduxjs/toolkit": "^2.9.1",
+    "@sentry/react": "^10.21.0",
+    "@sentry/tracing": "^7.120.4",
+    "axios": "^1.6.0",
+    "clsx": "^2.0.0",
+    "date-fns": "^2.30.0",
+    "firebase": "^12.4.0",
+    "framer-motion": "^10.16.4",
+    "lucide-react": "^0.263.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-error-boundary": "^4.0.11",
+    "react-hook-form": "^7.47.0",
+    "react-hot-toast": "^2.4.1",
+    "react-intersection-observer": "^9.5.2",
+    "react-query": "^3.39.3",
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^6.8.1",
+    "react-scripts": "5.0.1",
+    "react-virtualized-auto-sizer": "^1.0.20",
+    "react-window": "^1.8.8",
+    "recharts": "^2.8.0",
+    "tailwind-merge": "^1.14.0",
+    "three": "^0.158.0",
+    "web-vitals": "^3.5.2",
+    "zustand": "^4.4.1"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.11.0",
+    "@craco/craco": "^7.1.0",
+    "@playwright/test": "^1.56.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/react": "^18.2.37",
+    "@types/react-dom": "^18.2.15",
+    "@types/three": "^0.158.0",
+    "autoprefixer": "^10.4.16",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "babel-plugin-transform-remove-console": "^6.9.4",
+    "compression-webpack-plugin": "^11.1.0",
+    "eslint": "^8.53.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "postcss": "^8.4.31",
+    "prettier": "^3.0.3",
+    "serve": "^14.2.1",
+    "source-map-explorer": "^2.5.3",
+    "tailwindcss": "^3.3.5",
+    "webpack-bundle-analyzer": "^4.9.1",
+    "workbox-webpack-plugin": "^7.0.0"
+  },
+  "scripts": {
+    "start": "craco start",
+    "build": "craco build",
+    "build:prod": "node scripts/build.js",
+    "test": "craco test",
+    "test:coverage": "react-scripts test --coverage --watchAll=false",
+    "test:e2e": "playwright test",
+    "test:e2e:headed": "playwright test --headed",
+    "test:e2e:debug": "playwright test --debug",
+    "test:e2e:report": "playwright show-report",
+    "test:smoke": "bash scripts/smoke-tests.sh",
+    "test:smoke:prod": "PLAYWRIGHT_BASE_URL=https://yourdomain.com bash scripts/smoke-tests.sh",
+    "eject": "react-scripts eject",
+    "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "eslint src --ext .js,.jsx,.ts,.tsx --fix",
+    "format": "prettier --write src/**/*.{js,jsx,ts,tsx,css,md}",
+    "format:check": "prettier --check src/**/*.{js,jsx,ts,tsx,css,md}",
+    "analyze": "ANALYZE=true npm run build && open build/bundle-report.html",
+    "analyze:bundle": "npm run build && npx webpack-bundle-analyzer build/static/js/*.js",
+    "serve": "serve -s build -l 3000",
+    "serve:prod": "serve -s build -l 80",
+    "audit:fix": "npm audit fix",
+    "audit:security": "npm audit --audit-level moderate",
+    "security:scan": "node scripts/security-scan.js",
+    "security:scan:report": "node scripts/security-scan.js && cat security-scan-report.json",
+    "scan:system": "node scripts/system-issue-scanner.js",
+    "scan:system:report": "node scripts/system-issue-scanner.js && cat system-issue-report.json",
+    "docker:build": "docker build -t agentflow:latest .",
+    "docker:build:dev": "docker build -f Dockerfile.dev -t agentflow:dev .",
+    "docker:run": "docker run -p 80:80 agentflow:latest",
+    "docker:run:dev": "docker run -p 3000:3000 -v $(pwd):/app agentflow:dev",
+    "docker:compose:up": "docker-compose up -d",
+    "docker:compose:down": "docker-compose down",
+    "docker:compose:dev": "docker-compose -f docker-compose.dev.yml up -d",
+    "docker:compose:dev:down": "docker-compose -f docker-compose.dev.yml down",
+    "docker:compose:logs": "docker-compose logs -f",
+    "docker:compose:build": "docker-compose build --no-cache",
+    "deploy:build": "npm run build:prod",
+    "deploy:optimized": "node scripts/optimize-build.js",
+    "deploy:docker": "npm run docker:build && npm run docker:compose:up",
+    "deploy:aws:s3": "npm run build && aws s3 sync build/ s3://$AWS_S3_BUCKET --delete",
+    "deploy:vercel": "vercel --prod",
+    "deploy:netlify": "npm run build && netlify deploy --prod --dir=build",
+    "deploy:verify": "bash scripts/verify-deployment.sh",
+    "deploy:verify:prod": "bash scripts/verify-deployment.sh https://yourdomain.com",
+    "health:check": "curl -f http://localhost/health || exit 1",
+    "logs:export": "node -e \"require('./src/utils/logger').logger.exportLogs()\"",
+    "security:check": "npm audit && node -e \"console.log(require('./src/utils/security').securityService.performSecurityCheck())\"",
+    "performance:test": "npm run build && lighthouse http://localhost:3000 --output=html --output-path=./performance-report.html",
+    "performance:benchmark": "bash scripts/performance/benchmark.sh",
+    "validate": "node scripts/validate-system.cjs",
+    "validate:templates": "bash scripts/validate-templates.sh",
+    "validate:env": "node scripts/validate-env.js",
+    "validate:env:dev": "node scripts/validate-env.js development",
+    "validate:env:staging": "node scripts/validate-env.js staging",
+    "validate:env:prod": "node scripts/validate-env.js production",
+    "precommit": "npm run lint && npm run format:check && npm run test:coverage",
+    "predeploy": "npm run validate:env:prod && npm run security:scan && npm run build:prod"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}",
+      "!src/index.js",
+      "!src/reportWebVitals.js"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 70,
+        "functions": 70,
+        "lines": 70,
+        "statements": 70
+      }
+    }
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/agentflow.git"
+  },
+  "keywords": [
+    "react",
+    "agentflow",
+    "dashboard",
+    "monitoring",
+    "analytics",
+    "3d-visualization"
+  ],
+  "author": "AgentFlow Team",
+  "license": "MIT",
+  "homepage": "https://agentflow.com",
+  "overrides": {
+    "nth-check": "^2.1.1",
+    "postcss": "^8.4.31",
+    "webpack-dev-server": "^5.2.2"
+  }
+}

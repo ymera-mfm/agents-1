@@ -1,0 +1,24 @@
+import React from 'react';
+import { render } from '@testing-library/react';
+import { AppProvider } from '../../context/AppContext';
+import Dashboard from '../../pages/Dashboard';
+
+describe('Dashboard', () => {
+  it('renders without crashing', () => {
+    const { container } = render(
+      <AppProvider>
+        <Dashboard />
+      </AppProvider>
+    );
+    expect(container).toBeInTheDocument();
+  });
+
+  it('matches snapshot', () => {
+    const { container } = render(
+      <AppProvider>
+        <Dashboard />
+      </AppProvider>
+    );
+    expect(container).toMatchSnapshot();
+  });
+});

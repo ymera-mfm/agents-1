@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agentflow-frontend"
+version = "1.0.0"
+description = "AgentFlow Frontend - Advanced AI Agent Management Platform"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+    {name = "AgentFlow Team", email = "team@agentflow.com"}
+]
+keywords = ["agentflow", "ai", "agents", "management", "monitoring"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: JavaScript",
+    "Topic :: Software Development :: User Interfaces",
+]
+
+[project.urls]
+Homepage = "https://agentflow.com"
+Documentation = "https://docs.agentflow.com"
+Repository = "https://github.com/your-org/agentflow"

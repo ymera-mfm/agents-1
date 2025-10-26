@@ -1,0 +1,12 @@
+{
+    "python-envs.defaultEnvManager": "ms-python.python:system",
+    "python-envs.pythonProjects": [],
+    "workbench.editor.autoLockGroups": {
+        "default": true,
+        "workbench.editorinputs.searchEditorInput": true,
+        "notebookOutputEditor": true,
+        "jupyter-notebook": true,
+        "jsProfileVisualizer.cpuprofile.table": true,
+        "gitlens.rebase": true
+    }
+}
