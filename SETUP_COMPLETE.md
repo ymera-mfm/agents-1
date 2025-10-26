@@ -10,7 +10,7 @@ This repository has been transformed from an empty template into a **complete, p
 - No codebase or infrastructure
 
 ### After
-- **26 new files** added
+- **27 new files** added
 - **Complete multi-agent system** implemented
 - **Full-stack infrastructure** configured
 - **Comprehensive documentation** provided
@@ -192,12 +192,16 @@ docker-compose up -d  # Production-like environment
 ```
 
 ### Kubernetes
+
+**Note:** Kubernetes manifests would need to be created in a `k8s/` directory.
+
+Example deployment:
 ```bash
 # Create namespace and secrets
 kubectl create namespace ymera
 kubectl create secret generic ymera-secrets --from-env-file=.env
 
-# Deploy (k8s manifests would be in k8s/ directory)
+# Deploy (after creating k8s manifests)
 kubectl apply -f k8s/
 ```
 
@@ -359,11 +363,11 @@ Checks:
 - [ ] Add JWT authentication
 - [ ] Implement WebSocket support
 - [ ] Add GraphQL API
-- [ ] Create Kubernetes manifests
+- [ ] Create Kubernetes manifests (k8s/ directory)
 - [ ] Add more specialized agents
 - [ ] Implement advanced caching strategies
 - [ ] Add CI/CD pipelines
-- [ ] Create Grafana dashboards
+- [ ] Create custom Grafana dashboards (templates provided in docker-compose)
 - [ ] Write user documentation
 
 ## Support
