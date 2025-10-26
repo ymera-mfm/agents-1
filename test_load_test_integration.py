@@ -8,6 +8,12 @@ import time
 import sys
 import os
 import signal
+import urllib.request
+import urllib.error
+
+# Configuration
+TEST_API_HOST = "http://localhost:8000"
+TEST_API_PORT = 8000
 
 def start_api_server():
     """Start the API server in background"""
@@ -24,12 +30,11 @@ def start_api_server():
         # Wait for server to start
         for i in range(30):
             try:
-                import urllib.request
-                response = urllib.request.urlopen("http://localhost:8000/api/v1/health", timeout=1)
+                response = urllib.request.urlopen(f"{TEST_API_HOST}/api/v1/health", timeout=1)
                 if response.status == 200:
                     print("✓ API server started successfully")
                     return proc
-            except:
+            except (ConnectionError, urllib.error.URLError, OSError):
                 time.sleep(1)
         
         print("✗ API server failed to start")
@@ -45,7 +50,7 @@ def run_load_test():
     
     env = os.environ.copy()
     env.update({
-        'LOAD_TEST_HOST': 'http://localhost:8000',
+        'LOAD_TEST_HOST': TEST_API_HOST,
         'LOAD_TEST_USERS': '5',
         'LOAD_TEST_SPAWN_RATE': '2',
         'LOAD_TEST_RUN_TIME': '10s'
@@ -188,7 +193,7 @@ def main():
         api_proc.terminate()
         try:
             api_proc.wait(timeout=5)
-        except:
+        except subprocess.TimeoutExpired:
             api_proc.kill()
         print("✓ API server stopped")
     
