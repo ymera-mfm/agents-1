@@ -26,7 +26,7 @@ if %errorlevel% equ 0 (
 
 :start_api
 echo Starting API server on port %API_PORT%...
-start /B python main.py > nul 2>&1
+start "YMERA_API_SERVER" /B python main.py > nul 2>&1
 timeout /t 5 /nobreak > nul
 echo API server started
 goto check_api
@@ -107,8 +107,9 @@ set users=%1
 set spawn_rate=%2
 set run_time=%3
 set test_name=%4
-set timestamp=%date:~-4%%date:~-10,2%%date:~-7,2%_%time:~0,2%%time:~3,2%%time:~6,2%
-set timestamp=%timestamp: =0%
+REM Use more reliable timestamp generation
+for /f "tokens=2 delims==" %%I in ('wmic os get localdatetime /value') do set datetime=%%I
+set timestamp=%datetime:~0,8%_%datetime:~8,6%
 
 echo.
 echo Running %test_name% Test
@@ -131,6 +132,7 @@ goto :eof
 
 :exit
 echo Stopping API server...
-taskkill /F /IM python.exe /FI "WINDOWTITLE eq main.py" >nul 2>&1
+REM Kill only the window we created with specific title
+taskkill /FI "WINDOWTITLE eq YMERA_API_SERVER" /F >nul 2>&1
 echo Exiting...
 exit /b 0

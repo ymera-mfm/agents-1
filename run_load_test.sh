@@ -33,9 +33,11 @@ check_api() {
 # Function to start API server
 start_api() {
     echo "Starting API server on port ${API_PORT}..."
-    python main.py > /tmp/ymera_api.log 2>&1 &
+    local log_file="/tmp/ymera_api_$$.log"
+    python main.py > "${log_file}" 2>&1 &
     API_PID=$!
     echo "API server started with PID: ${API_PID}"
+    echo "Logs: ${log_file}"
     
     # Wait for API to be ready
     echo -n "Waiting for API to be ready"
@@ -49,7 +51,7 @@ start_api() {
     done
     
     echo -e " ${RED}Failed to start${NC}"
-    echo "Check logs at /tmp/ymera_api.log"
+    echo "Check logs at ${log_file}"
     return 1
 }
 
@@ -60,8 +62,10 @@ stop_api() {
         kill $API_PID 2>/dev/null || true
         wait $API_PID 2>/dev/null || true
     fi
-    pkill -f "python main.py" 2>/dev/null || true
-    pkill -f "uvicorn main:app" 2>/dev/null || true
+    # Only kill processes we started (matching our PID if available)
+    if [ ! -z "$API_PID" ]; then
+        kill -9 $API_PID 2>/dev/null || true
+    fi
 }
 
 # Trap to ensure cleanup
@@ -70,8 +74,16 @@ trap stop_api EXIT
 # Check if locust is installed
 if ! command -v locust &> /dev/null; then
     echo -e "${YELLOW}Warning: Locust is not installed${NC}"
-    echo "Installing locust..."
-    pip install locust==2.31.8
+    echo "Locust is required for load testing"
+    read -p "Would you like to install it now? (y/n) " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        echo "Installing locust..."
+        pip install locust==2.31.8
+    else
+        echo "Cannot continue without locust. Please install it manually with: pip install locust"
+        exit 1
+    fi
 fi
 
 # Main menu
