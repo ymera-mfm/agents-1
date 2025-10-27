@@ -1,12 +1,17 @@
 """
 Main Application Entry Point for YMERA Multi-Agent AI System
 """
-from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect, Request
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from typing import Dict, Any, List
 import uvicorn
 import json
+import asyncio
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
+from slowapi.middleware import SlowAPIMiddleware
 
 from config import settings
 from database import init_db, close_db
@@ -15,10 +20,11 @@ from base_agent import AgentState
 
 
 class ConnectionManager:
-    """WebSocket connection manager"""
+    """WebSocket connection manager with optimized broadcasting"""
     
     def __init__(self):
         self.active_connections: List[WebSocket] = []
+        self.broadcast_timeout = 5.0  # seconds
     
     async def connect(self, websocket: WebSocket):
         await websocket.accept()
@@ -26,20 +32,50 @@ class ConnectionManager:
         logger.info(f"WebSocket client connected. Total: {len(self.active_connections)}")
     
     def disconnect(self, websocket: WebSocket):
-        self.active_connections.remove(websocket)
-        logger.info(f"WebSocket client disconnected. Total: {len(self.active_connections)}")
+        if websocket in self.active_connections:
+            self.active_connections.remove(websocket)
+            logger.info(f"WebSocket client disconnected. Total: {len(self.active_connections)}")
     
     async def broadcast(self, message: dict):
-        """Broadcast message to all connected clients"""
+        """Broadcast message to all connected clients with timeout and error handling"""
         message_str = json.dumps(message)
-        for connection in self.active_connections:
+        
+        async def send_to_client(connection: WebSocket) -> bool:
+            """Send message to a single client with timeout"""
             try:
-                await connection.send_text(message_str)
+                await asyncio.wait_for(
+                    connection.send_text(message_str),
+                    timeout=self.broadcast_timeout
+                )
+                return True
+            except asyncio.TimeoutError:
+                logger.warning(f"Broadcast timeout for client, removing connection")
+                return False
             except Exception as e:
                 logger.error(f"Error broadcasting to client: {e}")
+                return False
+        
+        # Send to all clients concurrently with timeout
+        if self.active_connections:
+            results = await asyncio.gather(
+                *[send_to_client(conn) for conn in self.active_connections],
+                return_exceptions=True
+            )
+            
+            # Remove failed connections
+            failed_connections = [
+                conn for conn, success in zip(self.active_connections, results)
+                if not success or isinstance(success, Exception)
+            ]
+            
+            for conn in failed_connections:
+                self.disconnect(conn)
 
 
 manager = ConnectionManager()
+
+# Initialize rate limiter with Redis backend
+limiter = Limiter(key_func=get_remote_address, storage_uri=f"redis://{settings.redis_host}:{settings.redis_port}")
 
 
 @asynccontextmanager
@@ -66,6 +102,11 @@ app = FastAPI(
     redoc_url=f"{settings.api_prefix}/redoc",
 )
 
+# Add rate limiter
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+app.add_middleware(SlowAPIMiddleware)
+
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
@@ -74,6 +115,23 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Add security headers middleware
+@app.middleware("http")
+async def add_security_headers(request: Request, call_next):
+    """Add security headers to all responses"""
+    response = await call_next(request)
+    
+    # HSTS header for HTTPS enforcement
+    response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+    
+    # Additional security headers
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "DENY"
+    response.headers["X-XSS-Protection"] = "1; mode=block"
+    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+    
+    return response
 
 
 @app.get("/")
@@ -109,7 +167,8 @@ async def system_info() -> Dict[str, Any]:
 
 
 @app.get(f"{settings.api_prefix}/agents")
-async def list_agents() -> Dict[str, Any]:
+@limiter.limit("100/minute")
+async def list_agents(request: Request) -> Dict[str, Any]:
     """List all agents"""
     # This would query the database for active agents
     return {
@@ -127,7 +186,8 @@ async def list_agents() -> Dict[str, Any]:
 
 
 @app.post(f"{settings.api_prefix}/agents")
-async def create_agent(agent_data: Dict[str, Any]) -> Dict[str, Any]:
+@limiter.limit("100/minute")
+async def create_agent(request: Request, agent_data: Dict[str, Any]) -> Dict[str, Any]:
     """Create a new agent"""
     # This would create a new agent instance
     agent_id = agent_data.get("agent_id")
@@ -331,9 +391,152 @@ async def get_metrics() -> Dict[str, Any]:
     }
 
 
+@app.post(f"{settings.api_prefix}/agents/{agent_id}/config")
+@limiter.limit("100/minute")
+async def update_agent_config(request: Request, agent_id: str, config_data: Dict[str, Any]) -> Dict[str, Any]:
+    """Update agent runtime configuration dynamically"""
+    try:
+        # Validate agent exists (in production, would check database)
+        if not agent_id:
+            raise HTTPException(status_code=400, detail="agent_id is required")
+        
+        # Validate configuration against schema (in production, would use JSON Schema)
+        # For now, accept any valid JSON configuration
+        updated_config = config_data.get("config", {})
+        
+        logger.info(f"Updating configuration for agent {agent_id}: {updated_config}")
+        
+        # In production, would:
+        # 1. Validate config against agent-specific JSON Schema
+        # 2. Update agent runtime configuration
+        # 3. Persist to database
+        # 4. Notify agent of configuration change via message broker
+        
+        return {
+            "success": True,
+            "data": {
+                "agent_id": agent_id,
+                "config": updated_config,
+                "status": "updated"
+            }
+        }
+    except Exception as e:
+        logger.error(f"Error updating agent config: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get(f"{settings.api_prefix}/agents/{agent_id}/schema")
+@limiter.limit("100/minute")
+async def get_agent_config_schema(request: Request, agent_id: str) -> Dict[str, Any]:
+    """Get JSON Schema for agent configuration parameters"""
+    try:
+        # In production, would fetch agent-specific schema from database or agent class
+        # For now, return a generic schema
+        schema = {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "type": "object",
+            "title": f"Configuration for Agent {agent_id}",
+            "properties": {
+                "checkpoint_interval": {
+                    "type": "integer",
+                    "title": "Checkpoint Interval",
+                    "description": "Interval in seconds between state checkpoints",
+                    "default": 60,
+                    "minimum": 10,
+                    "maximum": 3600
+                },
+                "max_retries": {
+                    "type": "integer",
+                    "title": "Max Retries",
+                    "description": "Maximum number of retry attempts for failed operations",
+                    "default": 3,
+                    "minimum": 0,
+                    "maximum": 10
+                },
+                "timeout": {
+                    "type": "integer",
+                    "title": "Operation Timeout",
+                    "description": "Timeout in seconds for operations",
+                    "default": 300,
+                    "minimum": 10,
+                    "maximum": 3600
+                },
+                "log_level": {
+                    "type": "string",
+                    "title": "Log Level",
+                    "description": "Logging level for this agent",
+                    "enum": ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"],
+                    "default": "INFO"
+                },
+                "enable_monitoring": {
+                    "type": "boolean",
+                    "title": "Enable Monitoring",
+                    "description": "Enable performance monitoring for this agent",
+                    "default": True
+                }
+            },
+            "required": ["checkpoint_interval"]
+        }
+        
+        return {
+            "success": True,
+            "data": {
+                "agent_id": agent_id,
+                "schema": schema
+            }
+        }
+    except Exception as e:
+        logger.error(f"Error fetching agent schema: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post(f"{settings.api_prefix}/metrics/frontend")
+@limiter.limit("1000/minute")
+async def receive_frontend_metrics(request: Request, metrics_data: Dict[str, Any]) -> Dict[str, Any]:
+    """Receive and log frontend performance metrics (Web Vitals)"""
+    try:
+        metric_name = metrics_data.get("name")
+        metric_value = metrics_data.get("value")
+        metric_id = metrics_data.get("id")
+        session_id = metrics_data.get("sessionId", "unknown")
+        
+        if not metric_name or metric_value is None:
+            raise HTTPException(status_code=400, detail="name and value are required")
+        
+        # Log the metric for analysis
+        logger.info(
+            f"Frontend Performance Metric - "
+            f"Name: {metric_name}, "
+            f"Value: {metric_value}, "
+            f"ID: {metric_id}, "
+            f"Session: {session_id}"
+        )
+        
+        # In production, would:
+        # 1. Store metrics in time-series database (e.g., InfluxDB, TimescaleDB)
+        # 2. Aggregate metrics for dashboards
+        # 3. Alert on poor performance metrics
+        # 4. Track metrics by user session
+        
+        return {
+            "success": True,
+            "data": {
+                "metric_name": metric_name,
+                "metric_value": metric_value,
+                "status": "recorded"
+            }
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error recording frontend metrics: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @app.post(f"{settings.api_prefix}/auth/login")
-async def login(credentials: Dict[str, Any]) -> Dict[str, Any]:
-    """User authentication endpoint"""
+@limiter.limit("5/minute")
+async def login(request: Request, credentials: Dict[str, Any]) -> Dict[str, Any]:
+    """User authentication endpoint with strict rate limiting"""
     username = credentials.get("username")
     password = credentials.get("password")
     

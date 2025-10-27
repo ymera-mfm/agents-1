@@ -194,6 +194,47 @@ class SystemValidator {
     docs.forEach(doc => this.fileExists(doc));
   }
 
+  // Validate production CSP configuration
+  validateProductionCSP() {
+    this.log('Validating production CSP configuration...', 'info');
+    
+    const securityPath = path.join(this.rootDir, 'src/services/security.js');
+    
+    if (!fs.existsSync(securityPath)) {
+      this.errors.push('Missing security.js file');
+      return false;
+    }
+
+    try {
+      const content = fs.readFileSync(securityPath, 'utf8');
+      
+      // Check if CSP properly excludes unsafe-inline and unsafe-eval in production
+      const hasConditionalUnsafeInline = content.includes("isProduction ? [] : [\"'unsafe-inline'\"");
+      const hasConditionalUnsafeEval = content.includes("isProduction ? [] : [\"'unsafe-inline'\", \"'unsafe-eval'\"");
+      
+      if (!hasConditionalUnsafeInline && !hasConditionalUnsafeEval) {
+        this.errors.push('CSP must conditionally exclude unsafe-inline and unsafe-eval in production');
+        this.log('❌ CSP validation failed - unsafe directives not properly excluded in production', 'error');
+        
+        // In production build mode, fail the build
+        if (process.env.NODE_ENV === 'production') {
+          throw new Error('PRODUCTION BUILD BLOCKED: CSP contains unsafe directives');
+        }
+        return false;
+      }
+      
+      this.success.push('CSP properly configured for production');
+      this.log('✓ CSP properly excludes unsafe directives in production', 'success');
+      return true;
+    } catch (error) {
+      this.errors.push(`CSP validation error: ${error.message}`);
+      if (error.message.includes('PRODUCTION BUILD BLOCKED')) {
+        throw error; // Re-throw to fail the build
+      }
+      return false;
+    }
+  }
+
   // Check node version
   checkNodeVersion() {
     this.log('Checking Node.js version...', 'info');
@@ -256,6 +297,7 @@ class SystemValidator {
     this.validateTestingSetup();
     this.validateCICD();
     this.validateDocumentation();
+    this.validateProductionCSP();
 
     return this.printSummary();
   }
