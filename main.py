@@ -354,6 +354,7 @@ async def login(credentials: Dict[str, Any]) -> Dict[str, Any]:
 async def websocket_endpoint(websocket: WebSocket):
     """WebSocket endpoint for real-time communication"""
     await manager.connect(websocket)
+    subscriptions = set()
     try:
         while True:
             # Receive message from client
@@ -361,15 +362,55 @@ async def websocket_endpoint(websocket: WebSocket):
             message = json.loads(data)
             
             # Handle different message types
-            if message.get("type") == "ping":
+            message_type = message.get("type")
+            
+            if message_type == "ping":
                 await websocket.send_text(json.dumps({"type": "pong"}))
-            elif message.get("type") == "subscribe":
+            elif message_type == "subscribe":
                 channel = message.get("channel")
+                subscriptions.add(channel)
                 logger.info(f"Client subscribed to channel: {channel}")
                 await websocket.send_text(json.dumps({
                     "type": "subscribed",
                     "channel": channel
                 }))
+            elif message_type == "unsubscribe":
+                channel = message.get("channel")
+                subscriptions.discard(channel)
+                logger.info(f"Client unsubscribed from channel: {channel}")
+                await websocket.send_text(json.dumps({
+                    "type": "unsubscribed",
+                    "channel": channel
+                }))
+            elif message_type == "agent_message":
+                # Handle agent message and echo back with timestamp
+                from_user = message.get("from")
+                to_agent = message.get("to")
+                payload = message.get("payload", {})
+                original_timestamp = payload.get("timestamp")
+                
+                response = {
+                    "type": "agent_response",
+                    "from": to_agent,
+                    "to": from_user,
+                    "payload": {
+                        "status": "processed",
+                        "action": payload.get("action"),
+                        "data": payload.get("data", {})
+                    }
+                }
+                
+                # Include original timestamp for latency measurement
+                if original_timestamp:
+                    response["timestamp"] = original_timestamp
+                
+                await websocket.send_text(json.dumps(response))
+            elif message_type == "disconnect":
+                logger.info("Client requested disconnect")
+                await websocket.send_text(json.dumps({
+                    "type": "disconnect_ack"
+                }))
+                break
             else:
                 # Echo back for now
                 await websocket.send_text(json.dumps({

@@ -1,0 +1,82 @@
+config:
+  target: "ws://localhost:8000"
+  phases:
+    - name: "Warm-up"
+      duration: 60
+      arrivalRate: 10
+      rampTo: 100
+    - name: "Ramp-up"
+      duration: 300
+      arrivalRate: 100
+      rampTo: 1000
+    - name: "Sustained load"
+      duration: 1800
+      arrivalRate: 1000
+    - name: "Peak load"
+      duration: 300
+      arrivalRate: 1000
+      rampTo: 2000
+    - name: "Ramp-down"
+      duration: 180
+      arrivalRate: 2000
+      rampTo: 100
+  engines:
+    ws: {}
+  processor: "./websocket_processor.js"
+  environments:
+    localhost:
+      target: "ws://localhost:8000"
+      phases:
+        - name: "Quick test"
+          duration: 10
+          arrivalRate: 5
+          rampTo: 20
+    staging:
+      target: "wss://staging-api.ymera.com"
+      phases:
+        - name: "Warm-up"
+          duration: 60
+          arrivalRate: 10
+          rampTo: 100
+        - name: "Ramp-up"
+          duration: 300
+          arrivalRate: 100
+          rampTo: 1000
+        - name: "Sustained load"
+          duration: 1800
+          arrivalRate: 1000
+        - name: "Peak load"
+          duration: 300
+          arrivalRate: 1000
+          rampTo: 2000
+        - name: "Ramp-down"
+          duration: 180
+          arrivalRate: 2000
+          rampTo: 100
+
+scenarios:
+  - name: "WebSocket Communication"
+    engine: "ws"
+    flow:
+      - function: "generateUserId"
+      - connect:
+          url: "/ws"
+      - think: 1
+      - send:
+          payload: '{"type":"subscribe","channel":"agents"}'
+      - think: 2
+      - send:
+          payload: '{"type":"subscribe","channel":"metrics"}'
+      - think: 3
+      - loop:
+          - send:
+              payload: '{"type":"ping"}'
+          - think: 5
+          - function: "sendAgentMessage"
+          - think: 3
+        count: 20
+      - send:
+          payload: '{"type":"unsubscribe","channel":"agents"}'
+      - think: 1
+      - send:
+          payload: '{"type":"disconnect"}'

@@ -1,0 +1,29 @@
+{
+  "name": "ymera-websocket-tests",
+  "version": "1.0.0",
+  "description": "WebSocket load testing infrastructure for YMERA",
+  "main": "websocket_stress_test.js",
+  "scripts": {
+    "test:ws:quick": "node websocket_stress_test.js",
+    "test:ws:medium": "CONNECTIONS=500 MESSAGES=20 node websocket_stress_test.js",
+    "test:ws:heavy": "CONNECTIONS=1000 MESSAGES=50 node websocket_stress_test.js",
+    "test:artillery:quick": "artillery run -e localhost artillery_websocket.yml",
+    "test:artillery:staging": "artillery run -e staging artillery_websocket.yml",
+    "install:artillery": "npm install -g artillery"
+  },
+  "keywords": [
+    "websocket",
+    "load-testing",
+    "artillery",
+    "stress-test"
+  ],
+  "author": "YMERA Team",
+  "license": "MIT",
+  "dependencies": {
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

@@ -55,6 +55,12 @@ load_test_*_stats.csv
 load_test_*_stats_history.csv
 load_test_*_failures.csv
 load_test_*_exceptions.csv
+artillery_report_*.json
+artillery_report_*.html
+
+# Node.js (root level for testing tools)
+node_modules/
+package-lock.json
 
 # IDEs
 .vscode/
